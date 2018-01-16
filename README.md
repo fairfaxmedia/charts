@@ -1,6 +1,6 @@
 # elasticsearch
 
-[elasticsearch](https://github.com/mikelorant/elasticsearch-charts/) is an implementation of an Elasticsearch cluster.
+[elasticsearch](https://github.com/mikelorant/elasticsearch-chart) is an implementation of an Elasticsearch cluster.
 
 ## Introduction
 
