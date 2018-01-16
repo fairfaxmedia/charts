@@ -1,6 +1,6 @@
 # elasticsearch
 
-[elasticsearch](https://bitbucket.org/ffxblue/service-elasticsearch/) is an implementation of an Elasticsearch cluster.
+[elasticsearch](https://github.com/mikelorant/elasticsearch-charts/) is an implementation of an Elasticsearch cluster.
 
 ## Introduction
 
@@ -67,7 +67,7 @@ The following tables lists the configurable parameters of the elasticsearch char
 | replicaCount.master                  | `3`                                                                                                |
 | replicaCount.data                    | `3`                                                                                                |
 | replicaCount.client                  | `3`                                                                                                |
-| image.repository                     | `175914186171.dkr.ecr.ap-southeast-2.amazonaws.com/infrastructure/service-elasticsearch`           |
+| image.repository                     | `mikelorant/elasticsearch`                                                                         |
 | image.tag                            | `experimental`                                                                                     |
 | image.pullPolicy                     | `Always`                                                                                           |
 | revisionHistoryLimit                 | `5`                                                                                                |
