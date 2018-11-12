@@ -52,8 +52,8 @@ has defaults:
               configMapKeyRef:
                 key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
-          image: 175914186171.dkr.ecr.ap-southeast-2.amazonaws.com/infrastructure/service-elasticsearch:6.4.1
-          imagePullPolicy: IfNotPresent
+          image: mikelorant/elasticsearch:latest
+          imagePullPolicy: Always
           lifecycle:
             preStop:
               exec:

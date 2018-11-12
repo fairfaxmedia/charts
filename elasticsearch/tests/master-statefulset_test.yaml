@@ -52,7 +52,7 @@ tests:
           value: (?:[a-z]+/)?([a-z]+)(?::[0-9]+)?
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
-          value: IfNotPresent
+          value: Always
       - contains:
           path: spec.template.spec.containers[0].env
           content:
