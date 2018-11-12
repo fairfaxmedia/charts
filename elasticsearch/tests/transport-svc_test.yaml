@@ -11,6 +11,9 @@ tests:
       - equal:
           path: spec.type
           value: ClusterIP
+      - equal:
+          path: spec.clusterIP
+          value: none
       - contains:
           path: spec.ports
           content:
@@ -18,14 +21,6 @@ tests:
             targetPort: transport
             protocol: TCP
             name: transport
-
-  - it: can set service type
-    set:
-      service.type: LoadBalancer
-    asserts:
-      - equal:
-          path: spec.type
-          value: LoadBalancer
 
   - it: can set service port
     set:

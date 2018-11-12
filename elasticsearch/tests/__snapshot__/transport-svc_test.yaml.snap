@@ -1,5 +1,6 @@
 has default values:
   1: |
+    clusterIP: none
     ports:
     - name: transport
       port: 80
