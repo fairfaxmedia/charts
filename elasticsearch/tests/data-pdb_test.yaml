@@ -1,0 +1,20 @@
+suite: test data pod distruption budget
+templates:
+  - data-pdb.yaml
+tests:
+  - it: has defaults
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: policy/v1beta1 }
+      - isKind: { of: PodDisruptionBudget }
+      - matchSnapshot: { path: spec }
+      - equal:
+          path: spec.maxUnavailable
+          value: 1
+      - equal:
+          path: spec.selector
+          value:
+            matchLabels:
+              app.kubernetes.io/name: elasticsearch
+              app.kubernetes.io/instance: RELEASE-NAME
+              app.kubernetes.io/component: data

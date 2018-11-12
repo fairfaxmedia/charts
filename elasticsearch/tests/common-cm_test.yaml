@@ -1,0 +1,67 @@
+suite: test configmap
+templates:
+  - common-cm.yaml
+tests:
+  - it: has default values
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: v1 }
+      - isKind: { of: ConfigMap }
+      - matchSnapshot: { path: data }
+      - equal:
+          path: data
+          value:
+            es.cluster.name: RELEASE-NAME
+            es.discovery.zen.ping.unicast.hosts: RELEASE-NAME-elasticsearch-transport
+            es.discovery.zen.minimum.master.nodes: 1
+            es.gateway.recover_after_data_nodes: 0
+            es.gateway.expected_data_nodes: 1
+            es.gateway.recover_after_time: 6m
+
+  - it: can set cluster name
+    set:
+      config.clusterName: test
+    asserts:
+      - equal:
+          path: data.es\.cluster\.name
+          value: test
+
+  - it: can set discovery zen ping unicast hosts
+    set:
+      fullnameOverride: test
+    asserts:
+      - equal:
+          path: data.es\.discovery\.zen\.ping\.unicast\.hosts
+          value: test-transport
+
+  - it: can set discovery zen minimum master nodes
+    set:
+      replicaCount.master: 3
+    asserts:
+      - equal:
+          path: data.es\.discovery\.zen\.minimum\.master\.nodes
+          value: 2
+
+  - it: can set gateway recover afer data nodes
+    set:
+      replicaCount.data: 3
+    asserts:
+      - equal:
+          path: data.es\.gateway\.recover_after_data_nodes
+          value: 2
+
+  - it: can set gateway expected data nodes
+    set:
+      replicaCount.data: 3
+    asserts:
+      - equal:
+          path: data.es\.gateway\.expected_data_nodes
+          value: 3
+
+  - it: can set gateway recovery after time
+    set:
+      replicaCount.data: 3
+    asserts:
+      - equal:
+          path: data.es\.gateway\.recover_after_time
+          value: 8m

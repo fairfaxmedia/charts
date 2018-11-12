@@ -1,0 +1,10 @@
+can be enabled and has default values:
+  1: |
+    rules:
+    - host: chart-example.local
+      http:
+        paths:
+        - backend:
+            serviceName: RELEASE-NAME-elasticsearch
+            servicePort: http
+          path: /

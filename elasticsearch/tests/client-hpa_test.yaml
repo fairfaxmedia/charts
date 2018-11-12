@@ -1,0 +1,56 @@
+suite: test client horizontal pod autoscaler
+templates:
+  - client-hpa.yaml
+tests:
+  - it: has defaults
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: autoscaling/v2beta2 }
+      - isKind: { of: HorizontalPodAutoscaler }
+      - matchSnapshot: { path: spec }
+      - equal:
+          path: spec.scaleTargetRef
+          value:
+            apiVersion: apps/v1
+            kind: Deployment
+            name: RELEASE-NAME-elasticsearch-client
+      - equal:
+          path: spec.minReplicas
+          value: 1
+      - equal:
+          path: spec.maxReplicas
+          value: 2
+      - contains:
+          path: spec.metrics
+          content:
+            type: Resource
+            resource:
+              name: cpu
+              target:
+                type: Utilization
+                averageUtilization: 70%
+
+  - it: can set min replicas
+    set:
+      replicaCount.client: 3
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 3
+
+  - it: can set max replicas
+    set:
+      replicaCount.client: 3
+      replicaScaleFactor.client: 2
+    asserts:
+      - equal:
+          path: spec.maxReplicas
+          value: 6
+
+  - it: can set cpu threshold
+    set:
+      cpuThreshold: 90%
+    asserts:
+      - equal:
+          path: spec.metrics[0].resource.target.averageUtilization
+          value: 90%

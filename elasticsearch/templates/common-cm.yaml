@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "elasticsearch.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
+    helm.sh/chart: {{ include "elasticsearch.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  es.cluster.name: {{ .Values.config.clusterName | default .Release.Name | quote }}
+  es.discovery.zen.ping.unicast.hosts: {{ include "elasticsearch.fullname" . }}-transport
+  es.discovery.zen.minimum.master.nodes: {{ div .Values.replicaCount.master 2 | add 1 }}
+  es.gateway.recover_after_data_nodes: {{ div .Values.replicaCount.data 3 | mul 2 }}
+  es.gateway.expected_data_nodes: {{ .Values.replicaCount.data }}
+  es.gateway.recover_after_time: {{ printf "%sm" (add 5 .Values.replicaCount.data | toString) | quote }}

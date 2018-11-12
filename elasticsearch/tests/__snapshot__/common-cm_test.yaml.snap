@@ -1,0 +1,8 @@
+has default values:
+  1: |
+    es.cluster.name: RELEASE-NAME
+    es.discovery.zen.minimum.master.nodes: 1
+    es.discovery.zen.ping.unicast.hosts: RELEASE-NAME-elasticsearch-transport
+    es.gateway.expected_data_nodes: 1
+    es.gateway.recover_after_data_nodes: 0
+    es.gateway.recover_after_time: 6m

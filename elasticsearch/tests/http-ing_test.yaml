@@ -1,0 +1,97 @@
+suite: test http ingress
+templates:
+  - http-ing.yaml
+tests:
+  - it: is disabled by default
+    asserts:
+      - hasDocuments: { count: 0 }
+
+  - it: can be enabled and has default values
+    set:
+      ingress.enabled: true
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: extensions/v1beta1 }
+      - isKind: { of: Ingress }
+      - matchSnapshot: { path: spec }
+      - equal:
+          path: spec
+          value:
+            rules:
+              - host: chart-example.local
+                http:
+                  paths:
+                    - path: /
+                      backend:
+                        serviceName: RELEASE-NAME-elasticsearch
+                        servicePort: http
+
+  - it: can set annotations
+    set:
+      ingress.enabled: true
+      ingress.annotations:
+        ingress.class: nginx
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            ingress.class: nginx
+
+  - it: can set tls
+    set:
+      ingress.enabled: true
+      ingress.tls:
+        - secretName: secret
+          hosts:
+          - example.com
+    asserts:
+      - equal:
+          path: spec.tls
+          value:
+            - secretName: secret
+              hosts:
+              - example.com
+
+  - it: can set multiple hosts
+    set:
+      ingress.enabled: true
+      ingress.hosts:
+        - www1.example.com
+        - www2.example.com
+    asserts:
+      - equal:
+          path: spec
+          value:
+            rules:
+              - host: www1.example.com
+                http:
+                  paths:
+                    - path: /
+                      backend:
+                        serviceName: RELEASE-NAME-elasticsearch
+                        servicePort: http
+              - host: www2.example.com
+                http:
+                  paths:
+                    - path: /
+                      backend:
+                        serviceName: RELEASE-NAME-elasticsearch
+                        servicePort: http
+
+  - it: can set ingress path
+    set:
+      ingress.enabled: true
+      ingress.path: /path
+    asserts:
+      - equal:
+          path: spec.rules[0].http.paths[0].path
+          value: /path
+
+  - it: can set service name
+    set:
+      ingress.enabled: true
+      fullnameOverride: test
+    asserts:
+      - equal:
+          path: spec.rules[0].http.paths[0].backend.serviceName
+          value: test

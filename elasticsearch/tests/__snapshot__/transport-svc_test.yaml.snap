@@ -1,0 +1,11 @@
+has default values:
+  1: |
+    ports:
+    - name: transport
+      port: 80
+      protocol: TCP
+      targetPort: transport
+    selector:
+      app.kubernetes.io/instance: RELEASE-NAME
+      app.kubernetes.io/name: elasticsearch
+    type: ClusterIP

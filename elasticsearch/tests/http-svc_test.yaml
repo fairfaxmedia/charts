@@ -1,0 +1,45 @@
+suite: test http service
+templates:
+  - http-svc.yaml
+tests:
+  - it: has default values
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: v1 }
+      - isKind: { of: Service }
+      - matchSnapshot: { path: spec }
+      - equal:
+          path: spec.type
+          value: ClusterIP
+      - equal:
+          path: spec.ports[0].port
+          value: 80
+
+  - it: can set service type
+    set:
+      service.type: LoadBalancer
+    asserts:
+      - equal:
+          path: spec.type
+          value: LoadBalancer
+
+  - it: can set service port
+    set:
+      service.port: 19200
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            port: 19200
+            targetPort: http
+            protocol: TCP
+            name: http
+
+  - it: can select client pods
+    asserts:
+      - equal:
+          path: spec.selector
+          value:
+            app.kubernetes.io/name: elasticsearch
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/component: client

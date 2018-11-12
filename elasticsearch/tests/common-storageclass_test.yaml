@@ -1,0 +1,30 @@
+suite: test storage class
+templates:
+  - common-storageclass.yaml
+tests:
+  - it: is disabled by default
+    asserts:
+      - hasDocuments: { count: 0 }
+
+  - it: can be enabled and has defaults
+    set:
+      persistence.provisioner: kubernetes.io/aws-ebs
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: storage.k8s.io/v1 }
+      - isKind: { of: StorageClass }
+      - equal:
+          path: provisioner
+          value: kubernetes.io/aws-ebs
+      - equal:
+          path: reclaimPolicy
+          value: Retain
+
+  - it: can set provisioner type
+    set:
+      persistence.provisioner: kubernetes.io/aws-ebs
+      persistence.provisionerType: gp2
+    asserts:
+      - equal:
+          path: parameters.type
+          value: gp2

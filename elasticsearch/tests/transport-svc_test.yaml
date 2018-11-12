@@ -1,0 +1,44 @@
+suite: test transport service
+templates:
+  - transport-svc.yaml
+tests:
+  - it: has default values
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: v1 }
+      - isKind: { of: Service }
+      - matchSnapshot: { path: spec }
+      - equal:
+          path: spec.type
+          value: ClusterIP
+      - contains:
+          path: spec.ports
+          content:
+            port: 80
+            targetPort: transport
+            protocol: TCP
+            name: transport
+
+  - it: can set service type
+    set:
+      service.type: LoadBalancer
+    asserts:
+      - equal:
+          path: spec.type
+          value: LoadBalancer
+
+  - it: can set service port
+    set:
+      service.port: 19300
+    asserts:
+      - equal:
+          path: spec.ports[0].port
+          value: 19300
+
+  - it: can select pods
+    asserts:
+      - equal:
+          path: spec.selector
+          value:
+            app.kubernetes.io/name: elasticsearch
+            app.kubernetes.io/instance: RELEASE-NAME

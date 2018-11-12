@@ -1,0 +1,8 @@
+has defaults:
+  1: |
+    maxUnavailable: 1
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: master
+        app.kubernetes.io/instance: RELEASE-NAME
+        app.kubernetes.io/name: elasticsearch

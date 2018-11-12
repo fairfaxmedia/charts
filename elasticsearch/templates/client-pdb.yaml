@@ -1,0 +1,11 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "elasticsearch.fullname" . }}-client
+spec:
+  maxUnavailable: {{ .Values.clientMaxUnavailable | default "33%" }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: client
