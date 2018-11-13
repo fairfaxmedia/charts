@@ -1,0 +1,241 @@
+suite: test client deployment
+templates:
+  - client-deploy.yaml
+tests:
+  - it: has defaults
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isAPIVersion: { of: v1 }
+      - isKind: { of: Deployment }
+      - matchSnapshot: { path: spec }
+      - equal:
+          path: spec.serviceName
+          value: RELEASE-NAME-elasticsearch
+      - equal:
+          path: spec.replicas
+          value: 1
+      - equal:
+          path: spec.revisionHistoryLimit
+          value: 5
+      - equal:
+          path: spec.strategy
+          value:
+            type: OnDelete
+            rollingUpdate:
+              maxUnavailable: 0
+              maxSurge: 1
+      - equal:
+          path: spec.selector
+          value:
+            matchLabels:
+              app.kubernetes.io/name: elasticsearch
+              app.kubernetes.io/instance: RELEASE-NAME
+              app.kubernetes.io/component: client
+      - equal:
+          path: spec.template.metadata
+          value:
+            labels:
+              app.kubernetes.io/name: elasticsearch
+              app.kubernetes.io/instance: RELEASE-NAME
+              app.kubernetes.io/component: client
+      - equal:
+          path: spec.template.spec.serviceAccountName
+          value: RELEASE-NAME-elasticsearch
+      - equal:
+          path: spec.template.spec.containers[0].name
+          value: elasticsearch
+      - matchRegex:
+          path: spec.template.spec.containers[0].image
+          value: (?:[a-z]+/)?([a-z]+)(?::[0-9]+)?
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: Always
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_NODE_NAME
+            value: client-${HOSTNAME}
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
+            valueFrom:
+              configMapKeyRef:
+                key: es.discovery.zen.ping.unicast.hosts
+                name: RELEASE-NAME-elasticsearch
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: http
+            containerPort: 9200
+            protocol: TCP
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: transport
+            containerPort: 9300
+            protocol: TCP
+      - equal:
+          path: spec.template.spec.containers[0].lifecycle
+          value:
+            preStop:
+              exec:
+                command: ["/bin/kill", "-15", "1"]
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe
+          value:
+            httpGet:
+              path: /_cluster/health?local=true
+              port: http
+            initialDelaySeconds: 300
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe
+          value:
+            httpGet:
+              path: /_cluster/health?local=true
+              port: http
+      - isEmpty:
+          path: spec.template.spec.containers[0].resources
+
+  - it: can set service name
+    set:
+      fullnameOverride: test
+    asserts:
+      - equal:
+          path: spec.serviceName
+          value: test
+
+  - it: can set replicas
+    set:
+      client.replicaCount: 2
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 2
+
+  - it: can set revision history limit
+    set:
+      revisionHistoryLimit: 1
+    asserts:
+      - equal:
+          path: spec.revisionHistoryLimit
+          value: 1
+
+  - it: can set strategy type
+    set:
+      strategyType: RollingUpdate
+    asserts:
+      - equal:
+          path: spec.strategy.type
+          value: RollingUpdate
+
+  - it: can set priority class name
+    set:
+      priorityClassName: high
+    asserts:
+      - equal:
+          path: spec.template.spec.priorityClassName
+          value: high
+
+  - it: can set image repository and tag
+    set:
+      image.repository: example
+      image.tag: 1
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: example:1
+
+  - it: can set image pull policy
+    set:
+      image.pullPolicy: Never
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: Never
+
+  - it: can set an extra config option
+    set:
+      config:
+        test.config.option: test
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: TEST_CONFIG_OPTION
+            valueFrom:
+              configMapKeyRef:
+                name: RELEASE-NAME-elasticsearch
+                key: test.config.option
+
+  - it: can set resources
+    set:
+      client:
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              cpu: 1
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+  - it: can set node selector
+    set:
+      client:
+        nodeSelector:
+          failure-domain.beta.kubernetes.io/region: region
+    asserts:
+      - equal:
+          path: spec.template.spec.nodeSelector
+          value:
+            failure-domain.beta.kubernetes.io/region: region
+
+  - it: can set affinity
+    set:
+      client:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - test
+    asserts:
+      - equal:
+          path: spec.template.spec.affinity
+          value:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                          - test
+
+  - it: can set tolerations
+    set:
+      client:
+        tolerations:
+          - key: key
+            operator: Exists
+            effect: NoSchedule
+    asserts:
+      - contains:
+          path: spec.template.spec.tolerations
+          content:
+            key: key
+            operator: Exists
+            effect: NoSchedule

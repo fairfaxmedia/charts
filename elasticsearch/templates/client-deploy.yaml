@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: {{ include "elasticsearch.fullname" . }}-client
+  labels:
+    app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
+    helm.sh/chart: {{ include "elasticsearch.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: client
+spec:
+  serviceName: {{ include "elasticsearch.fullname" . }}
+  replicas: {{ .Values.client.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
+  strategy:
+    type: {{ .Values.strategyType | default "OnDelete" }}
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: client
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: client
+    spec:
+      serviceAccountName: {{ include "elasticsearch.fullname" . }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ES_NODE_NAME
+              value: client-${HOSTNAME}
+            - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" . }}
+                  key: es.discovery.zen.ping.unicast.hosts
+            - name: ES_DISCOVERY_ZEN_MINIMUM_MASTER_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" . }}
+                  key: es.discovery.zen.minimum.master.nodes
+            - name: ES_GATEWAY_RECOVER_AFTER_DATA_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" . }}
+                  key: es.gateway.recover_after_data_nodes
+            - name: ES_GATEWAY_EXPECTED_DATA_NODES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" . }}
+                  key: es.gateway.expected_data_nodes
+            - name: ES_GATEWAY_RECOVER_AFTER_TIME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" . }}
+                  key: es.gateway.recover_after_time
+          {{- range $key, $value := .Values.config }}
+            - name: {{ $key | upper | replace "." "_" }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" $ }}
+                  key: {{ $key }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 9200
+              protocol: TCP
+            - name: transport
+              containerPort: 9300
+              protocol: TCP
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/kill", "-15", "1"]
+          livenessProbe:
+            httpGet:
+              path: /_cluster/health?local=true
+              port: http
+            initialDelaySeconds: 300
+          readinessProbe:
+            httpGet:
+              path: /_cluster/health?local=true
+              port: http
+          resources:
+{{ toYaml .Values.client.resources | indent 12 }}
+    {{- with .Values.client.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.client.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.client.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
