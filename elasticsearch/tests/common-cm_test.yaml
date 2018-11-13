@@ -36,7 +36,7 @@ tests:
 
   - it: can set discovery zen minimum master nodes
     set:
-      replicaCount.master: 3
+      master.replicaCount: 3
     asserts:
       - equal:
           path: data.es\.discovery\.zen\.minimum\.master\.nodes
@@ -44,7 +44,7 @@ tests:
 
   - it: can set gateway recover afer data nodes
     set:
-      replicaCount.data: 3
+      data.replicaCount: 3
     asserts:
       - equal:
           path: data.es\.gateway\.recover_after_data_nodes
@@ -52,7 +52,7 @@ tests:
 
   - it: can set gateway expected data nodes
     set:
-      replicaCount.data: 3
+      data.replicaCount: 3
     asserts:
       - equal:
           path: data.es\.gateway\.expected_data_nodes
@@ -60,7 +60,7 @@ tests:
 
   - it: can set gateway recovery after time
     set:
-      replicaCount.data: 3
+      data.replicaCount: 3
     asserts:
       - equal:
           path: data.es\.gateway\.recover_after_time

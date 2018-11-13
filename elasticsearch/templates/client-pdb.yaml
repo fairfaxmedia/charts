@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 metadata:
   name: {{ include "elasticsearch.fullname" . }}-client
 spec:
-  maxUnavailable: {{ .Values.clientMaxUnavailable | default "33%" }}
+  maxUnavailable: {{ .Values.client.maxUnavailable | default "33%" }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "elasticsearch.name" . }}

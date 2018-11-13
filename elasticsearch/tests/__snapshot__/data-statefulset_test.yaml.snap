@@ -5,7 +5,7 @@ has defaults:
     revisionHistoryLimit: 5
     selector:
       matchLabels:
-        app.kubernetes.io/component: master
+        app.kubernetes.io/component: data
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/name: elasticsearch
     serviceName: RELEASE-NAME-elasticsearch
@@ -17,15 +17,15 @@ has defaults:
     template:
       metadata:
         labels:
-          app.kubernetes.io/component: master
+          app.kubernetes.io/component: data
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: elasticsearch
       spec:
         containers:
         - env:
           - name: ES_NODE_NAME
-            value: master-${HOSTNAME}
-          - name: ES_NODE_MASTER
+            value: data-${HOSTNAME}
+          - name: ES_NODE_DATA
             value: "true"
           - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
             valueFrom:
@@ -81,12 +81,12 @@ has defaults:
           resources: {}
           volumeMounts:
           - mountPath: /usr/share/elasticsearch/data
-            name: RELEASE-NAME-elasticsearch-master
+            name: RELEASE-NAME-elasticsearch-data
             readOnly: false
         serviceAccountName: RELEASE-NAME-elasticsearch
     volumeClaimTemplates:
     - metadata:
-        name: RELEASE-NAME-elasticsearch-master
+        name: RELEASE-NAME-elasticsearch-data
       spec:
         accessModes:
         - ReadWriteOnce

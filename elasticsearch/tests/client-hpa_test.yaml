@@ -32,7 +32,7 @@ tests:
 
   - it: can set min replicas
     set:
-      replicaCount.client: 3
+      client.replicaCount: 3
     asserts:
       - equal:
           path: spec.minReplicas
@@ -40,8 +40,8 @@ tests:
 
   - it: can set max replicas
     set:
-      replicaCount.client: 3
-      replicaScaleFactor.client: 2
+      client.replicaCount: 3
+      client.replicaScaleFactor: 2
     asserts:
       - equal:
           path: spec.maxReplicas
@@ -49,7 +49,7 @@ tests:
 
   - it: can set cpu threshold
     set:
-      cpuThreshold: 90%
+      client.cpuThreshold: 90%
     asserts:
       - equal:
           path: spec.metrics[0].resource.target.averageUtilization

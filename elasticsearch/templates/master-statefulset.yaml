@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/component: master
 spec:
   serviceName: {{ include "elasticsearch.fullname" . }}
-  replicas: {{ .Values.replicaCount.master }}
+  replicas: {{ .Values.master.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
   podManagementPolicy: {{ .Values.podManagementPolicy | default "Parallel" }}
   strategy:
@@ -40,7 +40,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: ES_NODE_NAME
-              value: client-${HOSTNAME}
+              value: master-${HOSTNAME}
             - name: ES_NODE_MASTER
               value: "true"
             - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
@@ -72,7 +72,7 @@ spec:
             - name: {{ $key | upper | replace "." "_" }}
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "elasticsearch.name" $ }}
+                  name: {{ include "elasticsearch.fullname" $ }}
                   key: {{ $key }}
           {{- end }}
           ports:
@@ -96,20 +96,20 @@ spec:
               path: /_cluster/health?local=true
               port: http
           volumeMounts:
-            - name: {{ include "elasticsearch.name" . }}-master
+            - name: {{ include "elasticsearch.fullname" . }}-master
               mountPath: /usr/share/elasticsearch/data
               readOnly: false
           resources:
-{{ toYaml .Values.resources | indent 12 }}
-    {{- with .Values.nodeSelector }}
+{{ toYaml .Values.master.resources | indent 12 }}
+    {{- with .Values.master.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.affinity }}
+    {{- with .Values.master.affinity }}
       affinity:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.tolerations }}
+    {{- with .Values.master.tolerations }}
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
@@ -122,7 +122,7 @@ spec:
       - kubernetes.io/pvc-protection
       - kubernetes.io/pv-protection
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: {{ include "elasticsearch.name" . }}
+      storageClassName: {{ include "elasticsearch.fullname" . }}
       resources:
         requests:
           storage: {{ .Values.persistence.masterSize }}

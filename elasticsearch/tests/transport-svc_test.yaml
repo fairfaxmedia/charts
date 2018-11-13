@@ -17,18 +17,10 @@ tests:
       - contains:
           path: spec.ports
           content:
-            port: 80
+            port: 9300
             targetPort: transport
             protocol: TCP
             name: transport
-
-  - it: can set service port
-    set:
-      service.port: 19300
-    asserts:
-      - equal:
-          path: spec.ports[0].port
-          value: 19300
 
   - it: can select pods
     asserts:

@@ -10,7 +10,7 @@ metadata:
 data:
   es.cluster.name: {{ .Values.config.clusterName | default .Release.Name | quote }}
   es.discovery.zen.ping.unicast.hosts: {{ include "elasticsearch.fullname" . }}-transport
-  es.discovery.zen.minimum.master.nodes: {{ div .Values.replicaCount.master 2 | add 1 }}
-  es.gateway.recover_after_data_nodes: {{ div .Values.replicaCount.data 3 | mul 2 }}
-  es.gateway.expected_data_nodes: {{ .Values.replicaCount.data }}
-  es.gateway.recover_after_time: {{ printf "%sm" (add 5 .Values.replicaCount.data | toString) | quote }}
+  es.discovery.zen.minimum.master.nodes: {{ div .Values.master.replicaCount 2 | add 1 }}
+  es.gateway.recover_after_data_nodes: {{ div .Values.data.replicaCount 3 | mul 2 }}
+  es.gateway.expected_data_nodes: {{ .Values.data.replicaCount }}
+  es.gateway.recover_after_time: {{ printf "%sm" (add 5 .Values.data.replicaCount | toString) | quote }}

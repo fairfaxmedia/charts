@@ -11,7 +11,7 @@ spec:
   type: ClusterIP
   clusterIP: none
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 9300
       targetPort: transport
       protocol: TCP
       name: transport

@@ -21,7 +21,7 @@ tests:
 
   - it: can set max unavailable
     set:
-      clientMaxUnavailable: 1
+      client.maxUnavailable: 1
     asserts:
       - equal:
           path: spec.maxUnavailable

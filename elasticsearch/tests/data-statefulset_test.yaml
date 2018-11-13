@@ -1,6 +1,6 @@
-suite: test master stateful set
+suite: test data stateful set
 templates:
-  - master-statefulset.yaml
+  - data-statefulset.yaml
 tests:
   - it: has defaults
     asserts:
@@ -33,14 +33,14 @@ tests:
             matchLabels:
               app.kubernetes.io/name: elasticsearch
               app.kubernetes.io/instance: RELEASE-NAME
-              app.kubernetes.io/component: master
+              app.kubernetes.io/component: data
       - equal:
           path: spec.template.metadata
           value:
             labels:
               app.kubernetes.io/name: elasticsearch
               app.kubernetes.io/instance: RELEASE-NAME
-              app.kubernetes.io/component: master
+              app.kubernetes.io/component: data
       - equal:
           path: spec.template.spec.serviceAccountName
           value: RELEASE-NAME-elasticsearch
@@ -57,11 +57,11 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: ES_NODE_NAME
-            value: master-${HOSTNAME}
+            value: data-${HOSTNAME}
       - contains:
           path: spec.template.spec.containers[0].env
           content:
-            name: ES_NODE_MASTER
+            name: ES_NODE_DATA
             value: "true"
       - contains:
           path: spec.template.spec.containers[0].env
@@ -70,38 +70,6 @@ tests:
             valueFrom:
               configMapKeyRef:
                 key: es.discovery.zen.ping.unicast.hosts
-                name: RELEASE-NAME-elasticsearch
-      - contains:
-          path: spec.template.spec.containers[0].env
-          content:
-            name: ES_DISCOVERY_ZEN_MINIMUM_MASTER_NODES
-            valueFrom:
-              configMapKeyRef:
-                key: es.discovery.zen.minimum.master.nodes
-                name: RELEASE-NAME-elasticsearch
-      - contains:
-          path: spec.template.spec.containers[0].env
-          content:
-            name: ES_GATEWAY_RECOVER_AFTER_DATA_NODES
-            valueFrom:
-              configMapKeyRef:
-                key: es.gateway.recover_after_data_nodes
-                name: RELEASE-NAME-elasticsearch
-      - contains:
-          path: spec.template.spec.containers[0].env
-          content:
-            name: ES_GATEWAY_EXPECTED_DATA_NODES
-            valueFrom:
-              configMapKeyRef:
-                key: es.gateway.expected_data_nodes
-                name: RELEASE-NAME-elasticsearch
-      - contains:
-          path: spec.template.spec.containers[0].env
-          content:
-            name: ES_GATEWAY_RECOVER_AFTER_TIME
-            valueFrom:
-              configMapKeyRef:
-                key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
       - contains:
           path: spec.template.spec.containers[0].ports
@@ -137,7 +105,7 @@ tests:
       - contains:
           path: spec.template.spec.containers[0].volumeMounts
           content:
-            name: RELEASE-NAME-elasticsearch-master
+            name: RELEASE-NAME-elasticsearch-data
             mountPath: /usr/share/elasticsearch/data
             readOnly: false
       - isEmpty:
@@ -146,7 +114,7 @@ tests:
           path: spec.volumeClaimTemplates
           content:
             metadata:
-              name: RELEASE-NAME-elasticsearch-master
+              name: RELEASE-NAME-elasticsearch-data
             spec:
               finalizers:
               - kubernetes.io/pvc-protection
@@ -167,7 +135,7 @@ tests:
 
   - it: can set replicas
     set:
-      master.replicaCount: 2
+      data.replicaCount: 2
     asserts:
       - equal:
           path: spec.replicas
@@ -238,7 +206,7 @@ tests:
 
   - it: can set resources
     set:
-      master:
+      data:
         resources:
           limits:
             cpu: 1
@@ -259,7 +227,7 @@ tests:
 
   - it: can set node selector
     set:
-      master:
+      data:
         nodeSelector:
           failure-domain.beta.kubernetes.io/region: region
     asserts:
@@ -270,7 +238,7 @@ tests:
 
   - it: can set affinity
     set:
-      master:
+      data:
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -295,7 +263,7 @@ tests:
 
   - it: can set tolerations
     set:
-      master:
+      data:
         tolerations:
           - key: key
             operator: Exists

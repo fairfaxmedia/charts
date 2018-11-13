@@ -7,12 +7,12 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "elasticsearch.fullname" . }}-client
-  minReplicas: {{ .Values.replicaCount.client }}
-  maxReplicas: {{ mul .Values.replicaCount.client ( .Values.replicaScaleFactor.client | default 2 ) }}
+  minReplicas: {{ .Values.client.replicaCount }}
+  maxReplicas: {{ mul .Values.client.replicaCount ( .Values.client.replicaScaleFactor | default 2 ) }}
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: {{ .Values.cpuThreshold | default "70%" }}
+        averageUtilization: {{ .Values.client.cpuThreshold | default "70%" }}
