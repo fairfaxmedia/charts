@@ -13,11 +13,13 @@ spec:
   replicas: {{ .Values.master.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
   podManagementPolicy: {{ .Values.podManagementPolicy | default "Parallel" }}
-  strategy:
+  updateStrategy:
     type: {{ .Values.strategyType | default "OnDelete" }}
+    {{- if eq .Values.strategyType "RollingUpdate" }}
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1
+    {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "elasticsearch.name" . }}

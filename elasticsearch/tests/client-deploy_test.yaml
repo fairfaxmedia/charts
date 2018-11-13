@@ -5,12 +5,9 @@ tests:
   - it: has defaults
     asserts:
       - hasDocuments: { count: 1 }
-      - isAPIVersion: { of: v1 }
+      - isAPIVersion: { of: apps/v1 }
       - isKind: { of: Deployment }
       - matchSnapshot: { path: spec }
-      - equal:
-          path: spec.serviceName
-          value: RELEASE-NAME-elasticsearch
       - equal:
           path: spec.replicas
           value: 1
@@ -21,9 +18,6 @@ tests:
           path: spec.strategy
           value:
             type: OnDelete
-            rollingUpdate:
-              maxUnavailable: 0
-              maxSurge: 1
       - equal:
           path: spec.selector
           value:
@@ -94,16 +88,11 @@ tests:
             httpGet:
               path: /_cluster/health?local=true
               port: http
-      - isEmpty:
-          path: spec.template.spec.containers[0].resources
-
-  - it: can set service name
-    set:
-      fullnameOverride: test
-    asserts:
       - equal:
-          path: spec.serviceName
-          value: test
+          path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              memory: 1Gi
 
   - it: can set replicas
     set:
@@ -128,6 +117,11 @@ tests:
       - equal:
           path: spec.strategy.type
           value: RollingUpdate
+      - equal:
+          path: spec.strategy.rollingUpdate
+          value:
+            maxUnavailable: 0
+            maxSurge: 1
 
   - it: can set priority class name
     set:

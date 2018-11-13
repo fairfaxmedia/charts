@@ -9,11 +9,6 @@ has defaults:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/name: elasticsearch
     serviceName: RELEASE-NAME-elasticsearch
-    strategy:
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-      type: OnDelete
     template:
       metadata:
         labels:
@@ -78,12 +73,16 @@ has defaults:
             httpGet:
               path: /_cluster/health?local=true
               port: http
-          resources: {}
+          resources:
+            limits:
+              memory: 1Gi
           volumeMounts:
           - mountPath: /usr/share/elasticsearch/data
             name: RELEASE-NAME-elasticsearch-master
             readOnly: false
         serviceAccountName: RELEASE-NAME-elasticsearch
+    updateStrategy:
+      type: OnDelete
     volumeClaimTemplates:
     - metadata:
         name: RELEASE-NAME-elasticsearch-master

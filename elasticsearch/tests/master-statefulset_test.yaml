@@ -21,12 +21,9 @@ tests:
           path: spec.podManagementPolicy
           value: Parallel
       - equal:
-          path: spec.strategy
+          path: spec.updateStrategy
           value:
             type: OnDelete
-            rollingUpdate:
-              maxUnavailable: 0
-              maxSurge: 1
       - equal:
           path: spec.selector
           value:
@@ -140,8 +137,11 @@ tests:
             name: RELEASE-NAME-elasticsearch-master
             mountPath: /usr/share/elasticsearch/data
             readOnly: false
-      - isEmpty:
+      - equal:
           path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              memory: 1Gi
       - contains:
           path: spec.volumeClaimTemplates
           content:
@@ -189,13 +189,18 @@ tests:
           path: spec.podManagementPolicy
           value: OrderedReady
 
-  - it: can set strategy type
+  - it: can set update strategy type
     set:
       strategyType: RollingUpdate
     asserts:
       - equal:
-          path: spec.strategy.type
+          path: spec.updateStrategy.type
           value: RollingUpdate
+      - equal:
+          path: spec.updateStrategy.rollingUpdate
+          value:
+            maxUnavailable: 0
+            maxSurge: 1
 
   - it: can set priority class name
     set:

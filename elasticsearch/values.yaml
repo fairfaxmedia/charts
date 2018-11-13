@@ -8,6 +8,7 @@ image:
   pullPolicy: Always
 
 revisionHistoryLimit: 5
+strategyType: OnDelete
 
 nameOverride: ""
 fullnameOverride: ""
@@ -33,14 +34,18 @@ ingress:
 
 master:
   replicaCount: 1
-  resources: {}
+  resources:
+    limits:
+      memory: 1Gi
   nodeSelector: {}
   tolerations: []
   affinity: {}
 
 data:
   replicaCount: 1
-  resources: {}
+  resources:
+    limits:
+      memory: 2Gi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -50,7 +55,9 @@ client:
   replicaScaleFactor: 2
   cpuThreshold: 70%
   maxUnavailable: 33%
-  resources: {}
+  resources:
+    limits:
+      memory: 1Gi
   nodeSelector: {}
   tolerations: []
   affinity: {}
