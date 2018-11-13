@@ -120,9 +120,6 @@ spec:
   - metadata:
       name: {{ include "elasticsearch.fullname" . }}-master
     spec:
-      finalizers:
-      - kubernetes.io/pvc-protection
-      - kubernetes.io/pv-protection
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: {{ include "elasticsearch.fullname" . }}
       resources:

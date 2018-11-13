@@ -89,9 +89,6 @@ has defaults:
       spec:
         accessModes:
         - ReadWriteOnce
-        finalizers:
-        - kubernetes.io/pvc-protection
-        - kubernetes.io/pv-protection
         resources:
           requests:
             storage: 4Gi

@@ -116,9 +116,6 @@ tests:
             metadata:
               name: RELEASE-NAME-elasticsearch-data
             spec:
-              finalizers:
-              - kubernetes.io/pvc-protection
-              - kubernetes.io/pv-protection
               accessModes: [ "ReadWriteOnce" ]
               storageClassName: RELEASE-NAME-elasticsearch
               resources:
