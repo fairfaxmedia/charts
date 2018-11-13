@@ -5,7 +5,7 @@ tests:
   - it: has defaults
     asserts:
       - hasDocuments: { count: 1 }
-      - isAPIVersion: { of: autoscaling/v2beta2 }
+      - isAPIVersion: { of: autoscaling/v1 }
       - isKind: { of: HorizontalPodAutoscaler }
       - matchSnapshot: { path: spec }
       - equal:
@@ -20,15 +20,9 @@ tests:
       - equal:
           path: spec.maxReplicas
           value: 2
-      - contains:
-          path: spec.metrics
-          content:
-            type: Resource
-            resource:
-              name: cpu
-              target:
-                type: Utilization
-                averageUtilization: 70%
+      - equal:
+          path: spec.targetCPUUtilizationPercentage
+          value: 70
 
   - it: can set min replicas
     set:
@@ -49,8 +43,8 @@ tests:
 
   - it: can set cpu threshold
     set:
-      client.cpuThreshold: 90%
+      client.cpuThreshold: 90
     asserts:
       - equal:
-          path: spec.metrics[0].resource.target.averageUtilization
-          value: 90%
+          path: spec.targetCPUUtilizationPercentage
+          value: 90

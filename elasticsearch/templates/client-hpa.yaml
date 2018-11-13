@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "elasticsearch.fullname" . }}-client
@@ -9,10 +9,4 @@ spec:
     name: {{ include "elasticsearch.fullname" . }}-client
   minReplicas: {{ .Values.client.replicaCount }}
   maxReplicas: {{ mul .Values.client.replicaCount ( .Values.client.replicaScaleFactor | default 2 ) }}
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: {{ .Values.client.cpuThreshold | default "70%" }}
+  targetCPUUtilizationPercentage: {{ .Values.client.cpuThreshold | default "70" }}

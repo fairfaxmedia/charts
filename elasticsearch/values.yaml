@@ -53,7 +53,7 @@ data:
 client:
   replicaCount: 1
   replicaScaleFactor: 2
-  cpuThreshold: 70%
+  cpuThreshold: 70
   maxUnavailable: 33%
   resources:
     limits:
