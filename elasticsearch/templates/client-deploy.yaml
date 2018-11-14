@@ -34,10 +34,27 @@ spec:
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
       {{- end }}
+      initContainers:
+      {{- if .Values.virtualMemory.enabled }}
+      - name: sysctl
+        image: busybox
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command:
+          - sysctl
+          - -w
+          - vm.max_map_count={{ .Values.virtualMemory.maxMapCount | default 262144 }}
+        securityContext:
+          privileged: true
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            capabilities:
+              add:
+                - IPC_LOCK
+                - SYS_RESOURCE
           env:
             - name: ES_NODE_NAME
               value: client-${HOSTNAME}

@@ -75,11 +75,17 @@ has defaults:
               port: http
           resources:
             limits:
-              memory: 1Gi
+              memory: 2Gi
+          securityContext:
+            capabilities:
+              add:
+              - IPC_LOCK
+              - SYS_RESOURCE
           volumeMounts:
           - mountPath: /usr/share/elasticsearch/data
             name: RELEASE-NAME-elasticsearch-master
             readOnly: false
+        initContainers: null
         serviceAccountName: RELEASE-NAME-elasticsearch
     updateStrategy:
       type: OnDelete

@@ -43,6 +43,8 @@ tests:
       - equal:
           path: spec.template.spec.serviceAccountName
           value: RELEASE-NAME-elasticsearch
+      - isNull:
+          path: spec.template.spec.initContainers
       - equal:
           path: spec.template.spec.containers[0].name
           value: elasticsearch
@@ -175,6 +177,35 @@ tests:
       - equal:
           path: spec.template.spec.priorityClassName
           value: high
+
+  - it: can configure sysctl init container
+    set:
+      virtualMemory.enabled: true
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers
+          content:
+            name: sysctl
+            image: busybox
+            imagePullPolicy: Always
+            command:
+              - sysctl
+              - -w
+              - vm.max_map_count=262144
+            securityContext:
+              privileged: true
+
+  - it: can configure virtual memory max map count
+    set:
+      virtualMemory.enabled: true
+      virtualMemory.maxMapCount: 524288
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[0].command
+          value:
+            - sysctl
+            - -w
+            - vm.max_map_count=524288
 
   - it: can set image repository and tag
     set:

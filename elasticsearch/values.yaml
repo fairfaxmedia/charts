@@ -36,7 +36,7 @@ master:
   strategyType: OnDelete
   resources:
     limits:
-      memory: 1Gi
+      memory: 2Gi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -59,7 +59,7 @@ client:
   strategyType: RollingUpdate
   resources:
     limits:
-      memory: 1Gi
+      memory: 2Gi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -74,3 +74,7 @@ persistence:
   annotations: {}
   masterSize: 4Gi
   dataSize: 4Gi
+
+virtualMemory:
+  enabled: false # Required for minikube
+  maxMapCount: 262144
