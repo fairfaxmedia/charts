@@ -57,7 +57,7 @@ spec:
                 - SYS_RESOURCE
           env:
             - name: ES_NODE_NAME
-              value: client-${HOSTNAME}
+              value: ${HOSTNAME}
             - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
               valueFrom:
                 configMapKeyRef:

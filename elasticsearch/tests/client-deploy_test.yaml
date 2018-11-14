@@ -53,7 +53,7 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: ES_NODE_NAME
-            value: client-${HOSTNAME}
+            value: ${HOSTNAME}
       - contains:
           path: spec.template.spec.containers[0].env
           content:

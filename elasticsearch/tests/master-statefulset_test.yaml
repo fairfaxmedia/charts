@@ -58,7 +58,7 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: ES_NODE_NAME
-            value: master-${HOSTNAME}
+            value: ${HOSTNAME}
       - contains:
           path: spec.template.spec.containers[0].env
           content:

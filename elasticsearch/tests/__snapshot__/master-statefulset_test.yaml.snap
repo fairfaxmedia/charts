@@ -19,7 +19,7 @@ has defaults:
         containers:
         - env:
           - name: ES_NODE_NAME
-            value: master-${HOSTNAME}
+            value: ${HOSTNAME}
           - name: ES_NODE_MASTER
             value: "true"
           - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
