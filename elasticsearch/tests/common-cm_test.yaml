@@ -20,7 +20,7 @@ tests:
 
   - it: can set cluster name
     set:
-      config.clusterName: test
+      common.clusterName: test
     asserts:
       - equal:
           path: data.es\.cluster\.name

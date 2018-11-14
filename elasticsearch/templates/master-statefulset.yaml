@@ -87,7 +87,7 @@ spec:
                 configMapKeyRef:
                   name: {{ include "elasticsearch.fullname" . }}
                   key: es.gateway.recover_after_time
-          {{- range $key, $value := .Values.config }}
+          {{- range $key, $value := .Values.common.config }}
             - name: {{ $key | upper | replace "." "_" }}
               valueFrom:
                 configMapKeyRef:

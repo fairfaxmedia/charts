@@ -8,6 +8,8 @@ image:
   pullPolicy: Always
 
 revisionHistoryLimit: 5
+podManagementPolicy: ~
+priorityClassName: ~
 
 nameOverride: ""
 fullnameOverride: ""
@@ -30,6 +32,10 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+common:
+  # clusterName: example
+  config: {}
 
 master:
   replicaCount: 1
@@ -63,9 +69,6 @@ client:
   nodeSelector: {}
   tolerations: []
   affinity: {}
-
-config: {}
-  # es.cluster.name: example
 
 persistence:
   enabled: false

@@ -226,7 +226,7 @@ tests:
 
   - it: can set an extra config option
     set:
-      config:
+      common.config:
         test.config.option: test
     asserts:
       - contains:
@@ -320,7 +320,7 @@ tests:
 
   - it: can set volume claim template size
     set:
-      persistence.masterSize: 1Gi
+      persistence.dataSize: 1Gi
     asserts:
       - equal:
           path: spec.volumeClaimTemplates[0].spec.resources.requests.storage

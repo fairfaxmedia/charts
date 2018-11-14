@@ -258,7 +258,7 @@ tests:
 
   - it: can set an extra config option
     set:
-      config:
+      common.config:
         test.config.option: test
     asserts:
       - contains:
