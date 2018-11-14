@@ -92,4 +92,3 @@ has defaults:
         resources:
           requests:
             storage: 4Gi
-        storageClassName: RELEASE-NAME-elasticsearch

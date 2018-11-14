@@ -13,7 +13,7 @@ tests:
           value: ClusterIP
       - equal:
           path: spec.clusterIP
-          value: none
+          value: None
       - contains:
           path: spec.ports
           content:

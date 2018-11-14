@@ -13,9 +13,9 @@ tests:
           value:
             es.cluster.name: RELEASE-NAME
             es.discovery.zen.ping.unicast.hosts: RELEASE-NAME-elasticsearch-transport
-            es.discovery.zen.minimum.master.nodes: 1
-            es.gateway.recover_after_data_nodes: 0
-            es.gateway.expected_data_nodes: 1
+            es.discovery.zen.minimum.master.nodes: "1"
+            es.gateway.recover_after_data_nodes: "0"
+            es.gateway.expected_data_nodes: "1"
             es.gateway.recover_after_time: 6m
 
   - it: can set cluster name
@@ -40,7 +40,7 @@ tests:
     asserts:
       - equal:
           path: data.es\.discovery\.zen\.minimum\.master\.nodes
-          value: 2
+          value: "2"
 
   - it: can set gateway recover afer data nodes
     set:
@@ -48,7 +48,7 @@ tests:
     asserts:
       - equal:
           path: data.es\.gateway\.recover_after_data_nodes
-          value: 2
+          value: "2"
 
   - it: can set gateway expected data nodes
     set:
@@ -56,7 +56,7 @@ tests:
     asserts:
       - equal:
           path: data.es\.gateway\.expected_data_nodes
-          value: 3
+          value: "3"
 
   - it: can set gateway recovery after time
     set:

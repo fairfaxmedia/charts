@@ -1,6 +1,6 @@
 has default values:
   1: |
-    clusterIP: none
+    clusterIP: None
     ports:
     - name: transport
       port: 9300

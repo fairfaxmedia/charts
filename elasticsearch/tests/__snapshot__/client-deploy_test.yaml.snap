@@ -8,7 +8,10 @@ has defaults:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/name: elasticsearch
     strategy:
-      type: OnDelete
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate
     template:
       metadata:
         labels:

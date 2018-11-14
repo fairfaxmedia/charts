@@ -8,7 +8,6 @@ image:
   pullPolicy: Always
 
 revisionHistoryLimit: 5
-strategyType: OnDelete
 
 nameOverride: ""
 fullnameOverride: ""
@@ -34,6 +33,7 @@ ingress:
 
 master:
   replicaCount: 1
+  strategyType: OnDelete
   resources:
     limits:
       memory: 1Gi
@@ -43,6 +43,7 @@ master:
 
 data:
   replicaCount: 1
+  strategyType: OnDelete
   resources:
     limits:
       memory: 2Gi
@@ -55,6 +56,7 @@ client:
   replicaScaleFactor: 2
   cpuThreshold: 70
   maxUnavailable: 33%
+  strategyType: RollingUpdate
   resources:
     limits:
       memory: 1Gi

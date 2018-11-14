@@ -17,7 +17,10 @@ tests:
       - equal:
           path: spec.strategy
           value:
-            type: OnDelete
+            type: RollingUpdate
+            rollingUpdate:
+              maxSurge: 1
+              maxUnavailable: 0
       - equal:
           path: spec.selector
           value:
@@ -112,16 +115,13 @@ tests:
 
   - it: can set strategy type
     set:
-      strategyType: RollingUpdate
+      client.strategyType: Recreate
     asserts:
       - equal:
           path: spec.strategy.type
-          value: RollingUpdate
-      - equal:
+          value: Recreate
+      - isNull:
           path: spec.strategy.rollingUpdate
-          value:
-            maxUnavailable: 0
-            maxSurge: 1
 
   - it: can set priority class name
     set:

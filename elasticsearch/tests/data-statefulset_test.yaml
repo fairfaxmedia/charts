@@ -24,6 +24,8 @@ tests:
           path: spec.updateStrategy
           value:
             type: OnDelete
+      - isNull:
+          path: spec.updateStrategy.rollingUpdate
       - equal:
           path: spec.selector
           value:
@@ -117,7 +119,6 @@ tests:
               name: RELEASE-NAME-elasticsearch-data
             spec:
               accessModes: [ "ReadWriteOnce" ]
-              storageClassName: RELEASE-NAME-elasticsearch
               resources:
                 requests:
                   storage: 4Gi
@@ -156,7 +157,7 @@ tests:
 
   - it: can set update strategy type
     set:
-      strategyType: RollingUpdate
+      data.strategyType: RollingUpdate
     asserts:
       - equal:
           path: spec.updateStrategy.type
@@ -277,6 +278,14 @@ tests:
             key: key
             operator: Exists
             effect: NoSchedule
+
+  - it: can set volume claim template storage class name
+    set:
+      persistence.provisioner: kubernetes.io/aws-ebs
+    asserts:
+      - equal:
+          path: spec.volumeClaimTemplates[0].spec.storageClassName
+          value: RELEASE-NAME-elasticsearch
 
   - it: can set volume claim template size
     set:

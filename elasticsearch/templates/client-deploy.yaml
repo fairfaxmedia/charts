@@ -12,8 +12,8 @@ spec:
   replicas: {{ .Values.client.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
   strategy:
-    type: {{ .Values.strategyType | default "OnDelete" }}
-    {{- if eq .Values.strategyType "RollingUpdate" }}
+    type: {{ .Values.client.strategyType | default "RollingUpdate" }}
+    {{- if eq .Values.client.strategyType "RollingUpdate" }}
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1

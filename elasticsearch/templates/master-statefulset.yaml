@@ -14,8 +14,8 @@ spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
   podManagementPolicy: {{ .Values.podManagementPolicy | default "Parallel" }}
   updateStrategy:
-    type: {{ .Values.strategyType | default "OnDelete" }}
-    {{- if eq .Values.strategyType "RollingUpdate" }}
+    type: {{ .Values.master.strategyType | default "OnDelete" }}
+    {{- if eq .Values.master.strategyType "RollingUpdate" }}
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1
@@ -121,7 +121,9 @@ spec:
       name: {{ include "elasticsearch.fullname" . }}-master
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      {{- if .Values.persistence.provisioner }}
       storageClassName: {{ include "elasticsearch.fullname" . }}
+      {{- end }}
       resources:
         requests:
           storage: {{ .Values.persistence.masterSize }}
