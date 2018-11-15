@@ -115,11 +115,29 @@ spec:
               path: /_cluster/health?local=true
               port: http
           volumeMounts:
-            - name: {{ include "elasticsearch.fullname" . }}-master
+            - name: data
               mountPath: /usr/share/elasticsearch/data
               readOnly: false
+            - name: settings
+              mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
+              subPath: elasticsearch_custom.yml
+              readOnly: true
           resources:
 {{ toYaml .Values.master.resources | indent 12 }}
+      volumes:
+      - name: data
+        {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ include "elasticsearch.fullname" . }}-master
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
+      - name: settings
+        configMap:
+          name: {{ template "elasticsearch.fullname" . }}
+          items:
+            - key: settings
+              path: elasticsearch_custom.yml
     {{- with .Values.master.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -133,6 +151,7 @@ spec:
 {{ toYaml . | indent 8 }}
     {{- end }}
 
+  {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
   - metadata:
       name: {{ include "elasticsearch.fullname" . }}-master
@@ -144,3 +163,4 @@ spec:
       resources:
         requests:
           storage: {{ .Values.persistence.masterSize }}
+  {{- end }}

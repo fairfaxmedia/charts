@@ -36,6 +36,8 @@ ingress:
 common:
   # clusterName: example
   config: {}
+  settings: |-
+    # Custom elasticsearch.yml settings
 
 master:
   replicaCount: 1

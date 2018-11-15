@@ -17,3 +17,5 @@ data:
   {{- range $key, $value := .Values.common.config }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
+  es.settings: |-
+{{ toYaml .Values.common.settings | indent 4 }}

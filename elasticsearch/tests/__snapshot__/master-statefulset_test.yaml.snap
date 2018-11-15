@@ -83,18 +83,22 @@ has defaults:
               - SYS_RESOURCE
           volumeMounts:
           - mountPath: /usr/share/elasticsearch/data
-            name: RELEASE-NAME-elasticsearch-master
+            name: data
             readOnly: false
+          - mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
+            name: settings
+            readOnly: true
+            subPath: elasticsearch_custom.yml
         initContainers: null
         serviceAccountName: RELEASE-NAME-elasticsearch
+        volumes:
+        - emptyDir: {}
+          name: data
+        - configMap:
+            items:
+            - key: settings
+              path: elasticsearch_custom.yml
+            name: RELEASE-NAME-elasticsearch
+          name: settings
     updateStrategy:
       type: OnDelete
-    volumeClaimTemplates:
-    - metadata:
-        name: RELEASE-NAME-elasticsearch-master
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 4Gi

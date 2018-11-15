@@ -138,24 +138,23 @@ tests:
       - contains:
           path: spec.template.spec.containers[0].volumeMounts
           content:
-            name: RELEASE-NAME-elasticsearch-master
+            name: data
             mountPath: /usr/share/elasticsearch/data
             readOnly: false
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: settings
+            mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
+            subPath: elasticsearch_custom.yml
+            readOnly: true
       - equal:
           path: spec.template.spec.containers[0].resources
           value:
             limits:
               memory: 2Gi
-      - contains:
+      - isNull:
           path: spec.volumeClaimTemplates
-          content:
-            metadata:
-              name: RELEASE-NAME-elasticsearch-master
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              resources:
-                requests:
-                  storage: 4Gi
 
   - it: can set service name
     set:
@@ -342,8 +341,24 @@ tests:
             operator: Exists
             effect: NoSchedule
 
+  - it: can enable volume claim templates
+    set:
+      persistence.enabled: true
+    asserts:
+      - contains:
+          path: spec.volumeClaimTemplates
+          content:
+            metadata:
+              name: RELEASE-NAME-elasticsearch-master
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              resources:
+                requests:
+                  storage: 4Gi
+
   - it: can set volume claim template storage class name
     set:
+      persistence.enabled: true
       persistence.provisioner: kubernetes.io/aws-ebs
     asserts:
       - equal:
@@ -352,6 +367,7 @@ tests:
 
   - it: can set volume claim template size
     set:
+      persistence.enabled: true
       persistence.masterSize: 1Gi
     asserts:
       - equal:

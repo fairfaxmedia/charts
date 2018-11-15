@@ -6,3 +6,4 @@ has default values:
     es.gateway.expected_data_nodes: "1"
     es.gateway.recover_after_data_nodes: "0"
     es.gateway.recover_after_time: 6m
+    es.settings: '''# Custom elasticsearch.yml settings'''

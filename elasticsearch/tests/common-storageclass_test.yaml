@@ -8,6 +8,7 @@ tests:
 
   - it: can be enabled and has defaults
     set:
+      persistence.enabled: true
       persistence.provisioner: kubernetes.io/aws-ebs
     asserts:
       - hasDocuments: { count: 1 }
@@ -22,6 +23,7 @@ tests:
 
   - it: can set provisioner type
     set:
+      persistence.enabled: true
       persistence.provisioner: kubernetes.io/aws-ebs
       persistence.provisionerType: gp2
     asserts:
