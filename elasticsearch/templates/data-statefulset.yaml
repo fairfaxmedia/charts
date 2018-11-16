@@ -136,7 +136,7 @@ spec:
         configMap:
           name: {{ template "elasticsearch.fullname" . }}
           items:
-            - key: settings
+            - key: es.settings
               path: elasticsearch_custom.yml
     {{- with .Values.data.nodeSelector }}
       nodeSelector:

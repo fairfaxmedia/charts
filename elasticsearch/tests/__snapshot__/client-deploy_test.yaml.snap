@@ -92,7 +92,7 @@ has defaults:
         volumes:
         - configMap:
             items:
-            - key: settings
+            - key: es.settings
               path: elasticsearch_custom.yml
             name: RELEASE-NAME-elasticsearch
           name: settings

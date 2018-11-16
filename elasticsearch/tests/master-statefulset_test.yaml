@@ -181,7 +181,7 @@ tests:
             configMap:
               name: RELEASE-NAME-elasticsearch
               items:
-                - key: settings
+                - key: es.settings
                   path: elasticsearch_custom.yml
       - isEmpty:
           path: spec.template.spec.nodeSelector
