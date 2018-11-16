@@ -72,7 +72,7 @@ has defaults:
             protocol: TCP
           readinessProbe:
             httpGet:
-              path: /_cluster/health?local=true
+              path: /_cluster/health
               port: http
           resources:
             limits:
@@ -82,5 +82,17 @@ has defaults:
               add:
               - IPC_LOCK
               - SYS_RESOURCE
+          volumeMounts:
+          - mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
+            name: settings
+            readOnly: true
+            subPath: elasticsearch_custom.yml
         initContainers: null
         serviceAccountName: RELEASE-NAME-elasticsearch
+        volumes:
+        - configMap:
+            items:
+            - key: settings
+              path: elasticsearch_custom.yml
+            name: RELEASE-NAME-elasticsearch
+          name: settings

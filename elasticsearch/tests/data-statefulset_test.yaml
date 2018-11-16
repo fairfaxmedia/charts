@@ -44,6 +44,8 @@ tests:
           path: spec.template.spec.serviceAccountName
           value: RELEASE-NAME-elasticsearch
       - isNull:
+          path: spec.priorityClassName
+      - isNull:
           path: spec.template.spec.initContainers
       - equal:
           path: spec.template.spec.containers[0].name
@@ -54,6 +56,13 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: Always
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            capabilities:
+              add:
+                - IPC_LOCK
+                - SYS_RESOURCE
       - contains:
           path: spec.template.spec.containers[0].env
           content:
@@ -71,6 +80,38 @@ tests:
             valueFrom:
               configMapKeyRef:
                 key: es.discovery.zen.ping.unicast.hosts
+                name: RELEASE-NAME-elasticsearch
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_DISCOVERY_ZEN_MINIMUM_MASTER_NODES
+            valueFrom:
+              configMapKeyRef:
+                key: es.discovery.zen.minimum.master.nodes
+                name: RELEASE-NAME-elasticsearch
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_GATEWAY_RECOVER_AFTER_DATA_NODES
+            valueFrom:
+              configMapKeyRef:
+                key: es.gateway.recover_after_data_nodes
+                name: RELEASE-NAME-elasticsearch
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_GATEWAY_EXPECTED_DATA_NODES
+            valueFrom:
+              configMapKeyRef:
+                key: es.gateway.expected_data_nodes
+                name: RELEASE-NAME-elasticsearch
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_GATEWAY_RECOVER_AFTER_TIME
+            valueFrom:
+              configMapKeyRef:
+                key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
       - contains:
           path: spec.template.spec.containers[0].ports
@@ -91,18 +132,18 @@ tests:
               exec:
                 command: ["/bin/kill", "-15", "1"]
       - equal:
+          path: spec.template.spec.containers[0].readinessProbe
+          value:
+            httpGet:
+              path: /_cluster/health?local=true
+              port: http
+      - equal:
           path: spec.template.spec.containers[0].livenessProbe
           value:
             httpGet:
               path: /_cluster/health?local=true
               port: http
             initialDelaySeconds: 300
-      - equal:
-          path: spec.template.spec.containers[0].readinessProbe
-          value:
-            httpGet:
-              path: /_cluster/health?local=true
-              port: http
       - contains:
           path: spec.template.spec.containers[0].volumeMounts
           content:
@@ -116,11 +157,38 @@ tests:
             mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
             subPath: elasticsearch_custom.yml
             readOnly: true
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: settings
+            mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
+            subPath: elasticsearch_custom.yml
+            readOnly: true
       - equal:
           path: spec.template.spec.containers[0].resources
           value:
             limits:
               memory: 2Gi
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: data
+            emptyDir: {}
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: settings
+            configMap:
+              name: RELEASE-NAME-elasticsearch
+              items:
+                - key: settings
+                  path: elasticsearch_custom.yml
+      - isEmpty:
+          path: spec.template.spec.nodeSelector
+      - isEmpty:
+          path: spec.template.spec.affinity
+      - isEmpty:
+          path: spec.template.spec.tolerations
       - isNull:
           path: spec.volumeClaimTemplates
 
@@ -257,6 +325,17 @@ tests:
             requests:
               cpu: 100m
               memory: 128Mi
+
+  - it: can set persistent volume claim name
+    set:
+      persistence.enabled: true
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: data
+            persistentVolumeClaim:
+              claimName: RELEASE-NAME-elasticsearch-data
 
   - it: can set node selector
     set:

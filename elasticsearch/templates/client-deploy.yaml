@@ -101,17 +101,29 @@ spec:
             preStop:
               exec:
                 command: ["/bin/kill", "-15", "1"]
+          readinessProbe:
+            httpGet:
+              path: /_cluster/health
+              port: http
           livenessProbe:
             httpGet:
               path: /_cluster/health?local=true
               port: http
             initialDelaySeconds: 300
-          readinessProbe:
-            httpGet:
-              path: /_cluster/health?local=true
-              port: http
+          volumeMounts:
+            - name: settings
+              mountPath: /usr/share/elasticsearch/config/elasticsearch_custom.yml
+              subPath: elasticsearch_custom.yml
+              readOnly: true
           resources:
 {{ toYaml .Values.client.resources | indent 12 }}
+      volumes:
+      - name: settings
+        configMap:
+          name: {{ template "elasticsearch.fullname" . }}
+          items:
+            - key: settings
+              path: elasticsearch_custom.yml
     {{- with .Values.client.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
