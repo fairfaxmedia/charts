@@ -17,7 +17,9 @@ tests:
             es.gateway.recover_after_data_nodes: "0"
             es.gateway.expected_data_nodes: "1"
             es.gateway.recover_after_time: 6m
-            es.settings: '''# Custom elasticsearch.yml settings'''
+            es.settings: |-
+              # Custom elasticsearch.yml settings
+              # node.datacenter: dc1
 
   - it: can set cluster name
     set:
@@ -66,3 +68,24 @@ tests:
       - equal:
           path: data.es\.gateway\.recover_after_time
           value: 8m
+
+  - it: can set an extra config option
+    set:
+      common.config:
+        test.config.option: test
+    asserts:
+      - equal:
+          path: data.test\.config\.option
+          value: test
+
+  - it: can set settings
+    set:
+      common.settings: |-
+        test.config.option1: test1
+        test.config.option2: test2
+    asserts:
+      - equal:
+          path: data.es\.settings
+          value: |-
+            test.config.option1: test1
+            test.config.option2: test2

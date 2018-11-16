@@ -38,6 +38,7 @@ common:
   config: {}
   settings: |-
     # Custom elasticsearch.yml settings
+    # node.datacenter: dc1
 
 master:
   replicaCount: 1
