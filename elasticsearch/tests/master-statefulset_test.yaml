@@ -333,9 +333,9 @@ tests:
       - contains:
           path: spec.template.spec.volumes
           content:
-            name: master
+            name: data
             persistentVolumeClaim:
-              claimName: RELEASE-NAME-elasticsearch-data
+              claimName: RELEASE-NAME-elasticsearch-master
 
   - it: can set node selector
     set:
