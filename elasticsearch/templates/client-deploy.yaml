@@ -8,6 +8,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: client
+  annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/common-cm.yaml") . | sha256sum }}
 spec:
   replicas: {{ .Values.client.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
@@ -34,6 +36,8 @@ spec:
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
       {{- end }}
+      securityContext:
+        fsGroup: 1000
       initContainers:
       {{- if .Values.virtualMemory.enabled }}
       - name: sysctl
@@ -83,7 +87,7 @@ spec:
                 configMapKeyRef:
                   name: {{ include "elasticsearch.fullname" . }}
                   key: es.gateway.recover_after_time
-          {{- range $key, $value := .Values.common.config }}
+          {{- range $key, $value := .Values.common.env }}
             - name: {{ $key | upper | replace "." "_" }}
               valueFrom:
                 configMapKeyRef:

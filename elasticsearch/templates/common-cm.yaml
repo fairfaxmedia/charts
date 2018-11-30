@@ -14,7 +14,7 @@ data:
   es.gateway.recover_after_data_nodes: {{ div .Values.data.replicaCount 3 | mul 2 | quote }}
   es.gateway.expected_data_nodes: {{ .Values.data.replicaCount | quote }}
   es.gateway.recover_after_time: {{ printf "%sm" (add 5 .Values.data.replicaCount | toString) | quote}}
-  {{- range $key, $value := .Values.common.config }}
+  {{- range $key, $value := .Values.common.env }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
   es.settings: {{ toYaml .Values.common.settings | indent 4 }}

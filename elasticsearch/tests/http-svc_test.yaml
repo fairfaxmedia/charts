@@ -8,12 +8,23 @@ tests:
       - isAPIVersion: { of: v1 }
       - isKind: { of: Service }
       - matchSnapshot: { path: spec }
+      - isNull:
+          path: metadata.annotations
       - equal:
           path: spec.type
           value: ClusterIP
       - equal:
           path: spec.ports[0].port
           value: 9200
+
+  - it: can see annotations
+    set:
+      service.annotations:
+        service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    asserts:
+      - equal:
+          path: metadata.annotations.service\.beta\.kubernetes\.io/aws-load-balancer-type
+          value: nlb
 
   - it: can set service type
     set:

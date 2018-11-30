@@ -48,7 +48,7 @@ has defaults:
               configMapKeyRef:
                 key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
-          image: mikelorant/elasticsearch:latest
+          image: mikelorant/elasticsearch:v1.0.1-elasticsearch6.5.1
           imagePullPolicy: Always
           lifecycle:
             preStop:
@@ -88,6 +88,8 @@ has defaults:
             readOnly: true
             subPath: elasticsearch_custom.yml
         initContainers: null
+        securityContext:
+          fsGroup: 1000
         serviceAccountName: RELEASE-NAME-elasticsearch
         volumes:
         - configMap:

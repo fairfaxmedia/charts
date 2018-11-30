@@ -1,6 +1,7 @@
 suite: test client deployment
 templates:
   - client-deploy.yaml
+  - common-cm.yaml
 tests:
   - it: has defaults
     asserts:
@@ -38,6 +39,10 @@ tests:
       - equal:
           path: spec.template.spec.serviceAccountName
           value: RELEASE-NAME-elasticsearch
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            fsGroup: 1000
       - isNull:
           path: spec.template.spec.initContainers
       - equal:
@@ -208,19 +213,19 @@ tests:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: Never
 
-  - it: can set an extra config option
+  - it: can set an extra env option
     set:
-      common.config:
-        test.config.option: test
+      common.env:
+        test.env.option: test
     asserts:
       - contains:
           path: spec.template.spec.containers[0].env
           content:
-            name: TEST_CONFIG_OPTION
+            name: TEST_ENV_OPTION
             valueFrom:
               configMapKeyRef:
                 name: RELEASE-NAME-elasticsearch
-                key: test.config.option
+                key: test.env.option
 
   - it: can set resources
     set:

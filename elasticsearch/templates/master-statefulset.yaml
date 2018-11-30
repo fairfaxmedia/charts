@@ -8,6 +8,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: master
+  annotations:
+    checksum/config: {{ include (print $.Template.BasePath "/common-cm.yaml") . | sha256sum }}
 spec:
   serviceName: {{ include "elasticsearch.fullname" . }}
   replicas: {{ .Values.master.replicaCount }}
@@ -36,6 +38,8 @@ spec:
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
       {{- end }}
+      securityContext:
+        fsGroup: 1000
       initContainers:
       {{- if .Values.virtualMemory.enabled }}
       - name: sysctl
@@ -87,7 +91,7 @@ spec:
                 configMapKeyRef:
                   name: {{ include "elasticsearch.fullname" . }}
                   key: es.gateway.recover_after_time
-          {{- range $key, $value := .Values.common.config }}
+          {{- range $key, $value := .Values.common.env }}
             - name: {{ $key | upper | replace "." "_" }}
               valueFrom:
                 configMapKeyRef:
@@ -154,7 +158,7 @@ spec:
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
   - metadata:
-      name: {{ include "elasticsearch.fullname" . }}-master
+      name: data
     spec:
       accessModes: [ "ReadWriteOnce" ]
       {{- if .Values.persistence.provisioner }}

@@ -69,13 +69,13 @@ tests:
           path: data.es\.gateway\.recover_after_time
           value: 8m
 
-  - it: can set an extra config option
+  - it: can set an extra env option
     set:
-      common.config:
-        test.config.option: test
+      common.env:
+        test.env.option: test
     asserts:
       - equal:
-          path: data.test\.config\.option
+          path: data.test\.env\.option
           value: test
 
   - it: can set settings
