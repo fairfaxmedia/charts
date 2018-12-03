@@ -13,6 +13,7 @@ priorityClassName: ~
 
 nameOverride: ""
 fullnameOverride: ""
+servicenameOverride: ""
 
 service:
   annotations: {}

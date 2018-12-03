@@ -8,6 +8,9 @@ tests:
       - isAPIVersion: { of: v1 }
       - isKind: { of: Service }
       - matchSnapshot: { path: spec }
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-elasticsearch
       - isNull:
           path: metadata.annotations
       - equal:
@@ -17,7 +20,15 @@ tests:
           path: spec.ports[0].port
           value: 9200
 
-  - it: can see annotations
+  - it: can set servicename
+    set:
+      servicenameOverride: test
+    asserts:
+      - equal:
+          path: metadata.name
+          value: test
+
+  - it: can set annotations
     set:
       service.annotations:
         service.beta.kubernetes.io/aws-load-balancer-type: nlb

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "elasticsearch.fullname" . }}
+  name: {{ include "elasticsearch.servicename" . }}
   labels:
     app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
     helm.sh/chart: {{ include "elasticsearch.chart" . }}
