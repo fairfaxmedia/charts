@@ -4,7 +4,7 @@
 
 image:
   repository: mikelorant/elasticsearch
-  tag: v1.0.1-elasticsearch6.5.1
+  tag: v1.0.2-elasticsearch6.5.1
   pullPolicy: Always
 
 revisionHistoryLimit: 5
@@ -43,10 +43,14 @@ common:
 
 master:
   replicaCount: 1
-  strategyType: OnDelete
+  strategyType: RollingUpdate
   resources:
+    requests:
+      memory: 512Mi
     limits:
-      memory: 2Gi
+      memory: 512Mi
+  # (Memory limit - 384Mi / Memory limit) * 100
+  ramPercentage: 25
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -55,8 +59,12 @@ data:
   replicaCount: 1
   strategyType: OnDelete
   resources:
+    requests:
+      memory: 658Mi
     limits:
-      memory: 2Gi
+      memory: 658Mi
+  # (Memory limit - 384Mi / Memory limit) * 100
+  ramPercentage: 40
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -68,8 +76,12 @@ client:
   maxUnavailable: 33%
   strategyType: RollingUpdate
   resources:
+    requests:
+      memory: 658Mi
     limits:
-      memory: 2Gi
+      memory: 658Mi
+  # (Memory limit - 384Mi / Memory limit) * 100
+  ramPercentage: 40
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -81,6 +93,9 @@ persistence:
   annotations: {}
   masterSize: 4Gi
   dataSize: 4Gi
+
+memory:
+  buffer: 384Mi
 
 virtualMemory:
   enabled: false # Required for minikube

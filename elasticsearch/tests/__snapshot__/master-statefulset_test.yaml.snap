@@ -22,6 +22,8 @@ has defaults:
             value: ${HOSTNAME}
           - name: ES_NODE_MASTER
             value: "true"
+          - name: ES_RAM_PERCENTAGE
+            value: "25"
           - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
             valueFrom:
               configMapKeyRef:
@@ -47,7 +49,7 @@ has defaults:
               configMapKeyRef:
                 key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
-          image: mikelorant/elasticsearch:v1.0.1-elasticsearch6.5.1
+          image: mikelorant/elasticsearch:v1.0.2-elasticsearch6.5.1
           imagePullPolicy: Always
           lifecycle:
             preStop:
@@ -75,7 +77,9 @@ has defaults:
               port: http
           resources:
             limits:
-              memory: 2Gi
+              memory: 512Mi
+            requests:
+              memory: 512Mi
           securityContext:
             capabilities:
               add:
@@ -103,4 +107,7 @@ has defaults:
             name: RELEASE-NAME-elasticsearch
           name: settings
     updateStrategy:
-      type: OnDelete
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+      type: RollingUpdate

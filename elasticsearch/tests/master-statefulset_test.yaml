@@ -24,9 +24,10 @@ tests:
       - equal:
           path: spec.updateStrategy
           value:
-            type: OnDelete
-      - isNull:
-          path: spec.updateStrategy.rollingUpdate
+            type: RollingUpdate
+            rollingUpdate:
+              maxSurge: 1
+              maxUnavailable: 0
       - equal:
           path: spec.selector
           value:
@@ -78,6 +79,11 @@ tests:
           content:
             name: ES_NODE_MASTER
             value: "true"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_RAM_PERCENTAGE
+            value: "25"
       - contains:
           path: spec.template.spec.containers[0].env
           content:
@@ -172,8 +178,10 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].resources
           value:
+            requests:
+              memory: 512Mi
             limits:
-              memory: 2Gi
+              memory: 512Mi
       - contains:
           path: spec.template.spec.volumes
           content:
@@ -231,16 +239,13 @@ tests:
 
   - it: can set update strategy type
     set:
-      master.strategyType: RollingUpdate
+      master.strategyType: OnDelete
     asserts:
       - equal:
           path: spec.updateStrategy.type
-          value: RollingUpdate
-      - equal:
+          value: OnDelete
+      - isNull:
           path: spec.updateStrategy.rollingUpdate
-          value:
-            maxUnavailable: 0
-            maxSurge: 1
 
   - it: can set priority class name
     set:
@@ -295,6 +300,16 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: Never
+
+  - it: can set ram percentage
+    set:
+      master.ramPercentage: 10
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_RAM_PERCENTAGE
+            value: "10"
 
   - it: can set an extra env option
     set:

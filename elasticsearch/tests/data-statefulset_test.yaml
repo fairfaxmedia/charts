@@ -81,6 +81,11 @@ tests:
       - contains:
           path: spec.template.spec.containers[0].env
           content:
+            name: ES_RAM_PERCENTAGE
+            value: "40"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
             name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
             valueFrom:
               configMapKeyRef:
@@ -172,8 +177,10 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].resources
           value:
+            requests:
+              memory: 658Mi
             limits:
-              memory: 2Gi
+              memory: 658Mi
       - contains:
           path: spec.template.spec.volumes
           content:
@@ -295,6 +302,16 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: Never
+
+  - it: can set ram percentage
+    set:
+      data.ramPercentage: 10
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: ES_RAM_PERCENTAGE
+            value: "10"
 
   - it: can set an extra env option
     set:

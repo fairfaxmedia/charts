@@ -66,6 +66,8 @@ spec:
               value: ${HOSTNAME}
             - name: ES_NODE_MASTER
               value: "true"
+            - name: ES_RAM_PERCENTAGE
+              value: {{ .Values.master.ramPercentage | quote }}
             - name: ES_DISCOVERY_ZEN_PING_UNICAST_HOSTS
               valueFrom:
                 configMapKeyRef:
