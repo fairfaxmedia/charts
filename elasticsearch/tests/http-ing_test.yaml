@@ -90,7 +90,7 @@ tests:
   - it: can set service name
     set:
       ingress.enabled: true
-      fullnameOverride: test
+      servicenameOverride: test
     asserts:
       - equal:
           path: spec.rules[0].http.paths[0].backend.serviceName
