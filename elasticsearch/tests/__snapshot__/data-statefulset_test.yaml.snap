@@ -49,7 +49,7 @@ has defaults:
               configMapKeyRef:
                 key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
-          image: mikelorant/elasticsearch:v1.0.2-elasticsearch6.5.1
+          image: fairfaxmedia/elasticsearch:v1.0.4-elasticsearch6.5.1
           imagePullPolicy: Always
           lifecycle:
             preStop:
