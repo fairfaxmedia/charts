@@ -5,7 +5,7 @@
 image:
   repository: fairfaxmedia/elasticsearch
   tag: v1.0.4-elasticsearch6.5.1
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 revisionHistoryLimit: 5
 podManagementPolicy: ~

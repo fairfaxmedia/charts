@@ -60,7 +60,7 @@ tests:
           value: (?:[a-z]+/)?([a-z]+)(?::[0-9]+)?
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
-          value: Always
+          value: IfNotPresent
       - equal:
           path: spec.template.spec.containers[0].securityContext
           value:
@@ -266,7 +266,7 @@ tests:
           content:
             name: sysctl
             image: busybox
-            imagePullPolicy: Always
+            imagePullPolicy: IfNotPresent
             command:
               - sysctl
               - -w
@@ -297,11 +297,11 @@ tests:
 
   - it: can set image pull policy
     set:
-      image.pullPolicy: Never
+      image.pullPolicy: Always
     asserts:
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
-          value: Never
+          value: Always
 
   - it: can set ram percentage
     set:

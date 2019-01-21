@@ -50,7 +50,7 @@ has defaults:
                 key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
           image: fairfaxmedia/elasticsearch:v1.0.4-elasticsearch6.5.1
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:
