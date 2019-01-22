@@ -11,7 +11,7 @@ Get the latest [Helm release](https://github.com/kubernetes/helm#install).
 ### Add Helm chart repository:
 
  ```console
- helm repo add mikelorant https://mikelorant.github.io/charts/
+ helm repo add fairfaxmedia https://fairfaxmedia.github.io/charts/
  helm repo update
  ```
 
@@ -20,7 +20,7 @@ Get the latest [Helm release](https://github.com/kubernetes/helm#install).
 To install a chart:
 
 ```console
-helm install mikelorant/${CHART}
+helm install fairfaxmedia/${CHART}
 ```
 
 Check [README](${CHART}/README.md) for full documentation.

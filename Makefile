@@ -1,5 +1,5 @@
-UPSTREAM_GIT_URL = https://github.com/mikelorant/charts.git
-CHARTS_URL = https://mikelorant.github.io/charts
+UPSTREAM_GIT_URL = https://github.com/fairfaxmedia/charts.git
+CHARTS_URL = https://fairfaxmedia.github.io/charts
 COMMIT = $(shell git rev-parse --short HEAD)
 
 .PHONY: clean build publish
@@ -23,5 +23,5 @@ build: dist-repo
 release:
 	cd dist-repo && \
 		git add *.tgz index.yaml && \
-		git commit --message "Update to mikelorant/charts@${COMMIT}" && \
+		git commit --message "Update to fairfaxmedia/charts@${COMMIT}" && \
 		git push origin gh-pages
