@@ -11,7 +11,7 @@ Get the latest [Helm release](https://github.com/kubernetes/helm#install).
 ### Add Helm chart repository:
 
  ```console
- helm repo add fairfaxmedia https://fairfaxmedia.github.io/charts/
+ helm repo add fairfaxmedia https://charts.ffx.io/charts/
  helm repo update
  ```
 
