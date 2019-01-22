@@ -1,0 +1,67 @@
+# Default values for confidant.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+revisionHistoryLimit: 5
+awsDefaultRegion: "us-east-1"
+
+image:
+  repository: "lyft/confidant"
+  tag: "1.9.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  containerPort: 80
+  probePath: /loggedout
+
+authModule: "saml"
+
+saml:
+  confidantUrlRoot: "https://confidant.example.com/"
+  securitySloRespSigned: "false"
+  securityMessagesSigned: "false"
+  securityAssertionsSigned: "true"
+  idpSignonUrl: "https://example.onelogin.com/trust/saml2/http-post/sso/000000"
+  idpEntityId: "https://app.onelogin.com/saml/metadata/000000"
+  idpLogoutUrl: "https://example.onelogin.com/trust/saml2/http-redirect/slo/000000"
+  spCert: |
+    -----BEGIN CERTIFICATE-----
+    PUT_YOUR_CERT_HERE
+    -----END CERTIFICATE-----
+  spKey: |
+    -----BEGIN PRIVATE KEY-----
+    PUT_YOUR_KEY_HERE
+    -----END PRIVATE KEY-----
+  spKeyFilePassword: "putTheSpKeyPasswordHere"
+  idpCert: |
+    -----BEGIN CERTIFICATE-----
+    PUT_IDENTITY_PROVIDER_CERT_HERE
+    -----END CERTIFICATE-----
+
+confidant:
+  debug: "true"
+  dynamodbTable: "confidant-data"
+  createDynamodbTable: "true"
+  host: "0.0.0.0"
+  port: "80"
+  geventResolver: "ares"
+  permanentSessionLifetime: "3600"
+  maxPermanentSessionLifetime: "43200"
+  ignoreConflicts: "true"
+  webhookUrl: "http://localhost:5050/v1/update"
+  webhookUsername: "webhookusername"
+  webhookPassword: "someSecretPasswordHere"
+  serverAuthKey: "some_key_here"
+  sessionSecret: "someuniquestringheretomakethingssafer"
+  forwardedAllowIps: "*"
+
+
+secretupdater:
+  enable: "false"
+
+deploy:
+  affinity:
+    nodeAffinity: {}
+  tolerations: {}
+  resources: {}

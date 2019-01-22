@@ -1,0 +1,142 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  minReadySeconds: 15
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+      annotations:
+        checksum/secret: {{ include (print $.Chart.Name "/templates/" "app-secret.yaml") . | sha256sum }}
+        checksum/secretCerts: {{ include (print $.Chart.Name "/templates/" "app-certificates-secret.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: certificates
+              mountPath: "/srv/certificates"
+              readOnly: true
+          livenessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
+              path: {{ .Values.service.probePath | quote }}
+              port: {{ .Values.service.containerPort }}
+          readinessProbe:
+            httpGet:
+              httpHeaders:
+              - name: X-Forwarded-Proto
+                value: https
+              path: {{ .Values.service.probePath | quote }}
+              port: {{ .Values.service.containerPort }}
+          env:
+            - name: AWS_DEFAULT_REGION
+              value: {{ .Values.awsDefaultRegion | quote }}
+            - name: HOST
+              value: {{ .Values.confidant.host | quote }}
+            - name: PORT
+              value: {{ .Values.confidant.port | quote }}
+            - name: DYNAMODB_TABLE
+              value: {{ .Values.confidant.dynamodbTable | quote }}
+            - name: DYNAMODB_CREATE_TABLE
+              value: {{ .Values.confidant.createDynamodbTable | quote }}
+            - name: DEBUG
+              value: {{ .Values.confidant.debug | quote }}
+            - name: GEVENT_RESOLVER
+              value: {{ .Values.confidant.geventResolver | quote }}
+            - name: PERMANENT_SESSION_LIFETIME
+              value: {{ .Values.confidant.permanentSessionLifetime | quote }}
+            - name: MAX_PERMANENT_SESSION_LIFETIME
+              value: {{ .Values.confidant.maxPermanentSessionLifetime | quote }}
+            - name: FORWARDED_ALLOW_IPS
+              value: {{ .Values.confidant.forwardedAllowIps | quote }}
+            - name: AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: confidant.server.auth.key
+            - name: AUTH_CONTEXT
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: confidant.server.auth.key
+            - name: KMS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: confidant.server.auth.key
+            - name: USER_AUTH_MODULE
+              value: {{ .Values.authModule | quote }}
+            - name: IGNORE_CONFLICTS
+              value: {{ .Values.confidant.ignoreConflicts | quote }}
+            - name: WEBHOOK_URL
+              value: {{ .Values.confidant.webhookUrl | quote }}
+            - name: WEBHOOK_USERNAME
+              value: {{ .Values.confidant.webhookUsername | quote }}
+            - name: WEBHOOK_PASSWORD
+              value: {{ .Values.confidant.webhookPassword | quote }}
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: confidant.session.secret
+{{ if eq .Values.authModule "saml" }}
+            - name: SAML_SP_CERT_FILE
+              value: "/srv/certificates/saml.sp.cert"
+            - name: SAML_SP_KEY_FILE
+              value: "/srv/certificates/saml.sp.key"
+            - name: SAML_IDP_CERT_FILE
+              value: "/srv/certificates/saml.idp.cert"
+            - name: SAML_SECURITY_SLO_RESP_SIGNED
+              value: {{ .Values.saml.securitySloRespSigned | quote }}
+            - name: SAML_SECURITY_MESSAGES_SIGNED
+              value: {{ .Values.saml.securityMessagesSigned | quote }}
+            - name: SAML_SECURITY_ASSERTIONS_SIGNED
+              value: {{ .Values.saml.securityAssertionsSigned | quote }}
+            - name: SAML_CONFIDANT_URL_ROOT
+              value: {{ .Values.saml.confidantUrlRoot | quote }}
+            - name: SAML_IDP_SIGNON_URL
+              value: {{ .Values.saml.idpSignonUrl | quote }}
+            - name: SAML_IDP_ENTITY_ID
+              value: {{ .Values.saml.idpEntityId | quote }}
+            - name: SAML_IDP_LOGOUT_URL
+              value: {{ .Values.saml.idpLogoutUrl | quote }}
+{{ end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.containerPort }}
+{{- if .Values.deploy.resources }}
+          resources:
+{{ toYaml .Values.deploy.resources | indent 12 }}
+{{- end }}
+      volumes:
+        - name: certificates
+          secret:
+            secretName: certs
+{{- if .Values.deploy.affinity.nodeAffinity }}
+      affinity:
+        nodeAffinity:
+{{ toYaml .Values.deploy.affinity.nodeAffinity | indent 10 }}
+{{- end }}
+{{- if .Values.deploy.tolerations }}
+      tolerations:
+{{ toYaml .Values.deploy.tolerations | indent 8 }}
+{{- end }}

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+{{- if .Values.service.annotations }}
+  annotations:
+    {{- range $key, $value := .Values.service.annotations }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ template "fullname" . }}
+  ports:
+    - name: https
+      port: 443
+      targetPort: {{ .Values.service.containerPort }}
+    - name: http
+      port: 80
+      targetPort: {{ .Values.service.containerPort }}
