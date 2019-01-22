@@ -23,7 +23,7 @@ To install a chart:
 helm install fairfaxmedia/${CHART}
 ```
 
-Check [README](${CHART}/README.md) for full documentation.
+Check ${CHART}/README.md for full documentation.
 
 ## Contributing to charts
 
