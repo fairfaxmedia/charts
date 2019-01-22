@@ -2,41 +2,41 @@ apiVersion: v1
 entries:
   confidant:
   - apiVersion: v1
-    created: 2019-01-22T23:04:36.8191117Z
+    created: 2019-01-22T23:46:03.0168243Z
     description: A Helm chart for Confidant (github.com/lyft/confidant)
-    digest: 36d2acdaef7fe7ab6ca0e0c4bd941c2f703a2ca7bdf08bbec577c097025b2250
+    digest: 3b4addbb368e64e19c5479f22ce0bdc2d589420864f058139f9fd22d15b0193c
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
       name: FFX Blue Operations
     name: confidant
     urls:
-    - https://fairfaxmedia.github.io/charts/confidant-1.1.0.tgz
+    - https://charts.ffx.io/charts/confidant-1.1.0.tgz
     version: 1.1.0
   elasticsearch:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-22T23:04:36.8326667Z
+    created: 2019-01-22T23:46:03.0218565Z
     description: A Helm chart for Elasticsearch
-    digest: 2caafb35cfd3887055bc7c7ba2821cec8762847b37403b94466932cee79aab48
+    digest: 341ff692fef339934f8ccd9990be65b84a9853d95bcadd348241e7e98025748c
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
       name: FFX Blue Operations
     name: elasticsearch
     urls:
-    - https://fairfaxmedia.github.io/charts/elasticsearch-1.0.0-elasticsearch6.5.1.tgz
+    - https://charts.ffx.io/charts/elasticsearch-1.0.0-elasticsearch6.5.1.tgz
     version: 1.0.0-elasticsearch6.5.1
   k8s-secret-updater:
   - apiVersion: v1
-    created: 2019-01-22T23:04:36.8433575Z
+    created: 2019-01-22T23:46:03.0270385Z
     description: A Helm chart for Kubernetes SecretUpdater
-    digest: e4613e7474824d560740ed5208c7c697b782dc11b8379cc03b14e4600a1c956e
+    digest: 54f4e23d6d3ce1ee0d4d704b14099c073857eda80aa5e737caeec102d6283fe7
     maintainers:
     - email: github@fairfaxmedia.com.au
       name: Fairfax Media Operations
     name: k8s-secret-updater
     urls:
-    - https://fairfaxmedia.github.io/charts/k8s-secret-updater-1.0.0.tgz
+    - https://charts.ffx.io/charts/k8s-secret-updater-1.0.0.tgz
     version: 1.0.0
-generated: 2019-01-22T23:04:36.8128465Z
+generated: 2019-01-22T23:46:03.0111438Z
