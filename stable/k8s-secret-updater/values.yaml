@@ -1,0 +1,29 @@
+awsDefaultRegion: "ap-southeast-2"
+replicaCount: 1
+revisionHistoryLimit: 5
+image:
+  repository: fairfaxmedia/k8s-secret-updater
+  tag: latest
+  pullPolicy: Always
+service:
+  name: secret-updater
+  containerPort: 80
+  probePath: "/internal/health"
+ingress:
+  name: secret-updater
+  containerPort: 80
+  host: secret-updater.example.com
+  annotations:
+    kubernetes.io/ingress.class: internal
+    dns.alpha.kubernetes.io/internal: secret-updater.example.com
+secretupdater:
+  host: "0.0.0.0"
+  port: "80"
+  authMethod: "saml"
+confidant:
+  debug: "false"
+  webhookUsername: "webhookusername"
+  webhookPassword: "someSecretPasswordHere"
+  serverAuthKey: "some_key_here"
+saml:
+  confidantUrlRoot: "https://confidant.example.com/"

@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ template "fullname" . }}
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  minReadySeconds: 15
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+      annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/app-secret.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: DEBUG
+              value: {{ .Values.confidant.debug | quote }}
+            - name: HOST
+              value: {{ .Values.secretupdater.host | quote }}
+            - name: PORT
+              value: {{ .Values.secretupdater.port | quote }}
+            - name: USERNAME
+              value: {{ .Values.confidant.webhookUsername | quote }}
+            - name: PASSWORD
+              value: {{ .Values.confidant.webhookPassword | quote }}
+            - name: CONFIDANT_SERVER_AWS_REGION
+              value: {{ .Values.awsDefaultRegion | quote }}
+            - name: CONFIDANT_SERVER_URL
+              value: {{ .Values.saml.confidantUrlRoot | quote }}
+            - name: AUTH_METHOD
+              value: {{ .Values.secretupdater.authMethod | quote }}
+            - name: CONFIDANT_SERVER_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: confidant.server.auth.key
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.containerPort }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.service.probePath | quote }}
+              port: {{ .Values.service.containerPort }}
+            initialDelaySeconds: 180
+            periodSeconds: 59
+            timeoutSeconds: 3
+            
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.service.probePath | quote }}
+              port: {{ .Values.service.containerPort }}
+            initialDelaySeconds: 30
+            periodSeconds: 11
+            timeoutSeconds: 3
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
