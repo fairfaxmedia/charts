@@ -2,41 +2,41 @@ apiVersion: v1
 entries:
   confidant:
   - apiVersion: v1
-    created: 2019-01-22T23:46:03.0168243Z
+    created: 2019-01-22T23:57:55.1239796Z
     description: A Helm chart for Confidant (github.com/lyft/confidant)
-    digest: 3b4addbb368e64e19c5479f22ce0bdc2d589420864f058139f9fd22d15b0193c
+    digest: 28bc75aa684397870b4e4768ed08952c447442edd4eb31f5b1b421b1e79ceacc
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
       name: FFX Blue Operations
     name: confidant
     urls:
-    - https://charts.ffx.io/charts/confidant-1.1.0.tgz
+    - https://charts.ffx.io/confidant-1.1.0.tgz
     version: 1.1.0
   elasticsearch:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-22T23:46:03.0218565Z
+    created: 2019-01-22T23:57:55.1396072Z
     description: A Helm chart for Elasticsearch
-    digest: 341ff692fef339934f8ccd9990be65b84a9853d95bcadd348241e7e98025748c
+    digest: 0f1bb6bce3771476a339bb02f6836ddcf79ea55f575a1a5663979d1bedba1b73
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
       name: FFX Blue Operations
     name: elasticsearch
     urls:
-    - https://charts.ffx.io/charts/elasticsearch-1.0.0-elasticsearch6.5.1.tgz
+    - https://charts.ffx.io/elasticsearch-1.0.0-elasticsearch6.5.1.tgz
     version: 1.0.0-elasticsearch6.5.1
   k8s-secret-updater:
   - apiVersion: v1
-    created: 2019-01-22T23:46:03.0270385Z
+    created: 2019-01-22T23:57:55.1505729Z
     description: A Helm chart for Kubernetes SecretUpdater
-    digest: 54f4e23d6d3ce1ee0d4d704b14099c073857eda80aa5e737caeec102d6283fe7
+    digest: 0a358caa9258de3e449e202478d709cc772cdb72268dcf5eb98f336d0ffb2899
     maintainers:
     - email: github@fairfaxmedia.com.au
       name: Fairfax Media Operations
     name: k8s-secret-updater
     urls:
-    - https://charts.ffx.io/charts/k8s-secret-updater-1.0.0.tgz
+    - https://charts.ffx.io/k8s-secret-updater-1.0.0.tgz
     version: 1.0.0
-generated: 2019-01-22T23:46:03.0111438Z
+generated: 2019-01-22T23:57:55.1160365Z
