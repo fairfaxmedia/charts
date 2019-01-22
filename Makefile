@@ -20,8 +20,9 @@ build: dist-repo
 		git diff --stat
 
 # Commit and push the chart index
-release:
+release: build
 	cd dist-repo && \
 		git add *.tgz index.yaml && \
 		git commit --message "Update to fairfaxmedia/charts@${COMMIT}" && \
+		git pull --rebase && \
 		git push origin gh-pages
