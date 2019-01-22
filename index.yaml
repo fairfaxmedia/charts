@@ -1,11 +1,24 @@
 apiVersion: v1
 entries:
+  confidant:
+  - apiVersion: v1
+    created: 2019-01-22T05:52:38.5578195Z
+    description: A Helm chart for Confidant (github.com/lyft/confidant)
+    digest: 9df184d2f92ae730648956d65543aac912921ae202eb59c2ff551428478ffdd7
+    icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
+    maintainers:
+    - email: blueops@fairfaxmedia.com.au
+      name: FFX Blue Operations
+    name: confidant
+    urls:
+    - https://fairfaxmedia.github.io/charts/confidant-1.1.0.tgz
+    version: 1.1.0
   elasticsearch:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-22T02:23:57.2604745Z
+    created: 2019-01-22T05:52:38.5617106Z
     description: A Helm chart for Elasticsearch
-    digest: 22b75d5f5c2b03edd807f7ac1db2e0b001deb8ca5594b514c695d8d1215c3b07
+    digest: 9b25420e07de91dc41ce772bcedf58b0294c1d49276115eda8217a4298e346e6
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
@@ -14,4 +27,4 @@ entries:
     urls:
     - https://fairfaxmedia.github.io/charts/elasticsearch-1.0.0-elasticsearch6.5.1.tgz
     version: 1.0.0-elasticsearch6.5.1
-generated: 2019-01-22T02:23:57.2503858Z
+generated: 2019-01-22T05:52:38.5538488Z
