@@ -1,5 +1,5 @@
 UPSTREAM_GIT_URL = https://github.com/fairfaxmedia/charts.git
-CHARTS_URL = https://charts.ffx.io/charts
+CHARTS_URL = https://charts.ffx.io
 COMMIT = $(shell git rev-parse --short HEAD)
 
 .PHONY: clean build publish
