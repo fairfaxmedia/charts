@@ -163,10 +163,10 @@ spec:
       name: data
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      {{- if .Values.persistence.provisioner }}
-      storageClassName: {{ include "elasticsearch.fullname" . }}
+      {{- if .Values.persistence.data.provisioner }}
+      storageClassName: {{ include "elasticsearch.fullname" . }}-data
       {{- end }}
       resources:
         requests:
-          storage: {{ .Values.persistence.dataSize }}
+          storage: {{ .Values.persistence.data.size }}
   {{- end }}

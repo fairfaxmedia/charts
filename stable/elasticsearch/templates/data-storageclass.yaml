@@ -1,0 +1,12 @@
+{{- if (.Values.persistence.enabled) and (.Values.persistence.data.provisioner) }}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ include "elasticsearch.fullname" . }}-data
+provisioner: {{ .Values.persistence.data.provisioner }}
+parameters:
+  {{- if .Values.persistence.data.provisionerType }}
+  type: {{ .Values.persistence.data.provisionerType }}
+  {{- end }}
+reclaimPolicy: Retain
+{{- end }}

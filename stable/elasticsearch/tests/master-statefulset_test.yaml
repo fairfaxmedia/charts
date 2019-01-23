@@ -426,16 +426,16 @@ tests:
   - it: can set volume claim template storage class name
     set:
       persistence.enabled: true
-      persistence.provisioner: kubernetes.io/aws-ebs
+      persistence.master.provisioner: kubernetes.io/aws-ebs
     asserts:
       - equal:
           path: spec.volumeClaimTemplates[0].spec.storageClassName
-          value: RELEASE-NAME-elasticsearch
+          value: RELEASE-NAME-elasticsearch-master
 
   - it: can set volume claim template size
     set:
       persistence.enabled: true
-      persistence.masterSize: 1Gi
+      persistence.master.size: 1Gi
     asserts:
       - equal:
           path: spec.volumeClaimTemplates[0].spec.resources.requests.storage
