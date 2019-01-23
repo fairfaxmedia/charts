@@ -7,7 +7,7 @@ COMMIT = $(shell git rev-parse --short HEAD)
 clean:
 	rm -rf dist-repo
 
-dist-repo:
+dist-repo: clean
 	git clone --quiet --single-branch -b gh-pages "${UPSTREAM_GIT_URL}" dist-repo
 
 # Build all Helm packages into dist-repo and regenerate the chart index
