@@ -197,8 +197,36 @@ tests:
                   path: elasticsearch_custom.yml
       - isEmpty:
           path: spec.template.spec.nodeSelector
-      - isEmpty:
+      - equal:
           path: spec.template.spec.affinity
+          value:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                      - elasticsearch
+                    - key: app.kubernetes.io/component
+                      operator: In
+                      values:
+                      - data
+                  topologyKey: failure-domain.beta.kubernetes.io/zone
+                weight: 100
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                    - elasticsearch
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                    - data
+                topologyKey: kubernetes.io/hostname
       - isEmpty:
           path: spec.template.spec.tolerations
       - isNull:
@@ -243,11 +271,6 @@ tests:
       - equal:
           path: spec.updateStrategy.type
           value: RollingUpdate
-      - equal:
-          path: spec.updateStrategy.rollingUpdate
-          value:
-            maxUnavailable: 0
-            maxSurge: 1
 
   - it: can set priority class name
     set:

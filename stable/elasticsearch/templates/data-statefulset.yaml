@@ -17,11 +17,6 @@ spec:
   podManagementPolicy: {{ .Values.podManagementPolicy | default "Parallel" }}
   updateStrategy:
     type: {{ .Values.data.strategyType | default "OnDelete" }}
-    {{- if eq .Values.data.strategyType "RollingUpdate" }}
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
-    {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
@@ -148,10 +143,40 @@ spec:
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.data.affinity }}
       affinity:
+      {{- if .Values.data.affinity }}
+        {{- with .Values.data.affinity }}
 {{ toYaml . | indent 8 }}
-    {{- end }}
+        {{- end }}
+      {{- else }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - {{ include "elasticsearch.name" . }}
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - data
+            topologyKey: "kubernetes.io/hostname"
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - {{ include "elasticsearch.name" . }}
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - data
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+      {{- end }}
     {{- with .Values.data.tolerations }}
       tolerations:
 {{ toYaml . | indent 8 }}
