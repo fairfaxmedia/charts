@@ -88,11 +88,15 @@ client:
 
 persistence:
   enabled: false
-  provisioner: ~ # kubernetes.io/aws-ebs
-  provisionerType: ~ # gp2, st1
   annotations: {}
-  masterSize: 4Gi
-  dataSize: 4Gi
+  master:
+    provisioner: ~ # kubernetes.io/aws-ebs
+    provisionerType: ~ # gp2, st1
+    size: 4Gi
+  data:
+    provisioner: ~ # kubernetes.io/aws-ebs
+    provisionerType: ~ # gp2, st1
+    size: 4Gi
 
 memory:
   buffer: 384Mi
