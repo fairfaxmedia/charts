@@ -16,6 +16,34 @@ has defaults:
           app.kubernetes.io/instance: RELEASE-NAME
           app.kubernetes.io/name: elasticsearch
       spec:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                    - elasticsearch
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                    - data
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+              weight: 100
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - elasticsearch
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - data
+              topologyKey: kubernetes.io/hostname
         containers:
         - env:
           - name: ES_NODE_NAME

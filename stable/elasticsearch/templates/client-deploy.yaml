@@ -134,10 +134,40 @@ spec:
       nodeSelector:
 {{ toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.client.affinity }}
       affinity:
+      {{- if .Values.client.affinity }}
+        {{- with .Values.client.affinity }}
 {{ toYaml . | indent 8 }}
-    {{- end }}
+        {{- end }}
+      {{- else }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - {{ include "elasticsearch.name" . }}
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - client
+            topologyKey: "kubernetes.io/hostname"
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - {{ include "elasticsearch.name" . }}
+                - key: app.kubernetes.io/component
+                  operator: In
+                  values:
+                  - client
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+      {{- end }}
     {{- with .Values.client.tolerations }}
       tolerations:
 {{ toYaml . | indent 8 }}
