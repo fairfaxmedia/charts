@@ -60,6 +60,11 @@ spec:
                 - IPC_LOCK
                 - SYS_RESOURCE
           env:
+            - name: ES_CLUSTER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "elasticsearch.fullname" . }}
+                  key: es.cluster.name
             - name: ES_NODE_NAME
               value: ${HOSTNAME}
             - name: ES_RAM_PERCENTAGE
