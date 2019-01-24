@@ -64,6 +64,14 @@ tests:
       - contains:
           path: spec.template.spec.containers[0].env
           content:
+            name: ES_CLUSTER_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: es.cluster.name
+                name: RELEASE-NAME-elasticsearch
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
             name: ES_NODE_NAME
             value: ${HOSTNAME}
       - contains:

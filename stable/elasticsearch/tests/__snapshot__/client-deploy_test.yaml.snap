@@ -49,6 +49,11 @@ has defaults:
               topologyKey: kubernetes.io/hostname
         containers:
         - env:
+          - name: ES_CLUSTER_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: es.cluster.name
+                name: RELEASE-NAME-elasticsearch
           - name: ES_NODE_NAME
             value: ${HOSTNAME}
           - name: ES_RAM_PERCENTAGE
