@@ -8,5 +8,5 @@ parameters:
   {{- if .Values.persistence.master.provisionerType }}
   type: {{ .Values.persistence.master.provisionerType }}
   {{- end }}
-reclaimPolicy: Retain
+reclaimPolicy: {{ .Values.persistence.reclaimPolicy | default "Retain" }}
 {{- end }}

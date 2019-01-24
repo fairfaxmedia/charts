@@ -30,3 +30,14 @@ tests:
       - equal:
           path: parameters.type
           value: gp2
+
+  - it: can set reclaim policy
+    set:
+      persistence.enabled: true
+      persistence.reclaimPolicy: Delete
+      persistence.data.provisioner: kubernetes.io/aws-ebs
+      persistence.data.provisionerType: gp2
+    asserts:
+      - equal:
+          path: reclaimPolicy
+          value: Delete
