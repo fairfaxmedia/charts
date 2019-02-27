@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   confidant:
   - apiVersion: v1
-    created: 2019-01-31T00:38:51.4686428Z
+    created: 2019-02-27T23:59:46.471597Z
     description: A Helm chart for Confidant (github.com/lyft/confidant)
-    digest: 8e06bbb25e49387b5a5ae38fc95a54842ebb948344283fec083abacb3557ebfa
+    digest: 0bf7c385240def904178dd03a53161b6a9df820ef63a93004f8b24ce1c009542
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
@@ -16,7 +16,20 @@ entries:
   elasticsearch:
   - apiVersion: v1
     appVersion: 6.5.1
-    created: 2019-01-31T00:38:51.5072393Z
+    created: 2019-02-27T23:59:46.50718Z
+    description: A Helm chart for Elasticsearch
+    digest: 8c707534b89e38384511a88898c23562463ba358ba85c4960f43f145736ee50e
+    icon: https://www.elastic.co/static/images/elastic-logo-200.png
+    maintainers:
+    - email: github@fairfaxmedia.com.au
+      name: Fairfax Media Operations
+    name: elasticsearch
+    urls:
+    - https://charts.ffx.io/elasticsearch-1.2.2.tgz
+    version: 1.2.2
+  - apiVersion: v1
+    appVersion: 6.5.1
+    created: 2019-02-27T23:59:46.502987Z
     description: A Helm chart for Elasticsearch
     digest: f9e3eb8ace70b2ce66bc1926191d9982cd348f33b4116b4edd353192b6455743
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -29,7 +42,7 @@ entries:
     version: 1.2.1
   - apiVersion: v1
     appVersion: 6.5.1
-    created: 2019-01-31T00:38:51.5018483Z
+    created: 2019-02-27T23:59:46.4982741Z
     description: A Helm chart for Elasticsearch
     digest: 4055f63e228def30dfe267e26dd3e6137aa80d2d3b40a4f91729205e766bcd6b
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -42,7 +55,7 @@ entries:
     version: 1.2.0
   - apiVersion: v1
     appVersion: 6.5.1
-    created: 2019-01-31T00:38:51.4971703Z
+    created: 2019-02-27T23:59:46.4941847Z
     description: A Helm chart for Elasticsearch
     digest: 981ab8709e57ff9b274744fda2dfe851d8e1d20d91e6deccf2827818981b1179
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -55,7 +68,7 @@ entries:
     version: 1.1.3
   - apiVersion: v1
     appVersion: 6.5.1
-    created: 2019-01-31T00:38:51.4923159Z
+    created: 2019-02-27T23:59:46.4897685Z
     description: A Helm chart for Elasticsearch
     digest: 2fb3f3b4a0bb37d9f0033e1b65780f52da3993bf561faa74911dc92de6d5ac8c
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -68,7 +81,7 @@ entries:
     version: 1.1.2
   - apiVersion: v1
     appVersion: 6.5.1
-    created: 2019-01-31T00:38:51.4867252Z
+    created: 2019-02-27T23:59:46.4857197Z
     description: A Helm chart for Elasticsearch
     digest: 53c8826d43cbe0159afcb28c00991e9b904dd9f8807a5ae3f84120a809e25f41
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -81,7 +94,7 @@ entries:
     version: 1.1.1-elasticsearch6.5.1
   - apiVersion: v1
     appVersion: 6.5.1
-    created: 2019-01-31T00:38:51.4800077Z
+    created: 2019-02-27T23:59:46.4794475Z
     description: A Helm chart for Elasticsearch
     digest: b5db4cadbfe7b34c399d46a4f433a4e7ffa0719b854b718ff12027e2ce92d3b4
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -94,7 +107,7 @@ entries:
     version: 1.1.0-elasticsearch6.5.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-31T00:38:51.4747009Z
+    created: 2019-02-27T23:59:46.4754229Z
     description: A Helm chart for Elasticsearch
     digest: 0f1bb6bce3771476a339bb02f6836ddcf79ea55f575a1a5663979d1bedba1b73
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -107,9 +120,9 @@ entries:
     version: 1.0.0-elasticsearch6.5.1
   k8s-secret-updater:
   - apiVersion: v1
-    created: 2019-01-31T00:38:51.5116975Z
+    created: 2019-02-27T23:59:46.5108359Z
     description: A Helm chart for Kubernetes SecretUpdater
-    digest: a935e8b9a3e929a2ae10a0d8438a1b0f39c3c6c768aa257941f61709dedaaee1
+    digest: b0be24c6dfc75c748d80e6acb423505ed1c1c25d4a9f81088686643c27f69e3e
     maintainers:
     - email: github@fairfaxmedia.com.au
       name: Fairfax Media Operations
@@ -117,4 +130,4 @@ entries:
     urls:
     - https://charts.ffx.io/k8s-secret-updater-1.0.0.tgz
     version: 1.0.0
-generated: 2019-01-31T00:38:51.4639264Z
+generated: 2019-02-27T23:59:46.4680037Z
