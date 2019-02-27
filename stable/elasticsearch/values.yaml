@@ -4,7 +4,7 @@
 
 image:
   repository: fairfaxmedia/elasticsearch
-  tag: v1.0.4-elasticsearch6.5.1
+  tag: v1.0.5-elasticsearch6.5.1
   pullPolicy: IfNotPresent
 
 revisionHistoryLimit: 5
