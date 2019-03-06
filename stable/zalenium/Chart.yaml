@@ -7,6 +7,6 @@ sources:
 maintainers:
   - name: diemol
     email: diemol@gmail.com
-  - name: FFX Blue Operations
-    email: blueops@fairfaxmedia.com.au
+  - name: Fairfax Media Operations
+    email: github@fairfaxmedia.com.au
 engine: gotpl
