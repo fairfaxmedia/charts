@@ -177,10 +177,32 @@ nodeSelector:
   ## key: test
   ## value: test
 
-tolerations:
-  enabled: false
-  ## Set tolerations to run zalenium hub on nodes with taints
-  ## key: test
-  ## operator: Equal
-  ## value: test
-  ## effect: NoSchedule
+# tolerations:
+# - key: "<key-name>"
+#   operator: "Equal"
+#   value: "<key-value>"
+#   effect: "NoSchedule"
+
+# affinity:
+#   # soft preference to go to dedicated nodes
+#   nodeAffinity:
+#     preferredDuringSchedulingIgnoredDuringExecution:
+#     - weight: 100
+#       preference:
+#         matchExpressions:
+#         - key: <key-name>
+#           operator: In
+#           values:
+#           - <key-value>
+#   # prefer not to start a pod on a node if there is one running already
+#   podAntiAffinity:
+#     preferredDuringSchedulingIgnoredDuringExecution:
+#     - weight: 20
+#       podAffinityTerm:
+#         labelSelector:
+#           matchExpressions:
+#           - key: <key-name>
+#             operator: In
+#             values:
+#             - <key-value>
+#         topologyKey: "kubernetes.io/hostname"
