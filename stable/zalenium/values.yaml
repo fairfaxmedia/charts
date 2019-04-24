@@ -50,10 +50,15 @@ hub:
   # serviceType: "NodePort"
   serviceType: "LoadBalancer"
 
+  ## Port on which K8s service is listening on. Zalenium WebUI will be available there.
+  svcPort: 80
+
   serviceAnnotations:
     service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    ## to create a route53 record please uncomment the line below
+    # dns.alpha.kubernetes.io/external: "myzalenium.companyname.com"
 
   ## If serviceType is LoadBalancer:
   ##   Add list of IPs allowed to connect to the service
