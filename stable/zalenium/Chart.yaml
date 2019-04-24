@@ -1,5 +1,5 @@
 name: zalenium
-version: 0.0.2
+version: 0.0.3
 appVersion: 3.141.59
 description: Chart for deploying Zalenium
 sources:
