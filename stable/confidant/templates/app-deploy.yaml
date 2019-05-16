@@ -23,6 +23,9 @@ spec:
       annotations:
         checksum/secret: {{ include (print $.Chart.Name "/templates/" "app-secret.yaml") . | sha256sum }}
         checksum/secretCerts: {{ include (print $.Chart.Name "/templates/" "app-certificates-secret.yaml") . | sha256sum }}
+      {{- if .Values.annotations }}
+{{ toYaml .Values.annotations | indent 8 }}
+      {{- end }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
