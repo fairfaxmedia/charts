@@ -29,6 +29,7 @@ For <http://github.com/lyft/confidant>
 | `saml.spKey`                            | `-----BEGIN PRIVATE KEY-----`                                       | ..          |
 | `saml.spKeyFilePassword`                | `putTheSpKeyPasswordHere`                                           | ..          |
 | `saml.idpCert`                          | `-----BEGIN CERTIFICATE-----`                                       | ..          |
+| `saml.enableSecurityRoles`              | `false`                                                             | ..          |
 | `confidant.debug`                       | `true`                                                              | ..          |
 | `confidant.dynamodbTable`               | `confidant-data`                                                    | ..          |
 | `confidant.createDynamodbTable`         | `true`                                                              | ..          |
