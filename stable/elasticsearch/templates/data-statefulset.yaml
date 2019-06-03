@@ -24,6 +24,10 @@ spec:
       app.kubernetes.io/component: data
   template:
     metadata:
+{{- if .Values.data.annotations }}
+      annotations:
+{{ toYaml .Values.data.annotations | indent 8 }}
+{{- end }}
       labels:
         app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
