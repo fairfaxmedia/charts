@@ -18,6 +18,7 @@ service:
 authModule: "saml"
 
 saml:
+  enableSecurityRoles: "false"
   confidantUrlRoot: "https://confidant.example.com/"
   securitySloRespSigned: "false"
   securityMessagesSigned: "false"
