@@ -1,0 +1,39 @@
+{{- if .Values.redirects }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}-redirects
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    component: proxy
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+data:
+  redirects.vcl: |
+    vcl 4.0;
+    sub process_redirects {
+      {{- range $item := .Values.redirects.permanent }}
+      {{- if $item.sub }}
+      if (req.url ~ {{ $item.from | quote }}) {
+        return (synth(301, regsub(req.http.x-stripped-url, {{ $item.from | quote }}, {{ $item.to | quote }} ) ));
+      }
+      {{- else }}
+      if (req.url ~ {{ $item.from | quote }}) {
+        return (synth(301, {{ $item.to | quote }}));
+      }
+      {{- end }}
+      {{- end }}
+      {{- range $item := .Values.redirects.temporary }}
+      {{- if $item.sub }}
+      if (req.url ~ {{ $item.from | quote }}) {
+        return (synth(302, regsub(req.http.x-stripped-url, {{ $item.from | quote }}, {{ $item.to | quote }} ) ));
+      }
+      {{- else }}
+      if (req.url ~ {{ $item.from | quote }}) {
+        return (synth(302, {{ $item.to | quote }}));
+      }
+      {{- end }}
+      {{- end }}
+    }
+{{- end }}
