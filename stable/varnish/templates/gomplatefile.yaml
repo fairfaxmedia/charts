@@ -1,0 +1,14 @@
+{{- if .Values.gomplateFile }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}-gomplatefile
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    component: proxy
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+data:
+{{ toYaml .Values.gomplateFile | indent 2 }}
+{{- end }}
