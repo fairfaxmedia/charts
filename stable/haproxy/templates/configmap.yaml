@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "haproxy.fullname" . }}
+  labels:
+{{ include "haproxy.labels" . | indent 4 }}
+data:
+  {{- range $key, $value := .Values.config.env }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  haproxy.cfg: {{ toYaml (index .Values.config "haproxy.cfg") | indent 2 }}
