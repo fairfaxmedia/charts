@@ -46,3 +46,4 @@ For <http://github.com/lyft/confidant>
 | `confidant.sessionSecret`               | `someuniquestringheretomakethingssafer`                             | ..          |
 | `confidant.forwardedAllowIps`           | `*`                                                                 | ..          |
 | `secretupdater.enable`                  | `false`                                                             | ..          |
+| `annotations`                           | ``                                                                  | ..          |
