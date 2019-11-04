@@ -29,7 +29,11 @@ For <http://github.com/lyft/confidant>
 | `saml.spKey`                            | `-----BEGIN PRIVATE KEY-----`                                       | ..          |
 | `saml.spKeyFilePassword`                | `putTheSpKeyPasswordHere`                                           | ..          |
 | `saml.idpCert`                          | `-----BEGIN CERTIFICATE-----`                                       | ..          |
-| `confidant.enableSecurityRoles`         | `false`                                                             | Can ONLY be used with the fairfaxmedia/confidant:4.4.0-roles docker image. Currently only SAML auth type is supported, future releases may support other auth types|
+| `confidant.enableSecurityRoles`         | `false`                                                             | Can ONLY be used with the fairfaxmedia/confidant:4.4.0-roles docker image. Currently only SAML auth type is supported, future releases may support other auth types |
+| `confidant.roleAdmin`                   | `admin`                                                             | Role that's allowed full Admin access |
+| `confidant.roleReadWriteProperty`       | `role_rw`                                                           | Read Write Metadata Property Name |
+| `confidant.roleReadOnlyProperty`        | `role_ro`                                                           | Read Only Metadata Property Name |
+| `confidant.roleMappingProperty`         | `Role`                                                              | Data Property for Role Mapping |
 | `confidant.debug`                       | `true`                                                              | ..          |
 | `confidant.dynamodbTable`               | `confidant-data`                                                    | ..          |
 | `confidant.createDynamodbTable`         | `true`                                                              | ..          |

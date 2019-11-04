@@ -41,6 +41,10 @@ saml:
 
 confidant:
   enableSecurityRoles: "false"
+  roleAdmin: "admin"
+  roleReadWriteProperty: "role_rw"
+  roleReadOnlyProperty: "role_ro"
+  roleMappingProperty: "Role"
   debug: "true"
   dynamodbTable: "confidant-data"
   createDynamodbTable: "true"
