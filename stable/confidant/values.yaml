@@ -18,7 +18,6 @@ service:
 authModule: "saml"
 
 saml:
-  enableSecurityRoles: "false"
   confidantUrlRoot: "https://confidant.example.com/"
   securitySloRespSigned: "false"
   securityMessagesSigned: "false"
@@ -41,6 +40,7 @@ saml:
     -----END CERTIFICATE-----
 
 confidant:
+  enableSecurityRoles: "false"
   debug: "true"
   dynamodbTable: "confidant-data"
   createDynamodbTable: "true"
