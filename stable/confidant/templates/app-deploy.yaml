@@ -103,14 +103,16 @@ spec:
                   key: confidant.session.secret
             - name: USE_ROLES
               value: {{ .Values.confidant.enableSecurityRoles | quote }}
-             - name: ADMIN_ROLE
+{{ if .Values.confidant.enableSecurityRoles }}
+            - name: ADMIN_ROLE
               value: {{ .Values.confidant.roleAdmin | quote }}
-             - name: ROLE_RW_NAME
+            - name: ROLE_RW_NAME
               value: {{ .Values.confidant.roleReadWriteProperty | quote }}
-             - name: ROLE_RO_NAME
+            - name: ROLE_RO_NAME
               value: {{ .Values.confidant.roleReadOnlyProperty | quote }}
-             - name: ROLE_MAPPING_NAME
+            - name: ROLE_MAPPING_NAME
               value: {{ .Values.confidant.roleMappingProperty | quote }}
+{{ end }}
 {{ if eq .Values.authModule "saml" }}
             - name: SAML_SP_CERT_FILE
               value: "/srv/certificates/saml.sp.cert"
