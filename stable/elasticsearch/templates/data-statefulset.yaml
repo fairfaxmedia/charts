@@ -8,8 +8,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: data
-  annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/common-cm.yaml") . | sha256sum }}
 spec:
   serviceName: {{ include "elasticsearch.fullname" . }}
   replicas: {{ .Values.data.replicaCount }}
@@ -24,6 +22,11 @@ spec:
       app.kubernetes.io/component: data
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/common-cm.yaml") . | sha256sum }}
+{{- if .Values.data.annotations }}
+{{ toYaml .Values.data.annotations | indent 8 }}
+{{- end }}
       labels:
         app.kubernetes.io/name: {{ include "elasticsearch.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}

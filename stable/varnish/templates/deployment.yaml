@@ -1,0 +1,163 @@
+{{- $root := . }}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    component: proxy
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  minReadySeconds: 15
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.configFile }}
+        checksum/configFile: {{ include (print $.Template.BasePath "/configfile.yaml") . | sha256sum }}
+        {{- end }}{{- if .Values.gomplateFile }}
+        checksum/gomplateFile: {{ include (print $.Template.BasePath "/gomplatefile.yaml") . | sha256sum }}
+        {{- end }}{{- if .Values.redirects }}
+        checksum/redirectsFile: {{ include (print $.Template.BasePath "/redirects-cm.yaml") . | sha256sum }}
+        {{- end }}{{- if .Values.proxypass }}
+        checksum/proxypassFile: {{ include (print $.Template.BasePath "/proxypass-cm.yaml") . | sha256sum }}
+        {{- end }}
+    spec:
+      {{- if .Values.affinityEnabled }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            # Avoid scheduling on same node:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - {{ template "fullname" . }}
+                topologyKey: kubernetes.io/hostname
+            # Spread out across AZs:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - {{ template "fullname" . }}
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+      {{- end }}
+      {{- if (or (or .Values.gomplateFile .Values.redirects) .Values.configFile) }}
+      volumes:
+      {{- if .Values.gomplateFile }}
+        - name: gomplate-volume
+          configMap:
+            name: {{ template "fullname" . }}-gomplatefile
+            items:
+              - key: {{ .Values.config.varnish_gomplate_file | base }}
+                path: helm/gomplate.vcl.gotpl
+      {{- end }}
+      {{- if .Values.redirects }}
+        - name: redirects-volume
+          configMap:
+            name: {{ template "fullname" . }}-redirects
+            items:
+              - key: redirects.vcl
+                path: helm/redirects.vcl
+      {{ end }}
+      {{- if .Values.configFile }}
+        - name: config-volume
+          configMap:
+            name: {{ template "fullname" . }}-file
+            items:
+              - key: {{ .Values.config.varnish_config_file | base }}
+                path: helm/config.vcl
+      {{- end }}
+      {{- if .Values.proxypass }}
+        - name: proxypass-volume
+          configMap:
+            name: {{ template "fullname" . }}-proxypass
+            items:
+              - key: proxypass.vcl
+                path: helm/proxypass.vcl
+      {{ end }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+        {{- if .Values.enableMetrics }}
+        - containerPort: 9131
+        {{- end }}
+        {{- if (or (or .Values.gomplateFile .Values.redirects) .Values.configFile) }}
+        volumeMounts:
+        {{- if .Values.redirects }}
+          - name: redirects-volume
+            mountPath: {{ .Values.config.varnish_redirects_file }}
+            subPath: helm/redirects.vcl
+        {{- end }}
+        {{- if .Values.gomplateFile }}
+          - name: gomplate-volume
+            mountPath: {{ .Values.config.varnish_gomplate_file }}
+            subPath: helm/gomplate.vcl.gotpl
+        {{- end }}
+        {{- if .Values.configFile }}
+          - name: config-volume
+            mountPath: {{ .Values.config.varnish_config_file }}
+            subPath: helm/config.vcl
+        {{- end }}
+        {{- if .Values.proxypass }}
+          - name: proxypass-volume
+            mountPath: {{ .Values.config.varnish_proxypass_file }}
+            subPath: helm/proxypass.vcl
+        {{- end }}
+        {{- end }}
+        env:
+          {{- if .Values.redirects }}
+          - name: VARNISH_REDIRECTS
+            value: "true"
+          {{- end }}
+          {{- if .Values.proxypass }}
+          - name: VARNISH_PROXYPASS
+            value: "true"
+          {{- end }}
+          {{- range $key, $value := .Values.config }}
+          - name: {{ $key | upper | replace "." "_" }}
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "fullname" $root }}
+                key: {{ $key }}
+          {{- end }}
+          {{- range $key, $value := .Values.secret }}
+          - name: {{ $key | upper | replace "." "_" }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "name" $root }}
+                key: {{ $key }}
+          {{- end }}
+        livenessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          httpGet:
+            path: {{ .Values.service.probePath | quote }}
+            port: {{ .Values.service.internalPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.service.probePath | quote }}
+            port: {{ .Values.service.internalPort }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}

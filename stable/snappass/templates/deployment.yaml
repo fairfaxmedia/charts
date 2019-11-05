@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "snappass.fullname" . }}
+  labels:
+{{ include "snappass.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "snappass.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "snappass.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: secretKey
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: debug
+            - name: STATIC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: staticUrl
+            - name: NO_SSL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: noSSL
+            - name: URL_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: urlPrefix
+            {{- if .Values.config.redisUrl }}
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: redisUrl
+            {{- else }}
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: redisHost
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: redisPort
+            - name: SNAPPASS_REDIS_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: snapPassRedisDB
+            {{- end }}
+            - name: REDIS_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "snappass.fullname" . }}
+                  key: redisPrefix
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

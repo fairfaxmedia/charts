@@ -70,3 +70,5 @@ deploy:
     nodeAffinity: {}
   tolerations: {}
   resources: {}
+
+annotations: {}
