@@ -1,0 +1,31 @@
+{{- $root := . -}}
+{{- range $key, $value := .Values.ingress }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "fullname" $root }}-{{ $key }}
+  labels:
+    app: {{ template "fullname" $root }}
+    chart: "{{ $root.Chart.Name }}-{{ $root.Chart.Version | replace "+" "_" }}"
+    component: proxy
+    heritage: {{ $root.Release.Service | quote }}
+    name: {{ $key }}
+    release: {{ $root.Release.Name | quote }}
+  {{- with $value.annotations }}
+  annotations:
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
+spec:
+  rules:
+  - host: {{ $value.host }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ template "fullname" $root }}
+          servicePort: {{ $root.Values.service.externalPort }}
+        path: {{ default "/" $value.path }}
+...
+{{- end }}

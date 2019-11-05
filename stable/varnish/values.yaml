@@ -1,0 +1,203 @@
+# Default values for varnish.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+revisionHistoryLimit: 5
+allowAbort: false
+
+# Set the PodDisruptionBudget
+pdbMinAvailable: 40%
+
+# Enable metrics?
+enableMetrics: false
+
+image:
+  repository: fairfaxmedia/varnish-alpine-docker
+  tag: 5
+  pullPolicy: IfNotPresent
+ingress:
+  external:
+    host: dummy-varnish.example.com
+    # extraPaths:  # used for proxypass
+    #   - path: /ep1
+    #     serviceName: alternate-service
+    #     servicePort: 80
+service:
+  name: varnish
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 80
+  probePath: /internal/health
+resources:
+  limits:
+    cpu: "2"
+    memory: 2Gi
+  requests:
+    cpu: 100m
+    memory: 1Gi
+affinityEnabled: false
+config:
+  varnish.memory: 1G
+  varnish.backend.address: backend.example.com
+  varnish.backend.port: "80"
+  varnish.dns.refresh: "true"
+  varnish_config_file: "/etc/varnish/default.vcl"
+  varnish_gomplate_file: "/etc/varnish/default.vcl.gotpl"
+  varnish_redirects_file: "/etc/varnish/redirects.vcl"
+  varnish_proxypass_file: "/etc/varnish/proxypass.vcl"
+# redirects:
+#   temporary:
+#     - from: "/api/?"
+#       to: "https://api.example.com/restv1/"
+#   permanent:
+#     - from: "/apiv2/"
+#       to: "/restv2/"
+#       sub: true
+#     - from: "/index.html?$"
+#       to: "/"
+#       sub: true
+# configFile:
+#   default.vcl: |-
+#     vcl 4.0;
+# proxypass:
+#   - host: example.com
+#     aliases:
+#       - alias1.example.com
+#       - alias2.example.com
+#     entries:
+#       - path:
+#         - ^/interactives/
+#         - ^/games/
+#         backend: int.example.com
+#         port: 80
+#   - host: something.example.com
+#     entries:
+#       - backend: foo.example.com
+#         path:
+#         - ^/foo/
+#         port: 80
+gomplateFile:
+  default.vcl.gotpl: |-
+    vcl 4.0;
+    import std;
+    import querystring;
+
+    {{- $redirects := (getenv "VARNISH_REDIRECTS" "false" ) }}
+    {{- if (not (eq $redirects "false")) }}
+    include "{{ getenv "VARNISH_REDIRECTS_FILE" }}";
+    {{- end }}
+
+    backend default {
+      .host = "{{ getenv "VARNISH_BACKEND_ADDRESS" }}";
+      .port = "{{ getenv "VARNISH_BACKEND_PORT" "80" }}";
+      .probe = {
+        .url = "{{ getenv "VARNISH_BACKEND_PROBE_URL" "/internal/health" }}";
+        .timeout = 15s;
+        .interval = 23s;
+        .window = 5;
+        .threshold = 3;
+        .initial = 2;
+      }
+    }
+    {{- $proxypass := (getenv "VARNISH_PROXYPASS" "false" ) }}
+    {{- if (not (eq $proxypass "false")) }}
+    include "{{ getenv "VARNISH_PROXYPASS_FILE" }}";
+    {{- end }}
+
+    sub vcl_init {
+        new query_whitelist = querystring.filter();
+        query_whitelist.add_regex("^query$");
+        query_whitelist.add_regex("^ignorePublicState$");
+        query_whitelist.add_regex("^pcrypt$");
+    }
+
+    sub vcl_hit {
+        if (obj.ttl >= 0s) {
+            # normal hit
+            set req.http.grace = "normal hit";
+            return (deliver);
+        }
+        # We have no fresh fish. Lets look at the stale ones.
+        if (std.healthy(req.backend_hint)) {
+            # Backend is healthy.
+            if (obj.ttl + obj.grace > 0s) {
+                set req.http.grace = "normal(limited)";
+                return (deliver);
+            } else {
+                # No candidate for grace. Fetch a fresh object.
+                set req.http.grace = "none(fetch fresh)";
+                return(fetch);
+            }
+        } else {
+            # backend is sick - use full grace
+            if (obj.ttl + obj.grace > 0s) {
+                set req.http.grace = "full";
+                return (deliver);
+            } else {
+                # no graced object.
+                set req.http.grace = "miss";
+                return (fetch);
+            }
+        }
+    }
+
+    sub vcl_backend_response {
+        set beresp.grace = 12h;
+    }
+
+    sub vcl_recv {
+        call healthcheck;
+        {{- if (not (eq $redirects "false")) }}
+        call process_redirects;
+        {{ end -}}
+        {{- if (not (eq $proxypass "false")) }}
+        call process_proxypass;
+        {{- end }}
+        # intial state
+        set req.http.grace = "none";
+        if (req.http.Cookie) {
+            unset req.http.Cookie;
+        }
+        call normalise_url;
+    }
+
+    sub vcl_deliver {
+        # copy to resp so we can tell from the outside.
+        set resp.http.X-Varnish-Grace = req.http.grace;
+        unset resp.http.X-Powered-By;
+        unset resp.http.Server;
+        unset resp.http.Via;
+    }
+
+    sub vcl_backend_error {
+        call retry_on_50x;
+        set beresp.http.Content-Type = "text/html; charset=utf-8";
+        synthetic( {"<html><body><h1>Technical Difficulties</h1><p>We apologise, there was an error retrieving this page. Please try again later.</p></body></html>"} );
+        return (deliver);
+    }
+
+    sub vcl_synth {
+        if (resp.status == 301 || resp.status == 302) {
+            set resp.http.Location = resp.reason;
+            set resp.reason = "Moved";
+            return (deliver);
+        }
+    }
+
+    sub normalise_url {
+        set req.url = query_whitelist.apply(req.url, mode = keep);
+    }
+
+    sub healthcheck {
+        if (req.url ~ "^/internal/health$") {
+            return (synth(200, "OK"));
+        }
+    }
+
+    sub retry_on_50x {
+        if (beresp.status == 500 || beresp.status == 502 || beresp.status == 503) {
+            if ( bereq.retries < 2 ) {
+                return(retry);
+            }
+        }
+    }

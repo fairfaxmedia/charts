@@ -1,0 +1,10 @@
+apiVersion: v1
+appVersion: "1.4.1"
+description: Share passwords securely
+name: snappass
+version: 0.1.0
+sources:
+  - https://github.com/pinterest/snappass
+maintainers:
+  - name: Fairfax Media Operations
+    email: github@fairfaxmedia.com.au

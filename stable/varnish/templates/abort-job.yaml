@@ -1,0 +1,22 @@
+{{- if .Values.allowAbort }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: check-abort-{{ .Values.release.version }}-{{randAlpha 5 | lower }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+spec:
+  activeDeadlineSeconds: 30
+  template:
+    metadata:
+      name: check-abort
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: job
+        image: "175914186171.dkr.ecr.ap-southeast-2.amazonaws.com/infrastructure/cli-release-check"
+        args: ["{{ .Values.release.version }}"]
+{{- end }}
+
+# Rather than a limit with active deadline I would prefer to do this and limit failed to 1 but this is not available in the job controller yet
+# https://github.com/kubernetes/community/pull/583/files

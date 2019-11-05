@@ -1,0 +1,52 @@
+{{- if .Values.proxypass }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "fullname" . }}-proxypass
+  labels:
+    app: {{ template "fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    component: proxy
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+data:
+  proxypass.vcl: |
+    vcl 4.0;
+    {{- range $i, $pp := .Values.proxypass }}
+    {{- range $pp.entries }}
+    backend b{{ trunc 63 ((cat $pp.host .backend) | sha256sum) }} {
+      .host = {{ .backend | quote }};
+      .port = {{ (default 80 .port) | quote }};
+      .probe = {
+        .request = "GET {{ default "/" .probe_url }} HTTP/1.1" "Host: {{ default $pp.host .host_header }}" "Connection: close";
+        .timeout = 15s;
+        .interval = {{ default "23s" .probe_interval }};
+        .window = 5;
+        .threshold = 3;
+        .initial = 2;
+        .expected_response = {{ default 200 .probe_expected_response }};
+      }
+    }
+    {{- end }}
+    {{- end }}
+
+    sub process_proxypass {
+      {{- range $i, $pp := .Values.proxypass }}
+      if ((req.http.host ~ {{ $pp.host | quote }}){{ range $alias := $pp.aliases }} || (req.http.host ~ {{ $alias | quote }}){{ end }}) {
+        {{- range $entry := $pp.entries }}
+        if ((req.url ~ {{ (first $entry.path) | quote }}){{ range (rest $entry.path) }} || (req.url ~ {{ . | quote }}){{ end }}) {
+          {{- if $entry.destination_path }}
+          set req.url = regsub(req.url, {{ (first $entry.path) | quote }}, {{ $entry.destination_path | quote }});
+          {{- end }}
+          set req.backend_hint = b{{ trunc 63 ((cat $pp.host .backend) | sha256sum) }};
+          {{- if $entry.host_header }}
+          set req.http.host = {{ $entry.host_header | quote }};
+          {{- else }}
+          set req.http.host = {{ $pp.host | quote }};
+          {{- end }}
+        }
+        {{- end }}
+      }
+      {{- end }}
+    }
+{{- end }}
