@@ -29,7 +29,7 @@ For <http://github.com/lyft/confidant>
 | `saml.spKey`                            | `-----BEGIN PRIVATE KEY-----`                                       | ..          |
 | `saml.spKeyFilePassword`                | `putTheSpKeyPasswordHere`                                           | ..          |
 | `saml.idpCert`                          | `-----BEGIN CERTIFICATE-----`                                       | ..          |
-| `saml.enableSecurityRoles`              | `false`                                                             | ..          |
+| `confidant.enableSecurityRoles`         | `false`                                                             | Can ONLY be used with the fairfaxmedia/confidant:4.4.0-roles docker image. Currently only SAML auth type is supported, future releases may support other auth types|
 | `confidant.debug`                       | `true`                                                              | ..          |
 | `confidant.dynamodbTable`               | `confidant-data`                                                    | ..          |
 | `confidant.createDynamodbTable`         | `true`                                                              | ..          |

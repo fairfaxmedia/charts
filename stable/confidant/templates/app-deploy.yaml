@@ -101,6 +101,8 @@ spec:
                 secretKeyRef:
                   name: app
                   key: confidant.session.secret
+            - name: USE_ROLES
+              value: {{ .Values.confidant.enableSecurityRoles | quote }}
 {{ if eq .Values.authModule "saml" }}
             - name: SAML_SP_CERT_FILE
               value: "/srv/certificates/saml.sp.cert"
@@ -122,8 +124,6 @@ spec:
               value: {{ .Values.saml.idpEntityId | quote }}
             - name: SAML_IDP_LOGOUT_URL
               value: {{ .Values.saml.idpLogoutUrl | quote }}
-            - name: SAML_USE_ROLE
-              value: {{ .Values.saml.enableSecurityRoles | quote }}
 {{ end }}
           ports:
             - name: http
