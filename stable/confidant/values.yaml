@@ -40,7 +40,7 @@ saml:
     -----END CERTIFICATE-----
 
 confidant:
-  enableSecurityRoles: "false"
+  enableSecurityRoles: false
   roleAdmin: "admin"
   roleReadWriteProperty: "role_rw"
   roleReadOnlyProperty: "role_ro"
