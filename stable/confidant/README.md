@@ -27,7 +27,7 @@ For <http://github.com/lyft/confidant>
 | `saml.idpLogoutUrl`                     | `https://example.onelogin.com/trust/saml2/http-redirect/slo/000000` | ..          |
 | `saml.spCert`                           | ..                                                                  | ..          |
 | `saml.spKey`                            | `-----BEGIN PRIVATE KEY-----`                                       | ..          |
-| `saml.spKeyFilePassword`                | `putTheSpKeyPasswordHere`                                           | ..          |
+| `saml.spKeyFilePassword`                | `""`                                                                | ..          |
 | `saml.idpCert`                          | `-----BEGIN CERTIFICATE-----`                                       | ..          |
 | `confidant.enableSecurityRoles`         | `false`                                                             | Can ONLY be used with the fairfaxmedia/confidant:4.4.0-roles docker image. Currently only SAML auth type is supported, future releases may support other auth types |
 | `confidant.roleAdmin`                   | `admin`                                                             | Role that's allowed full Admin access |
