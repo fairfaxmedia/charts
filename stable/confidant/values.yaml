@@ -33,7 +33,7 @@ saml:
     -----BEGIN PRIVATE KEY-----
     PUT_YOUR_KEY_HERE
     -----END PRIVATE KEY-----
-  spKeyFilePassword: "putTheSpKeyPasswordHere"
+  spKeyFilePassword: ""
   idpCert: |
     -----BEGIN CERTIFICATE-----
     PUT_IDENTITY_PROVIDER_CERT_HERE

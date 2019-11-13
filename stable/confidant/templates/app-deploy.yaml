@@ -135,6 +135,10 @@ spec:
             - name: SAML_IDP_LOGOUT_URL
               value: {{ .Values.saml.idpLogoutUrl | quote }}
 {{ end }}
+{{ if .Values.saml.spKeyFilePassword }}
+            - name: SAML_SP_KEY_FILE_PASSWORD
+              value: {{ .Values.saml.spKeyFilePassword | quote }}
+{{ end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.containerPort }}
