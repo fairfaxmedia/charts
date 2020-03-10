@@ -137,7 +137,10 @@ spec:
 {{ end }}
 {{ if .Values.saml.spKeyFilePassword }}
             - name: SAML_SP_KEY_FILE_PASSWORD
-              value: {{ .Values.saml.spKeyFilePassword | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: app
+                  key: saml.sp.key.file.password
 {{ end }}
           ports:
             - name: http
