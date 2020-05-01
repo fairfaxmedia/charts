@@ -1,0 +1,20 @@
+{{- if .Values.simplePDB.enabled -}}
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "simple-pdb.fullname" . }}
+  labels:
+    app: {{ template "simple-pdb.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+{{- if .Values.simplePDB.minAvailable }}
+  minAvailable: {{ .Values.simplePDB.minAvailable }}
+{{- end }}
+{{- if .Values.simplePDB.maxUnavailable }}
+  maxUnavailable: {{ .Values.simplePDB.maxUnavailable }}
+{{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.simplePDB.app }}
+{{- end }}
