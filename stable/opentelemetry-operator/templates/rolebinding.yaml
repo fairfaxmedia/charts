@@ -1,0 +1,16 @@
+{{- if .Values.rbac.create }}
+kind: {{ if .Values.rbac.clusterRole }}Cluster{{ end }}RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "opentelemetry-operator.fullname" . }}
+  labels:
+{{ include "opentelemetry-operator.labels" . | indent 4 }}
+subjects:
+- kind: ServiceAccount
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "opentelemetry-operator.serviceAccountName" . }}
+roleRef:
+  kind: {{ if .Values.rbac.clusterRole }}Cluster{{ end }}Role
+  name: {{ include "opentelemetry-operator.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
