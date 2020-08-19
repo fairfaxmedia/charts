@@ -1,7 +1,7 @@
 {{- $root := . -}}
 {{- range $key, $value := .Values.ingress }}
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: {{ template "fullname" $root }}-{{ $key }}
@@ -24,7 +24,7 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: {{ template "fullname" $root }}
+          serviceName: {{ template "service.name" $root }}
           servicePort: {{ $root.Values.service.externalPort }}
         path: {{ default "/" $value.path }}
 ...

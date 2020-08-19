@@ -1,0 +1,66 @@
+has ingress by default:
+  1: |
+    apiVersion: networking.k8s.io/v1beta1
+    kind: Ingress
+    metadata:
+      labels:
+        app: RELEASE-NAME-varnish
+        chart: varnish-4.0.0
+        component: proxy
+        heritage: Tiller
+        name: external
+        release: RELEASE-NAME
+      name: RELEASE-NAME-varnish-external
+    spec:
+      rules:
+      - host: dummy-varnish.example.com
+        http:
+          paths:
+          - backend:
+              serviceName: RELEASE-NAME-varnish
+              servicePort: 80
+            path: /
+matches the snapshot with one ingress:
+  1: |
+    apiVersion: networking.k8s.io/v1beta1
+    kind: Ingress
+    metadata:
+      labels:
+        app: RELEASE-NAME-varnish
+        chart: varnish-4.0.0
+        component: proxy
+        heritage: Tiller
+        name: external
+        release: RELEASE-NAME
+      name: RELEASE-NAME-varnish-external
+    spec:
+      rules:
+      - host: dummy-varnish.example.com
+        http:
+          paths:
+          - backend:
+              serviceName: RELEASE-NAME-varnish
+              servicePort: 80
+            path: /
+uses correct service with service nameOverride applied:
+  1: |
+    apiVersion: networking.k8s.io/v1beta1
+    kind: Ingress
+    metadata:
+      labels:
+        app: RELEASE-NAME-varnish
+        chart: varnish-4.0.0
+        component: proxy
+        heritage: Tiller
+        name: external
+        release: RELEASE-NAME
+      name: RELEASE-NAME-varnish-external
+    spec:
+      rules:
+      - host: dummy-varnish.example.com
+        http:
+          paths:
+          - backend:
+              serviceName: proxy
+              servicePort: 80
+            path: /
