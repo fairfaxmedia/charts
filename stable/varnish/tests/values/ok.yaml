@@ -1,0 +1,6 @@
+service:
+  externalPort: 80
+  annotations:
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "9131"
+    prometheus.io/scrape: "true"
