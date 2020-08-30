@@ -24,7 +24,7 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
-        echo "--- Starting"
+        echo "--- Starting ---"
         COMMIT=$(git rev-parse --short HEAD)
         rm -rf "$OUTPUT_DIR"
         git clone --single-branch -b gh-pages "$REPO_URL" "$OUTPUT_DIR"
