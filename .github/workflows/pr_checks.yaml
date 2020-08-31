@@ -1,0 +1,33 @@
+name: PR Checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+jobs:
+  correctness_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: lint changed charts
+        shell: "/usr/share/miniconda/bin/python3.8 {0}"
+        run: |
+          from subprocess import run
+          from sys import exit
+          result = run(["git", "diff", "--name-only", "HEAD~1"],capture_output=True)
+          result = [r for r in result.stdout.decode("utf-8").strip().split('\n') if r.startswith('stable/')]
+          if len(result) > 0:
+            lint_cmd = ["helm","lint"]
+            lint_cmd.extend(result)
+            print(lint_cmd)
+            res = run(lint_cmd)
+            exit(res.returncode)
