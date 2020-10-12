@@ -14,6 +14,8 @@ has defaults:
       type: RollingUpdate
     template:
       metadata:
+        annotations:
+          checksum/config: bc51dd1d3da33408bcadb1094cbbde7210a4dd7f7d5cf84408ba15a1faa50773
         labels:
           app.kubernetes.io/component: client
           app.kubernetes.io/instance: RELEASE-NAME
@@ -83,7 +85,7 @@ has defaults:
               configMapKeyRef:
                 key: es.gateway.recover_after_time
                 name: RELEASE-NAME-elasticsearch
-          image: fairfaxmedia/elasticsearch:v1.0.4-elasticsearch6.5.1
+          image: fairfaxmedia/elasticsearch:v1.0.5-elasticsearch6.5.1
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
