@@ -23,11 +23,21 @@ jobs:
         run: |
           from subprocess import run
           from sys import exit
-          result = run(["git", "diff", "--name-only", "HEAD~1"],capture_output=True)
-          result = [r for r in result.stdout.decode("utf-8").strip().split('\n') if r.startswith('stable/')]
-          if len(result) > 0:
+          from os.path import isdir
+          from re import compile
+          regex = compile("^(.*?/.*?)/.*$")
+          changelist = run(["git", "diff", "--name-only", "HEAD~1"],capture_output=True)
+          changelist = [r for r in changelist.stdout.decode("utf-8").strip().split('\n') if r.startswith('stable/')]
+          changeset = set()
+          for item in changelist:
+            match = regex.match(item)
+            if len(match.groups()) > 0:
+              changeset.add(match.group(1))
+          changelist = list(changeset) # convert set to list
+          changelist = [c for c in changelist if isdir(c)] # make sure the chart dir exists
+          if len(changelist) > 0:
             lint_cmd = ["helm","lint"]
-            lint_cmd.extend(result)
+            lint_cmd.extend(changelist)
             print(lint_cmd)
             res = run(lint_cmd)
             exit(res.returncode)
