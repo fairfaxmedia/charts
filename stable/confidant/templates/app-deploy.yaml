@@ -101,17 +101,12 @@ spec:
                 secretKeyRef:
                   name: app
                   key: confidant.session.secret
-            - name: USE_ROLES
-              value: {{ .Values.confidant.enableSecurityRoles | quote }}
-{{ if .Values.confidant.enableSecurityRoles }}
-            - name: ADMIN_ROLE
-              value: {{ .Values.confidant.roleAdmin | quote }}
-            - name: ROLE_RW_NAME
-              value: {{ .Values.confidant.roleReadWriteProperty | quote }}
-            - name: ROLE_RO_NAME
-              value: {{ .Values.confidant.roleReadOnlyProperty | quote }}
-            - name: ROLE_MAPPING_NAME
-              value: {{ .Values.confidant.roleMappingProperty | quote }}
+{{ if .Values.confidant.aclModulePath }}
+            - name: ACL_MODULE
+              value: {{ .Values.confidant.aclModulePath | quote }}
+{{ end }}
+{{ if .Values.environment }}
+{{ toYaml .Values.environment | indent 12 }}
 {{ end }}
 {{ if eq .Values.authModule "saml" }}
             - name: SAML_SP_CERT_FILE
