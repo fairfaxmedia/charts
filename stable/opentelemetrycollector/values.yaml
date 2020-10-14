@@ -1,0 +1,44 @@
+# Default values for opentelemetrycollector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Empty values for keys should use ~ or {} to preserve the key when it is templated into the resource.
+# Helm drops empty keys and this modifies the result when it is transformed into the final resource.
+
+config:
+  receivers:
+    otlp:
+      protocols:
+        grpc: ~
+  processors:
+    queued_retry: {}
+  exporters:
+    logging: {}
+  extensions:
+    health_check: {}
+  service:
+    extensions: [health_check]
+    pipelines:
+      traces:
+        receivers: [otlp]
+        processors: [queued_retry]
+        exporters: [logging]
+
+# All the value below are automatically determined by the operator defaults however they can be overriden.
+
+# Research is necessary to determine if the image should be set to either opentelemetry-collector
+# or opentelemetry-collector-contrib. This is based on the receivers and exporters required.
+image:
+  repository: otel/opentelemetry-collector
+  tag: ~
+
+# The mode is peferred as deployment however there are use cases for the collector to be installed as a
+# DaemonSet. The collector documentation will assist in making this decision.
+# mode: Deployment
+
+# args: {}
+# ports: []
+# replicas: ~
+# serviceAccount: ~
+# volumes: []
+# volumeMounts: []

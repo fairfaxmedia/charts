@@ -1,0 +1,43 @@
+suite: Test ingress
+templates:
+  - ingress.yaml
+tests:
+  - it: has ingress by default
+    asserts:
+      - hasDocuments: { count: 1 }
+      - matchSnapshot: {}
+      - isKind:
+          of: Ingress
+
+  - it: matches the snapshot with one ingress
+    values:
+      - ./values/ok.yaml
+    asserts:
+      - hasDocuments: { count: 1 }
+      - matchSnapshot: {}
+      - isKind:
+          of: Ingress
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-varnish-external
+      - equal:
+          path: spec.rules[0].http.paths[0].backend.serviceName
+          value: RELEASE-NAME-varnish
+
+  - it: uses correct service with service nameOverride applied
+    values:
+    - ./values/ok.yaml
+    set:
+      service:
+        nameOverride: proxy
+    asserts:
+    - hasDocuments: { count: 1 }
+    - matchSnapshot: {}
+    - isKind:
+        of: Ingress
+    - equal:
+        path: metadata.name
+        value: RELEASE-NAME-varnish-external
+    - equal:
+        path: spec.rules[0].http.paths[0].backend.serviceName
+        value: proxy

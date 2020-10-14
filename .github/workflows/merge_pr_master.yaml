@@ -1,0 +1,54 @@
+name: Merge pull request
+
+on:
+  push:
+    branches:
+      - master
+
+
+jobs:
+  update_charts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: update chart repo
+      env:
+        REPO_URL: https://github.com/fairfaxmedia/charts.git
+        CHARTS_URL: https://charts.ffx.io
+        OUTPUT_DIR: dist-repo
+      shell: bash
+      run: |
+        set -euo pipefail
+        echo "--- Starting ---"
+        COMMIT=$(git rev-parse --short HEAD)
+        rm -rf "$OUTPUT_DIR"
+        git clone --single-branch -b gh-pages "$REPO_URL" "$OUTPUT_DIR"
+        for chart in ./stable/*; do
+          echo "--- Packaging $chart into $OUTPUT_DIR"
+          helm dep update "$chart" || true
+          helm package --destination "$OUTPUT_DIR" "$chart"
+        done
+        echo "--- Reindexing $OUTPUT_DIR"
+        if [ -f index.yaml ]; then
+          helm repo index --url "$CHARTS_URL" --merge index.yaml "$OUTPUT_DIR"
+        else
+          helm repo index --url "$CHARTS_URL" "$OUTPUT_DIR"
+        fi
+        ls "$OUTPUT_DIR"
+        cd "$OUTPUT_DIR"
+        git diff --stat
+        git add *.tgz index.yaml
+        git config user.email "github_actions@example.com"
+        git config user.name "Github Actions"
+        git commit --message "Update to fairfaxmedia/charts@${COMMIT}"
+    - name: push changes to github pages
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        directory: dist-repo
+        branch: gh-pages

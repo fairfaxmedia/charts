@@ -1,0 +1,47 @@
+{{- if .Capabilities.APIVersions.Has "opentelemetry.io/v1alpha1" }}
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: {{ include "opentelemetrycollector.fullname" . }}
+spec:
+  {{- if .Values.args }}
+  args:
+  {{- range $key, $val := .Values.args }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  config: |
+  {{- toYaml .Values.config | nindent 4 }}
+  {{- if .Values.image }}
+  {{- if or .Values.image.repository .Values.image.tag }}
+  image: {{ default "otel/opentelemetry-collector" .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.mode }}
+  mode: {{ default "Deployment" .Values.mode }}
+  {{- end }}
+  {{- if .Values.ports }}
+  ports:
+  {{- range .Values.ports }}
+  - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.replicas }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  {{- if .Values.serviceAccount }}
+  serviceAccount: {{ .Values.serviceAccount }}
+  {{- end }}
+  {{- if .Values.volumes }}
+  volumes:
+  {{- range .Values.volumes }}
+  - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.volumeMounts }}
+  volumeMounts:
+  {{- range .Values.volumeMounts }}
+  - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+{{- end }}

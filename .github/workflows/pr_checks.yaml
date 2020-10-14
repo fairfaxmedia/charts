@@ -1,0 +1,43 @@
+name: PR Checks
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+jobs:
+  correctness_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: lint changed charts
+        shell: "/usr/share/miniconda/bin/python3.8 {0}"
+        run: |
+          from subprocess import run
+          from sys import exit
+          from os.path import isdir
+          from re import compile
+          regex = compile("^(.*?/.*?)/.*$")
+          changelist = run(["git", "diff", "--name-only", "HEAD~1"],capture_output=True)
+          changelist = [r for r in changelist.stdout.decode("utf-8").strip().split('\n') if r.startswith('stable/')]
+          changeset = set()
+          for item in changelist:
+            match = regex.match(item)
+            if len(match.groups()) > 0:
+              changeset.add(match.group(1))
+          changelist = list(changeset) # convert set to list
+          changelist = [c for c in changelist if isdir(c)] # make sure the chart dir exists
+          if len(changelist) > 0:
+            lint_cmd = ["helm","lint"]
+            lint_cmd.extend(changelist)
+            print(lint_cmd)
+            res = run(lint_cmd)
+            exit(res.returncode)

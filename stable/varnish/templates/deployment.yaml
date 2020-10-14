@@ -1,5 +1,5 @@
 {{- $root := . }}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
@@ -11,6 +11,9 @@ metadata:
     release: {{ .Release.Name | quote }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "fullname" . }}
   minReadySeconds: 15
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
