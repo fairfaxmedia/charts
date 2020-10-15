@@ -57,7 +57,7 @@ confidant:
   serverAuthKey: "some_key_here"
   sessionSecret: "someuniquestringheretomakethingssafer"
   forwardedAllowIps: "*"
-  aclModulePath: "" # add custom acl module path
+  aclModulePath: ""
 
 secretupdater:
   enable: "false"
