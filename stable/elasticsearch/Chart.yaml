@@ -3,7 +3,7 @@ appVersion: "6.5.1"
 description: A Helm chart for Elasticsearch
 name: elasticsearch
 icon: https://www.elastic.co/static/images/elastic-logo-200.png
-version: 1.2.5
+version: 1.2.6
 maintainers:
   - name: Fairfax Media Operations
     email: github@fairfaxmedia.com.au
