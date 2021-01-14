@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: client
 spec:
-  replicas: {{ .Values.client.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit | default "5" }}
   strategy:
     type: {{ .Values.client.strategyType | default "RollingUpdate" }}
