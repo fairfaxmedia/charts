@@ -61,10 +61,10 @@ The following table lists the configurable parameters of the elasticsearch chart
 | `master.tolerations`               | `[]`                    | Array of master node tolerations                                  |
 | `secretsEnabled`                   | `true`                  | Enable managing secrets from values                               |
 | `config.secretKey`                 | `Secret Key`            | Unique key that's used to sign key                                |
-| `config.debug`                     | `false`                 | Run Flask web server in debug mode                                |
+| `config.debug`                     | `False`                 | Run Flask web server in debug mode                                |
 | `config.staticUrl`                 | `static`                | Location of static assets                                         |
-| `config.noSSL`                     | `true`                  | Disable SSL                                                       |
-| `config.urlPrefix`                 | `None`                  | Useful when running behind a reverse proxy                        |
+| `config.noSSL`                     | `True`                  | Disable SSL                                                       |
+| `config.urlPrefix`                 | ``                      | Useful when running behind a reverse proxy                        |
 | `config.redisHost`                 | `redis-headless`        | Redis host                                                        |
 | `config.redisPort`                 | `6379`                  | Redis port                                                        |
 | `config.snapPassRedisDB`           | `0`                     | Redis server database                                             |
