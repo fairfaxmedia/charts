@@ -9,6 +9,8 @@ service:
   name: secret-updater
   containerPort: 80
   probePath: "/internal/health"
+serviceAccount:
+  create: false
 ingress:
   name: secret-updater
   containerPort: 80
@@ -27,3 +29,5 @@ confidant:
   serverAuthKey: "some_key_here"
 saml:
   confidantUrlRoot: "https://confidant.example.com/"
+apiVersionOverrides:
+  ingress: "networking.k8s.io/v1beta"
