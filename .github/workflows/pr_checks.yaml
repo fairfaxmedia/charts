@@ -18,8 +18,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: install helm
+        run: |
+          curl -O https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          bash get-helm-3 
+
       - name: lint changed charts
-        shell: "/usr/share/miniconda/bin/python3.8 {0}"
+        shell: "/usr/bin/python3 {0}"
         run: |
           from subprocess import run
           from sys import exit
