@@ -17,5 +17,7 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: {{ .Chart.Name }}
-          servicePort: {{ .Values.ingress.containerPort }}
+          service:
+            name: {{ .Chart.Name }}
+            port:
+              number: {{ .Values.ingress.containerPort }}

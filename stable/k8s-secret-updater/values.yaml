@@ -30,4 +30,4 @@ confidant:
 saml:
   confidantUrlRoot: "https://confidant.example.com/"
 apiVersionOverrides:
-  ingress: "networking.k8s.io/v1beta"
+  ingress: "networking.k8s.io/v1"
