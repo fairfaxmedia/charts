@@ -26,7 +26,12 @@ spec:
       annotations:
         checksum/secret: {{ include (print $.Template.BasePath "/app-secret.yaml") . | sha256sum }}
     spec:
+    {{ if .Values.serviceAccount.name }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
+    {{ else if .Values.serviceAccount.create }}
+      serviceAccountName: {{ .Chart.Name }}
+    {{ else }}
+    {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
