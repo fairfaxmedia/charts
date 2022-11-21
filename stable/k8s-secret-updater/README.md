@@ -50,3 +50,11 @@ See the [k8s-secret-updater](https://github.com/fairfaxmedia/k8s-secret-updater)
 | `ingress.containerPort` | `80`                         | ..          |
 | `ingress.host`          | `secret-updater.example.com` | ..          |
 | `ingress.annotations`   | `{}`                         | ..          |
+
+### Service Account
+
+| Parameter               | Default | Description |
+| ----------------------- | ------- | ----------- |
+| `serviceAccount.create` | `false` | Create a service account with `.Chart.Name` as the name or if `serviceAccount.name`  set will use this as the name |
+| `serviceAccount.name`   | `""`    | Include a service account by its name. If `serviceAccount.create` is `true` use this name when creating the service account |
+| `serviceAccount.annotations` | `{}` | .. |
