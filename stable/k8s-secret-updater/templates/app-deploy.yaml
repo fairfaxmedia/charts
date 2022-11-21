@@ -30,7 +30,6 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
     {{- else if .Values.serviceAccount.create }}
       serviceAccountName: {{ .Chart.Name }}
-    {{- else }}
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}
