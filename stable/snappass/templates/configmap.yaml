@@ -5,10 +5,10 @@ metadata:
   labels:
 {{ include "snappass.labels" . | indent 4 }}
 data:
-  debug: {{ .Values.config.debug | default "false" | quote }}
+  debug: {{ .Values.config.debug | default "False" | quote }}
   staticUrl: {{ .Values.config.staticUrl | default "static" | quote }}
-  noSSL: {{ .Values.config.noSSL | default "true" | quote }}
-  urlPrefix: {{ .Values.config.urlPrefix | default "true" | quote }}
+  noSSL: {{ .Values.config.noSSL | default "True" | quote }}
+  urlPrefix: {{ .Values.config.urlPrefix | default "" | quote }}
   redisHost: {{ .Values.config.redisHost | default "localhost" | quote }}
   redisPort: {{ .Values.config.redisPort | default "6379" | quote }}
   snapPassRedisDB: {{ .Values.config.snapPassRedisDB | default "0" | quote }}

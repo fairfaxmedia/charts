@@ -35,8 +35,8 @@ tests:
     set:
       persistence.enabled: true
       persistence.reclaimPolicy: Delete
-      persistence.data.provisioner: kubernetes.io/aws-ebs
-      persistence.data.provisionerType: gp2
+      persistence.master.provisioner: kubernetes.io/aws-ebs
+      persistence.master.provisionerType: gp2
     asserts:
       - equal:
           path: reclaimPolicy

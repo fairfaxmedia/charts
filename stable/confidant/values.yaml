@@ -7,13 +7,15 @@ awsDefaultRegion: "us-east-1"
 
 image:
   repository: "lyft/confidant"
-  tag: "1.9.0"
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 service:
   type: LoadBalancer
   containerPort: 80
   probePath: /loggedout
+
+environment: {}
 
 authModule: "saml"
 
@@ -40,11 +42,6 @@ saml:
     -----END CERTIFICATE-----
 
 confidant:
-  enableSecurityRoles: false
-  roleAdmin: "admin"
-  roleReadWriteProperty: "role_rw"
-  roleReadOnlyProperty: "role_ro"
-  roleMappingProperty: "Role"
   debug: "true"
   dynamodbTable: "confidant-data"
   createDynamodbTable: "true"
@@ -60,7 +57,7 @@ confidant:
   serverAuthKey: "some_key_here"
   sessionSecret: "someuniquestringheretomakethingssafer"
   forwardedAllowIps: "*"
-
+  aclModulePath: ""
 
 secretupdater:
   enable: "false"

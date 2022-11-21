@@ -35,6 +35,8 @@ tests:
       - equal:
           path: spec.template.metadata
           value:
+            annotations:
+              checksum/config: bc51dd1d3da33408bcadb1094cbbde7210a4dd7f7d5cf84408ba15a1faa50773
             labels:
               app.kubernetes.io/name: elasticsearch
               app.kubernetes.io/instance: RELEASE-NAME
