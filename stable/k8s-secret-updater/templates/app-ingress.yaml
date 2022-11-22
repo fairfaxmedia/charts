@@ -7,10 +7,12 @@ metadata:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+{{- if .Values.ingress.annotations }}
   annotations:
   {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value }}
   {{- end }}
+{{- end }}
 spec:
   rules:
   - host: {{ .Values.ingress.host }}
