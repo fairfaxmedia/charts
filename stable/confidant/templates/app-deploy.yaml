@@ -83,12 +83,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: app
-                  key: confidant.server.auth.key
+                  key: confidant.server.auth.context
             - name: KMS_MASTER_KEY
               valueFrom:
                 secretKeyRef:
                   name: app
-                  key: confidant.server.auth.key
+                  key: confidant.server.kms.master.key
             - name: USER_AUTH_MODULE
               value: {{ .Values.authModule | quote }}
             - name: IGNORE_CONFLICTS

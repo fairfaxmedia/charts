@@ -42,7 +42,9 @@ For <http://github.com/lyft/confidant>
 | `confidant.webhookUrl`                  | `http://localhost:5050/v1/update`                                   | ..          |
 | `confidant.webhookUsername`             | `webhookusername`                                                   | ..          |
 | `confidant.webhookPassword`             | `someSecretPasswordHere`                                            | ..          |
-| `confidant.serverAuthKey`               | `some_key_here`                                                     | ..          |
+| `confidant.serverAuthContext`           | `iamRoleForConfidantServer`                                         | ..          |
+| `confidant.serverAuthKey`               | `authKmsKeyName`                                                    | ..          |
+| `confidant.serverKmsMasterKey`          | `masterKmsKeyName`                                                  | ..          |
 | `confidant.sessionSecret`               | `someuniquestringheretomakethingssafer`                             | ..          |
 | `confidant.forwardedAllowIps`           | `*`                                                                 | ..          |
 | `confidant.aclModulePath`               | `""`                                                                | See https://lyft.github.io/confidant/acls.html |
