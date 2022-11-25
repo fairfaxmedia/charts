@@ -49,6 +49,8 @@ See the [k8s-secret-updater](https://github.com/fairfaxmedia/k8s-secret-updater)
 | `ingress.name`          | `secret-updater`             | ..          |
 | `ingress.containerPort` | `80`                         | ..          |
 | `ingress.host`          | `secret-updater.example.com` | ..          |
+| `ingress.path`          | `/`                          | ..          |
+| `ingress.pathType`      | `Prefix`                     | ..          |
 | `ingress.annotations`   | `{}`                         | ..          |
 
 ### Service Account

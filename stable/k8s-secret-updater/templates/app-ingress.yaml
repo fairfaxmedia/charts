@@ -23,3 +23,5 @@ spec:
             name: {{ .Chart.Name }}
             port:
               number: {{ .Values.ingress.containerPort }}
+        path: {{ .Values.ingress.path }}
+        pathType: {{ .Values.ingress.pathType }}
