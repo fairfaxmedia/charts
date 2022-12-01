@@ -49,4 +49,5 @@ For <http://github.com/lyft/confidant>
 | `confidant.forwardedAllowIps`           | `*`                                                                 | ..          |
 | `confidant.aclModulePath`               | `""`                                                                | See https://lyft.github.io/confidant/acls.html |
 | `secretupdater.enable`                  | `false`                                                             | ..          |
+| `serviceAccountName`                    | `""`                                                                | ..          |
 | `annotations`                           | `{}`                                                                | ..          |

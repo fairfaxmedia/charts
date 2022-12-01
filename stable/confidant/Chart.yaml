@@ -2,7 +2,7 @@ apiVersion: v1
 description: A Helm chart for Confidant (github.com/lyft/confidant)
 name: confidant
 icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
-version: 2.1.0
+version: 2.1.1
 maintainers:
   - name: FFX Blue Operations
     email: blueops@fairfaxmedia.com.au
