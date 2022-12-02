@@ -49,5 +49,8 @@ For <http://github.com/lyft/confidant>
 | `confidant.forwardedAllowIps`           | `*`                                                                 | ..          |
 | `confidant.aclModulePath`               | `""`                                                                | See https://lyft.github.io/confidant/acls.html |
 | `secretupdater.enable`                  | `false`                                                             | ..          |
-| `serviceAccountName`                    | `""`                                                                | ..          |
+| `serviceAccount.create`                 | `false`                                                             | Create a service account with `.Chart.Name` as the name or if `serviceAccount.name`  set will use this as the name |
+| `serviceAccount.name`                   | `""`                                                                | Include a service account by its name. If `serviceAccount.create` is `true` use this name when creating the service account |
+| `serviceAccount.annotations`            | `{}`                                                                | .. |
 | `annotations`                           | `{}`                                                                | ..          |
+

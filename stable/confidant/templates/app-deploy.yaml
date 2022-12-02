@@ -30,9 +30,11 @@ spec:
 {{ toYaml .Values.annotations | indent 8 }}
       {{- end }}
     spec:
-{{- if .Values.serviceAccountName }}
-      serviceAccountName: {{ .Values.serviceAccountName }}
-{{- end }}
+    {{- if .Values.serviceAccount.name }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+    {{- else if .Values.serviceAccount.create }}
+      serviceAccountName: {{ .Chart.Name }}
+    {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
