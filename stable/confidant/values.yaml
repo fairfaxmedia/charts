@@ -64,6 +64,9 @@ confidant:
 secretupdater:
   enable: "false"
 
+serviceAccount:
+  create: false
+
 deploy:
   affinity:
     nodeAffinity: {}
