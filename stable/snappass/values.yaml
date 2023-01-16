@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: fairfaxmedia/snappass
-  tag: 1.5.0
+  tag: 1.6.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -58,14 +58,13 @@ config:
   redisPrefix: snappass
 
 redis:
-  enabled: true
+  enabled: false
+  architecture: standalone
   fullnameOverride: redis
-  cluster:
+  auth:
     enabled: false
-  usePassword: false
   master:
-    persistence:
-      enabled: false
+    disableCommands: []
 
 nodeSelector: {}
 
