@@ -32,7 +32,7 @@ confidant:
   request:
     backoff: 1
     timeout: 5
-    retires: 0
+    retries: 0
 saml:
   confidantUrlRoot: "https://confidant.example.com/"
 apiVersionOverrides:
