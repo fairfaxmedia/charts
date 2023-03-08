@@ -29,6 +29,10 @@ confidant:
   webhookUsername: "webhookusername"
   webhookPassword: "someSecretPasswordHere"
   serverAuthKey: "some_key_here"
+  request:
+    backoff: 1
+    timeout: 5
+    retires: 0
 saml:
   confidantUrlRoot: "https://confidant.example.com/"
 apiVersionOverrides:

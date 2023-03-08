@@ -15,6 +15,9 @@ See the [k8s-secret-updater](https://github.com/fairfaxmedia/k8s-secret-updater)
 | `confidant.webhookUsername` | `"webhookusername"`                | ..          |
 | `confidant.webhookPassword` | `"someSecretPasswordHere"`         | ..          |
 | `confidant.serverAuthKey`   | `"some_key_here"`                  | ..          |
+| `confidant.request.backoff` | `1`                                | This is set in the `ConfidantClient()` Python Object |
+| `confidant.request.timeout` | `5`                                | This is set in the `ConfidantClient()` Python Object |
+| `confidant.request.retires` | `0`                                | This is set in the `ConfidantClient()` Python Object |
 |                             |                                    |             |
 | `saml.confidantUrlRoot`     | `"https://confidant.example.com/"` | ..          |
 |                             |                                    |             |

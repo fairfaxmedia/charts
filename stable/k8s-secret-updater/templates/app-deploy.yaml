@@ -52,6 +52,12 @@ spec:
               value: {{ .Values.saml.confidantUrlRoot | quote }}
             - name: AUTH_METHOD
               value: {{ .Values.secretupdater.authMethod | quote }}
+            - name: CONFIDANT_REQUEST_BACKOFF
+              value: {{ .Values.confidant.request.backoff | quote }}
+            - name: CONFIDANT_REQUEST_TIMEOUT
+              value: {{ .Values.confidant.request.timeout | quote }}
+            - name: CONFIDANT_REQUEST_RETIRES
+              value: {{ .Values.confidant.request.retires | quote }}
             - name: CONFIDANT_SERVER_AUTH_KEY
               valueFrom:
                 secretKeyRef:
