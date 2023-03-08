@@ -1,0 +1,19 @@
+name: gitlint
+
+on:
+  pull_request: {}
+  push: {}
+
+jobs:
+  gitlint:
+    runs-on: ubuntu-latest
+    name: GitLint
+    steps:
+      - name: Lint commits, branches, and pull requests
+        uses: aschbacd/gitlint-action@v1.1.0
+        with:
+          commit-message-subject-min-length: 10
+          commit-message-body-min-length: 10
+          prohibit-unsigned-commits: true
+          
+          
