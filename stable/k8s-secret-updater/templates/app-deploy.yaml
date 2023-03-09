@@ -61,7 +61,7 @@ spec:
             - name: CONFIDANT_SERVER_AUTH_KEY
               valueFrom:
                 secretKeyRef:
-                  name: app
+                  name: {{ .Release.Name }}
                   key: confidant.server.auth.key
           ports:
             - name: http
