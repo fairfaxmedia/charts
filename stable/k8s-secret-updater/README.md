@@ -5,20 +5,23 @@ See the [k8s-secret-updater](https://github.com/fairfaxmedia/k8s-secret-updater)
 
 ## Configuration Values
 
-| Parameter                   | Default                            | Description |
-| --------------------------- | ---------------------------------- | ----------- |
-| `secretupdater.host`        | `"0.0.0.0"`                        | ..          |
-| `secretupdater.port`        | `"80"`                             | ..          |
-| `secretupdater.authMethod`  | `"saml"`                           | ..          |
-|                             |                                    |             |
-| `confidant.debug`           | `"false"`                          | ..          |
-| `confidant.webhookUsername` | `"webhookusername"`                | ..          |
-| `confidant.webhookPassword` | `"someSecretPasswordHere"`         | ..          |
-| `confidant.serverAuthKey`   | `"some_key_here"`                  | ..          |
-|                             |                                    |             |
-| `saml.confidantUrlRoot`     | `"https://confidant.example.com/"` | ..          |
-|                             |                                    |             |
-| `awsDefaultRegion`          | `"ap-southeast-2"`                 | ..          |
+| Parameter                   | Default                            | Description                                             |
+| --------------------------- | ---------------------------------- | ------------------------------------------------------- |
+| `secretupdater.host`        | `"0.0.0.0"`                        | ..                                                      |
+| `secretupdater.port`        | `"80"`                             | ..                                                      |
+| `secretupdater.authMethod`  | `"saml"`                           | ..                                                      |
+|                             |                                    |                                                         |
+| `confidant.debug`           | `"false"`                          | ..                                                      |
+| `confidant.webhookUsername` | `"webhookusername"`                | ..                                                      |
+| `confidant.webhookPassword` | `"someSecretPasswordHere"`         | ..                                                      |
+| `confidant.serverAuthKey`   | `"some_key_here"`                  | ..                                                      |
+| `confidant.request.backoff` | `1`                                | Backoff factor for retries. See urllib3's Retry helper. |
+| `confidant.request.timeout` | `5`                                | Connect and read timeout in seconds.                    |
+| `confidant.request.retries` | `0`                                | Number of retries to use on failed requests.            |
+|                             |                                    |                                                         |
+| `saml.confidantUrlRoot`     | `"https://confidant.example.com/"` | ..                                                      |
+|                             |                                    |                                                         |
+| `awsDefaultRegion`          | `"ap-southeast-2"`                 | ..                                                      |
 
 ### Generic
 
