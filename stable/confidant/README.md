@@ -53,4 +53,9 @@ For <http://github.com/lyft/confidant>
 | `serviceAccount.name`                   | `""`                                                                | Include a service account by its name. If `serviceAccount.create` is `true` use this name when creating the service account |
 | `serviceAccount.annotations`            | `{}`                                                                | .. |
 | `annotations`                           | `{}`                                                                | ..          |
-
+| `ingress.enable`                        | `false`                                                             | ..          |
+| `ingress.annotations`                   | `{}`                                                                | ..          |
+| `ingress.className`                     | `""`                                                                | ..          |
+| `ingress.path`                          | `"/"`                                                               | ..          |
+| `ingress.pathType`                      | `"ImplementationSpecific"`                                          | ..          |
+| `ingress.host`                          | `confidant.example.com`                                             | ..          |
