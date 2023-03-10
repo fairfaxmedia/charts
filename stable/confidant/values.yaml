@@ -15,6 +15,15 @@ service:
   containerPort: 80
   probePath: /loggedout
 
+ingress:
+  enable: false
+  annotations: {}
+  className: ""
+  path: "/"
+  pathType: ImplementationSpecific
+  host:
+    - confidant.example.com
+
 environment: {}
 
 authModule: "saml"
