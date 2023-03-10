@@ -24,6 +24,13 @@ ingress:
   host:
     - confidant.example.com
 
+securityContext:
+  runAsNonRoot: false
+  privileged: false
+  allowPrivilegeEscalation: false
+  runAsUser: 10001
+  runAsGroup: 10001
+
 environment: {}
 
 authModule: "saml"
