@@ -82,17 +82,17 @@ spec:
             - name: AUTH_KEY
               valueFrom:
                 secretKeyRef:
-                  name: app
+                  name: {{ .Release.Name }}
                   key: confidant.server.auth.key
             - name: AUTH_CONTEXT
               valueFrom:
                 secretKeyRef:
-                  name: app
+                  name: {{ .Release.Name }}
                   key: confidant.server.auth.context
             - name: KMS_MASTER_KEY
               valueFrom:
                 secretKeyRef:
-                  name: app
+                  name: {{ .Release.Name }}
                   key: confidant.server.kms.master.key
             - name: USER_AUTH_MODULE
               value: {{ .Values.authModule | quote }}
@@ -107,7 +107,7 @@ spec:
             - name: SESSION_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: app
+                  name: {{ .Release.Name }}
                   key: confidant.session.secret
 {{ if .Values.confidant.aclModulePath }}
             - name: ACL_MODULE
@@ -142,7 +142,7 @@ spec:
             - name: SAML_SP_KEY_FILE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: app
+                  name: {{ .Release.Name }}
                   key: saml.sp.key.file.password
 {{ end }}
           ports:
