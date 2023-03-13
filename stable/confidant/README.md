@@ -17,7 +17,7 @@ For <http://github.com/lyft/confidant>
 | `service.type`                          | `LoadBalancer`                                                      | ..          |
 | `service.containerPort`                 | `80`                                                                | ..          |
 | `service.probePath`                     | `/loggedout`                                                        | ..          |
-| `environment`                     	  | `{}`                                                                | Add Environment Variables |
+| `environment`                           | `{}`                                                                | Add Environment Variables |
 | `authModule`                            | `saml`                                                              | ..          |
 | `saml.confidantUrlRoot`                 | `https://confidant.example.com/`                                    | ..          |
 | `saml.securitySloRespSigned`            | `false`                                                             | ..          |
@@ -59,3 +59,8 @@ For <http://github.com/lyft/confidant>
 | `ingress.path`                          | `"/"`                                                               | ..          |
 | `ingress.pathType`                      | `"ImplementationSpecific"`                                          | ..          |
 | `ingress.host`                          | `confidant.example.com`                                             | ..          |
+| `securityContext.runAsNonRoot`             | `false`                                                          | If `true` containers must be required to run as non-root users. |
+| `securityContext.privileged`               | `false`                                                          | Run container in privileged mode. |
+| `securityContext.allowPrivilegeEscalation` | `false`                                                          | Controls whether a process can gain more privileges than its parent process. |
+| `securityContext.runAsUser`                | `10001`                                                          | The UID that the container's main process should run as. |
+| `securityContext.runAsGroup`               | `10001`                                                          | The GID that the container's main process should run as. |
