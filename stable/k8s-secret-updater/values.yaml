@@ -37,3 +37,9 @@ saml:
   confidantUrlRoot: "https://confidant.example.com/"
 apiVersionOverrides:
   ingress: "networking.k8s.io/v1"
+securityContext:
+  runAsNonRoot: false
+  privileged: false
+  allowPrivilegeEscalation: false
+  runAsUser: 10001
+  runAsGroup: 10001

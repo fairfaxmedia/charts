@@ -63,3 +63,12 @@ See the [k8s-secret-updater](https://github.com/fairfaxmedia/k8s-secret-updater)
 | `serviceAccount.create` | `false` | Create a service account with `.Chart.Name` as the name or if `serviceAccount.name`  set will use this as the name |
 | `serviceAccount.name`   | `""`    | Include a service account by its name. If `serviceAccount.create` is `true` use this name when creating the service account |
 | `serviceAccount.annotations` | `{}` | .. |
+
+### Security Context
+
+| Parameter                                  | Default | Description |
+| `securityContext.runAsNonRoot`             | `false` | If `true` containers must be required to run as non-root users. |
+| `securityContext.privileged`               | `false` | Run container in privileged mode. |
+| `securityContext.allowPrivilegeEscalation` | `false` | Controls whether a process can gain more privileges than its parent process. |
+| `securityContext.runAsUser`                | `10001` | The UID that the container's main process should run as.  |
+| `securityContext.runAsGroup`               | `10001` | The GID that the container's main process should run as.  |
