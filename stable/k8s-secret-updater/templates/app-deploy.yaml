@@ -83,3 +83,11 @@ spec:
             timeoutSeconds: 3
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+
+          volumeMounts:
+          - mountPath: /.aws
+            name: aws-cache
+
+      volumes:
+        - name: aws-cache
+          emptyDir: {}
