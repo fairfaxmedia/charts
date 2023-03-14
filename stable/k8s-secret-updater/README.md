@@ -67,6 +67,7 @@ See the [k8s-secret-updater](https://github.com/fairfaxmedia/k8s-secret-updater)
 ### Security Context
 
 | Parameter                                  | Default | Description |
+| ------------------------------------------ | ------- | ----------- |
 | `securityContext.runAsNonRoot`             | `false` | If `true` containers must be required to run as non-root users. |
 | `securityContext.privileged`               | `false` | Run container in privileged mode. |
 | `securityContext.allowPrivilegeEscalation` | `false` | Controls whether a process can gain more privileges than its parent process. |
