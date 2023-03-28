@@ -1,7 +1,7 @@
 apiVersion: v2
 description: A Helm chart for Kubernetes SecretUpdater
 name: k8s-secret-updater
-version: 2.4.0
+version: 2.4.1
 icon: "https://github.com/fairfaxmedia/k8s-secret-updater"
 maintainers:
   - name: Fairfax Media Operations
