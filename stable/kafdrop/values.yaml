@@ -1,0 +1,89 @@
+# -- Number of replicas to run.
+replicaCount: 1
+
+image:
+  # -- Kafdrop image repository.
+  repository: obsidiandynamics/kafdrop
+  # -- Kafdrop image version.
+  tag: 3.30.0
+  # -- Kafdrop image pull policy.
+  pullPolicy: IfNotPresent
+
+kafka:
+  # -- Bootstrap list of Kafka host/port pairs
+  # @default -- Defaults to localhost:9092.
+  brokerConnect: localhost:9092
+
+# -- Existing k8s secrect use to set kafdrop environment variables
+existingSecret: ""
+
+jvm:
+  # -- JVM options.
+  opts: ""
+
+jmx:
+  # -- The hostname to report for the RMI registry (used for JMX).
+  # @default -- Defaults to localhost.
+  host: localhost
+  # -- Port to use for JMX. If unspecified, JMX will not be exposed.
+  # @default -- Defaults to 8686
+  port: 8686
+
+# -- Command line arguments to Kafdrop.
+cmdArgs: ""
+
+server:
+  # -- The web server port to listen on.
+  # @default -- Defaults to 9000.
+  port: 9000
+  # -- The context path to serve requests on (must end with a /).
+  # @default -- Defaults to /.
+  servlet:
+    contextPath: /
+
+service:
+  # -- Service annotations
+  annotations: {}
+  # -- Sevice type
+  type: NodePort
+  # -- Service port
+  port: 9000
+  # -- Service nodePort if service type is NodePort.
+  nodePort: 30900
+
+ingress:
+  # -- Enable Ingress.
+  enabled: false
+  # -- Ingress annotations.
+  annotations: {}
+  # -- Ingress path.
+  path: /
+  # -- Ingress hosts.
+  hosts: []
+  # -- Ingress TLS.
+  tls: []
+
+resources:
+  requests:
+    # -- CPU requests.
+    cpu: 1m
+    # -- Memory requests.
+    memory: 128Mi
+
+# -- Node selector configuration.
+nodeSelector: {}
+
+# -- Tolerations configuration.
+tolerations: []
+
+# -- Affinity configuration.
+affinity: {}
+
+# -- Pod annotations.
+podAnnotations: {}
+
+mountProtoDesc:
+  # -- Mount the descriptor files folder for Protobuf support.
+  enabled: false
+  # -- Path to the descriptor files folder for Protobuf support.
+  hostPath:
