@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   confidant:
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.918755094Z"
+    created: "2023-07-23T23:28:27.785781657Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
-    digest: 2f2f6b46b485f7437f4966de9c0aeb7c20fab62f73a44405afd4a22c70b03101
+    digest: 27ac1b5580022bba39c0dd0978ef7aaff6ccaf18fab966a995f365f550ca4e44
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
@@ -14,7 +14,7 @@ entries:
     - https://charts.ffx.io/confidant-2.4.0.tgz
     version: 2.4.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.918164793Z"
+    created: "2023-07-23T23:28:27.785209453Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: a090b35bae829553d022e098efbc4944571e3173a57d742f37b2aa0d58e9f1c5
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -26,7 +26,7 @@ entries:
     - https://charts.ffx.io/confidant-2.3.0.tgz
     version: 2.3.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.917640592Z"
+    created: "2023-07-23T23:28:27.784650348Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: f73223ef8da3f38a791a19b52870bedfa292c58f9e1a1db216e5420de0ee6f75
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -38,7 +38,7 @@ entries:
     - https://charts.ffx.io/confidant-2.2.1.tgz
     version: 2.2.1
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.91698699Z"
+    created: "2023-07-23T23:28:27.784159044Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: aba440c76411b966217c00e79e9037d8fb2461cc5b0d3e7f62a7af4ad38cb932
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -50,7 +50,7 @@ entries:
     - https://charts.ffx.io/confidant-2.2.0.tgz
     version: 2.2.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.916452188Z"
+    created: "2023-07-23T23:28:27.78365974Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: c1c30d4174382d4728875b20d81d801e78e493da424964c9bc23867b3cbb5239
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -62,7 +62,7 @@ entries:
     - https://charts.ffx.io/confidant-2.1.1.tgz
     version: 2.1.1
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.915842587Z"
+    created: "2023-07-23T23:28:27.783004035Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: b493a12658163b1939df60ff5d9eaf8841900085a379e48ce69b4a0076c210d4
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -74,7 +74,7 @@ entries:
     - https://charts.ffx.io/confidant-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.915142685Z"
+    created: "2023-07-23T23:28:27.782362129Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: 2a8238782e1fea23eada60b4bdc83c7c34188086ea1c80a66954ba0ec9666a76
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -86,7 +86,7 @@ entries:
     - https://charts.ffx.io/confidant-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.914554383Z"
+    created: "2023-07-23T23:28:27.781600523Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: 489a7b06ea0e484255cb18056ca988c50bb803a4172d4d8747a25661b870bb64
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -98,7 +98,7 @@ entries:
     - https://charts.ffx.io/confidant-1.4.3.tgz
     version: 1.4.3
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.914037182Z"
+    created: "2023-07-23T23:28:27.780845417Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: da69863bb5d734ebcbd644d93deb6bf34321343b31c21c260b0b9097ba9c6df4
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -110,7 +110,7 @@ entries:
     - https://charts.ffx.io/confidant-1.4.2.tgz
     version: 1.4.2
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.913553481Z"
+    created: "2023-07-23T23:28:27.780203112Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: 4b990bd31424a5de0f83a8c653ba187e520473f7a0bd7fde233357490d6de42f
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -122,7 +122,7 @@ entries:
     - https://charts.ffx.io/confidant-1.4.1.tgz
     version: 1.4.1
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.913003679Z"
+    created: "2023-07-23T23:28:27.779172803Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: 54106ccc915eeb06c75bab6baae40eaab4761b8e82a27322814ea919d2fe8779
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -134,7 +134,7 @@ entries:
     - https://charts.ffx.io/confidant-1.4.0.tgz
     version: 1.4.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.911957477Z"
+    created: "2023-07-23T23:28:27.7787132Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: b71ba33cd7b6090b7108119b8ab96ef24a956ce77465debecf7bc98cfb867d29
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -146,7 +146,7 @@ entries:
     - https://charts.ffx.io/confidant-1.3.1.tgz
     version: 1.3.1
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.911106875Z"
+    created: "2023-07-23T23:28:27.778225896Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: f1a027f113f2edf172927bd6861e74768961e4b7311163a506a07882aeb58fe1
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -158,7 +158,7 @@ entries:
     - https://charts.ffx.io/confidant-1.3.0.tgz
     version: 1.3.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.910158072Z"
+    created: "2023-07-23T23:28:27.777743792Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: 3e9adb7cd1126d5ab1d8350b3573137b42bd29717e61e0dc24b80d537537f9f9
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -170,7 +170,7 @@ entries:
     - https://charts.ffx.io/confidant-1.2.0.tgz
     version: 1.2.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.909613371Z"
+    created: "2023-07-23T23:28:27.777264088Z"
     description: A Helm chart for Confidant (github.com/lyft/confidant)
     digest: b4f721f4710efb427d6f82e777ca77b20877974c09c22eedb271b5fdcfc2a295
     icon: https://github.com/lyft/confidant/raw/gh-pages/images/safe-1d911346.png
@@ -184,9 +184,9 @@ entries:
   elasticsearch:
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.930180924Z"
+    created: "2023-07-23T23:28:27.796321844Z"
     description: A Helm chart for Elasticsearch
-    digest: d8e81f4ed7b89698925da0553e447ee747f51422bed5e7f16e10ab0b917c6dad
+    digest: ea9f28ed7f1a1705294895a7754a2296006eef507d95d07bfaf1ef8e201372a3
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
     maintainers:
     - email: github@fairfaxmedia.com.au
@@ -197,7 +197,7 @@ entries:
     version: 1.2.6
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.929133121Z"
+    created: "2023-07-23T23:28:27.795551037Z"
     description: A Helm chart for Elasticsearch
     digest: 4113be3521557ac2827c93682071b8e298dabaaf143aedd25241a732e9b9d53f
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -210,7 +210,7 @@ entries:
     version: 1.2.5
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.92845052Z"
+    created: "2023-07-23T23:28:27.794737231Z"
     description: A Helm chart for Elasticsearch
     digest: 2af2c034b3f2b4ee0f71520fdbb7d0de5e9750fd0cd2614c7464364922133be0
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -223,7 +223,7 @@ entries:
     version: 1.2.4
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.927663118Z"
+    created: "2023-07-23T23:28:27.793872224Z"
     description: A Helm chart for Elasticsearch
     digest: 51eece4c38a455ed9825ff4d20e6e85bc643ecc7c4ac5a65e08abc98524bd10b
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -236,7 +236,7 @@ entries:
     version: 1.2.3
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.926906616Z"
+    created: "2023-07-23T23:28:27.792967016Z"
     description: A Helm chart for Elasticsearch
     digest: fa9f4da125386cb54711a4a7057c96b93c3fedc5fefc85ca66958ed7562e9054
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -249,7 +249,7 @@ entries:
     version: 1.2.2
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.926223814Z"
+    created: "2023-07-23T23:28:27.791763206Z"
     description: A Helm chart for Elasticsearch
     digest: f9e3eb8ace70b2ce66bc1926191d9982cd348f33b4116b4edd353192b6455743
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -262,7 +262,7 @@ entries:
     version: 1.2.1
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.925469312Z"
+    created: "2023-07-23T23:28:27.790330895Z"
     description: A Helm chart for Elasticsearch
     digest: 4055f63e228def30dfe267e26dd3e6137aa80d2d3b40a4f91729205e766bcd6b
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -275,7 +275,7 @@ entries:
     version: 1.2.0
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.92472591Z"
+    created: "2023-07-23T23:28:27.789585988Z"
     description: A Helm chart for Elasticsearch
     digest: 981ab8709e57ff9b274744fda2dfe851d8e1d20d91e6deccf2827818981b1179
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -288,7 +288,7 @@ entries:
     version: 1.1.3
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.923404607Z"
+    created: "2023-07-23T23:28:27.788832582Z"
     description: A Helm chart for Elasticsearch
     digest: 2fb3f3b4a0bb37d9f0033e1b65780f52da3993bf561faa74911dc92de6d5ac8c
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -301,7 +301,7 @@ entries:
     version: 1.1.2
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.921864603Z"
+    created: "2023-07-23T23:28:27.788089676Z"
     description: A Helm chart for Elasticsearch
     digest: 53c8826d43cbe0159afcb28c00991e9b904dd9f8807a5ae3f84120a809e25f41
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -314,7 +314,7 @@ entries:
     version: 1.1.1-elasticsearch6.5.1
   - apiVersion: v1
     appVersion: 6.5.1
-    created: "2023-07-23T23:22:00.9208536Z"
+    created: "2023-07-23T23:28:27.78732817Z"
     description: A Helm chart for Elasticsearch
     digest: b5db4cadbfe7b34c399d46a4f433a4e7ffa0719b854b718ff12027e2ce92d3b4
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -327,7 +327,7 @@ entries:
     version: 1.1.0-elasticsearch6.5.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-07-23T23:22:00.919830397Z"
+    created: "2023-07-23T23:28:27.786546664Z"
     description: A Helm chart for Elasticsearch
     digest: 0f1bb6bce3771476a339bb02f6836ddcf79ea55f575a1a5663979d1bedba1b73
     icon: https://www.elastic.co/static/images/elastic-logo-200.png
@@ -341,16 +341,16 @@ entries:
   haproxy:
   - apiVersion: v1
     appVersion: 2.0.1
-    created: "2023-07-23T23:22:00.931015826Z"
+    created: "2023-07-23T23:28:27.79709395Z"
     description: A Helm chart for HAProxy
-    digest: 09819c6aa65e56ead4fd049dee4f979ab344977e502835f1cac10c551deb3c82
+    digest: f0926de3d328f706a5d937ed8893857c95849fbc7aeb368d2eea6c954e324f02
     name: haproxy
     urls:
     - https://charts.ffx.io/haproxy-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: 2.0.1
-    created: "2023-07-23T23:22:00.930583125Z"
+    created: "2023-07-23T23:28:27.796712747Z"
     description: A Helm chart for HAProxy
     digest: 0a9451fbae147caf00cae20dcdf9f0866d34d0bffe93cc9ead69437d3103f177
     name: haproxy
@@ -360,9 +360,9 @@ entries:
   helm-dashboard:
   - apiVersion: v2
     appVersion: 0.3.1
-    created: "2023-07-23T23:22:00.931707128Z"
+    created: "2023-07-23T23:28:27.797602954Z"
     description: A GUI Dashboard for Helm by Komodor
-    digest: 3ee4f398ee5a819ef3872c739229911d8d8782e3be44e88e296ede5e165de9c8
+    digest: f3f61c71d53e0aa7bd60f167265f2cf53ae629356768ecdb6f1e3da3b201690c
     icon: https://raw.githubusercontent.com/komodorio/helm-dashboard/main/pkg/dashboard/static/logo.svg
     name: helm-dashboard
     type: application
@@ -373,8 +373,35 @@ entries:
   - annotations:
       artifacthub.io/license: MIT
     apiVersion: v2
+    appVersion: 3.0.4
+    created: "2023-07-23T23:28:27.798713063Z"
+    description: Disposable webmail server (similar to Mailinator) with built in SMTP,
+      POP3, RESTful servers; no DB required.
+    digest: 6c33f7ffc2ee019f1143805e5fe6f5c398e1e92668be3256fdae72c1845470e3
+    home: https://www.inbucket.org/
+    keywords:
+    - inbucket
+    - mail
+    - smtp
+    - pop3
+    - email
+    - testing
+    - disposable webmail
+    maintainers:
+    - email: ctadeu@gmail.com
+      name: cpanato
+    name: inbucket
+    sources:
+    - https://github.com/inbucket/inbucket
+    type: application
+    urls:
+    - https://charts.ffx.io/inbucket-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/license: MIT
+    apiVersion: v2
     appVersion: 3.0.0
-    created: "2023-07-23T23:22:00.932808031Z"
+    created: "2023-07-23T23:28:27.798147958Z"
     description: Disposable webmail server (similar to Mailinator) with built in SMTP,
       POP3, RESTful servers; no DB required.
     digest: 9a96b3cd502aa94de29d6f0a3bc08355def965c3eda2c110c65248970a7e5d91
@@ -399,9 +426,9 @@ entries:
     version: 2.1.0
   k8s-secret-updater:
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.938020045Z"
+    created: "2023-07-23T23:28:27.803371101Z"
     description: A Helm chart for Kubernetes SecretUpdater
-    digest: c7847c07d6034900bcda2f5bee72bbd8ffa16c2e2665dab69e39d41a76b81c1f
+    digest: 9829dc997899686ff940e0f1ebfa544f118017c2991dc0aa26932a3528c2a0b7
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
     maintainers:
     - email: github@fairfaxmedia.com.au
@@ -411,7 +438,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.4.1.tgz
     version: 2.4.1
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.937607543Z"
+    created: "2023-07-23T23:28:27.802914797Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: b4574a834e00110002eb7a8c06b83a0bf7e0d619a65a1f5918ef17296b5ce7ca
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -423,7 +450,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.4.0.tgz
     version: 2.4.0
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.937163242Z"
+    created: "2023-07-23T23:28:27.802505594Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: ded1b336c92caa938e1041e6bfa2344bcd3bdcb7af3f50bcb3aabe236aa4fa58
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -435,7 +462,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.3.1.tgz
     version: 2.3.1
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.936725541Z"
+    created: "2023-07-23T23:28:27.802122291Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: 620a593e53c82efe1ecbb7c1f0a8e9cfc1ce5285a521e7d09f758fecbf2c94c6
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -447,7 +474,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.3.0.tgz
     version: 2.3.0
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.93630734Z"
+    created: "2023-07-23T23:28:27.801712188Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: 425fbfc7d9ba5bef785fde318e549038f57899551123c9660d7cf54c77e96707
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -459,7 +486,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.2.1.tgz
     version: 2.2.1
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.935846339Z"
+    created: "2023-07-23T23:28:27.800981082Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: e29461f385ed6d41dd0575d91f45c7e1b328a8ce534bbb92959740f1f618e4e7
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -471,7 +498,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.2.0.tgz
     version: 2.2.0
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.935372738Z"
+    created: "2023-07-23T23:28:27.800480078Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: a63cdbbcb0b5bf7a044268182a5c53f6c6ad49794105df7e8380912adc0549a1
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -483,7 +510,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.1.1.tgz
     version: 2.1.1
   - apiVersion: v2
-    created: "2023-07-23T23:22:00.934882936Z"
+    created: "2023-07-23T23:28:27.799713071Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: 9ddc3a765870e8ff1b714953033663369d43e55156faa9b8704ff3dc0e448d74
     icon: https://github.com/fairfaxmedia/k8s-secret-updater
@@ -495,7 +522,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.934402435Z"
+    created: "2023-07-23T23:28:27.799366568Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: 4325534abcdd42de6632e833a207d7381bd122dc49611c7ca862bd960fcb39f7
     maintainers:
@@ -506,7 +533,7 @@ entries:
     - https://charts.ffx.io/k8s-secret-updater-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.933540033Z"
+    created: "2023-07-23T23:28:27.799035566Z"
     description: A Helm chart for Kubernetes SecretUpdater
     digest: a3be27369105ec62994f69a894169277b56671e3b36197a7789e8aae017a2896
     maintainers:
@@ -519,9 +546,9 @@ entries:
   kafdrop:
   - apiVersion: v2
     appVersion: 3.30.0
-    created: "2023-07-23T23:22:00.938648746Z"
+    created: "2023-07-23T23:28:27.803757004Z"
     description: A Helm chart for Kafdrop
-    digest: 53e0f1813ba3b95857ad761550d422b267fcd3758e345721349bd9ad3cd609eb
+    digest: 91db1eab20870097a6d46638156777cffb538e1bc26e6743107d8c470a094c36
     name: kafdrop
     urls:
     - https://charts.ffx.io/kafdrop-0.2.0.tgz
@@ -529,14 +556,14 @@ entries:
   opentelemetry-operator:
   - apiVersion: v1
     appVersion: 0.0.2
-    created: "2023-07-23T23:22:00.939556549Z"
+    created: "2023-07-23T23:28:27.804578811Z"
     dependencies:
     - condition: openTelemetryCollector.enabled
       name: opentelemetrycollector
       repository: https://charts.ffx.io
       version: 0.1.0
     description: opentelemetry-operator Helm chart for Kubernetes
-    digest: 17c468dc6ccbe51909c2bdcade8f2226cb79201c730d837ae85605da12cfd71a
+    digest: 24870482d527f19c19b7b46a4fd169f424f6a6d04a5085f593a42e99119e7ff4
     home: https://opentelemetry.io/
     icon: https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png
     maintainers:
@@ -549,16 +576,16 @@ entries:
   opentelemetrycollector:
   - apiVersion: v1
     appVersion: 0.7.0
-    created: "2023-07-23T23:22:00.940760252Z"
+    created: "2023-07-23T23:28:27.805472018Z"
     description: opentelemetrycollector Helm chart for Kubernetes
-    digest: 49284d84a52d85772ffe656b9007ca1e5a13eb3f46a9f9a101bbb3c85fb57796
+    digest: f029c12b703b2ea41152b216a61f64318d5c164eab5c4b1489584cbf1d90e96a
     name: opentelemetrycollector
     urls:
     - https://charts.ffx.io/opentelemetrycollector-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: 0.5.0
-    created: "2023-07-23T23:22:00.940459151Z"
+    created: "2023-07-23T23:28:27.805179616Z"
     description: opentelemetrycollector Helm chart for Kubernetes
     digest: 8ebaf9ce4532a035e197b961680fb575d8f3758dea2cf1142a2852fe22f7dfeb
     name: opentelemetrycollector
@@ -567,7 +594,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: 0.5.0
-    created: "2023-07-23T23:22:00.94010705Z"
+    created: "2023-07-23T23:28:27.804879913Z"
     description: opentelemetrycollector Helm chart for Kubernetes
     digest: 6927b66514f66da457e9f276904d859dca8d4e42a3295668bbaf7bbe4066fbd8
     name: opentelemetrycollector
@@ -576,9 +603,9 @@ entries:
     version: 0.1.0
   simple-pdb:
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.940952952Z"
+    created: "2023-07-23T23:28:27.80562512Z"
     description: A Helm chart for Kubernetes
-    digest: 017c7176d758d5a38071799aaa64417c7a501a027be963ff6f24474c7516aa46
+    digest: 1f7aa6f1bc47e83d005379e5719fa701079666b081b8d2f371d309007e795369
     name: simple-pdb
     urls:
     - https://charts.ffx.io/simple-pdb-0.1.0.tgz
@@ -586,9 +613,9 @@ entries:
   snappass:
   - apiVersion: v1
     appVersion: 1.6.0
-    created: "2023-07-23T23:22:00.960059402Z"
+    created: "2023-07-23T23:28:27.823790068Z"
     description: Share passwords securely
-    digest: d8ae32a27e126092c5c5e1c1e15cec69190e4e5b0b3c7cc014ca7f9a1ab84e05
+    digest: bbe5dda3e84281fba04b2a69f27cb6fa4c5a9a290750b18335cf14419e85050a
     maintainers:
     - email: github@fairfaxmedia.com.au
       name: Fairfax Media Operations
@@ -600,7 +627,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: 1.6.0
-    created: "2023-07-23T23:22:00.953160784Z"
+    created: "2023-07-23T23:28:27.817259515Z"
     description: Share passwords securely
     digest: 317a5a99866ca9c248053113e72ad6dc85be9e3ffb1069cd35eac43d48d11155
     maintainers:
@@ -614,7 +641,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: 1.5.0
-    created: "2023-07-23T23:22:00.946746067Z"
+    created: "2023-07-23T23:28:27.811245965Z"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -633,7 +660,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: 1.4.1
-    created: "2023-07-23T23:22:00.944441061Z"
+    created: "2023-07-23T23:28:27.808022939Z"
     dependencies:
     - condition: redis.enabled
       name: redis
@@ -652,9 +679,9 @@ entries:
     version: 0.1.0
   varnish:
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.961649406Z"
+    created: "2023-07-23T23:28:27.825116479Z"
     description: A Helm chart for varnish
-    digest: b700b854ca316652e6086357f42285c4d6a25461ccbd08e84b486323436820e6
+    digest: 5ffcc127100fbeef6b790c33f057458f9117afcaef36ff036faa2fe3bac3cb37
     icon: https://www.varnish-software.com/wp-content/uploads/320x200.png
     maintainers:
     - email: blueops@fairfaxmedia.com.au
@@ -664,7 +691,7 @@ entries:
     - https://charts.ffx.io/varnish-4.0.0.tgz
     version: 4.0.0
   - apiVersion: v1
-    created: "2023-07-23T23:22:00.960873204Z"
+    created: "2023-07-23T23:28:27.824449073Z"
     description: A Helm chart for varnish
     digest: 9507e61366c971512f97f12c0f159a2db4c1665203e36a5e935acf28f62149f8
     icon: https://www.varnish-software.com/wp-content/uploads/320x200.png
@@ -678,7 +705,7 @@ entries:
   zalenium:
   - apiVersion: v1
     appVersion: 3.141.59
-    created: "2023-07-23T23:22:00.96314231Z"
+    created: "2023-07-23T23:28:27.826643191Z"
     description: Chart for deploying Zalenium
     digest: f61ee75dd4ce638249740c92e5a9d308966da3202aac94170588cfe8eee8a3f9
     maintainers:
@@ -694,7 +721,7 @@ entries:
     version: 0.0.2
   - apiVersion: v1
     appVersion: 3.141.59
-    created: "2023-07-23T23:22:00.962400008Z"
+    created: "2023-07-23T23:28:27.825891085Z"
     description: Chart for deploying Zalenium
     digest: 99fe84d8c08f6514710663bbbe5cd8d5015ca3d4b122601b3774d8d5e0ebce9b
     maintainers:
@@ -708,4 +735,4 @@ entries:
     urls:
     - https://charts.ffx.io/zalenium-0.0.1.tgz
     version: 0.0.1
-generated: "2023-07-23T23:22:00.908813569Z"
+generated: "2023-07-23T23:28:27.776570082Z"
