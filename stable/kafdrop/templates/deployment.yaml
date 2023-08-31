@@ -24,18 +24,13 @@ spec:
 {{- end }}
     spec:
       automountServiceAccountToken: false
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             capabilities:
               drop:
                 - all
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
