@@ -5,7 +5,7 @@ image:
   # -- Kafdrop image repository.
   repository: obsidiandynamics/kafdrop
   # -- Kafdrop image version.
-  tag: 4.0.1
+  tag: 4.0.2-SNAPSHOT
   # -- Kafdrop image pull policy.
   pullPolicy: IfNotPresent
 
